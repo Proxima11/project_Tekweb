@@ -3,6 +3,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="bootstrap-5.2.0/css/bootstrap.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="logincss.css">
 	<title></title>
 	<style>
 		body{font: 14px sans-serif;}
@@ -11,7 +12,28 @@
 </head>
 <body>
 	<div class="wrapper">
-		<form action="loginprocess.php" method="post">
+		<div class="login-box">
+			<h2>Login</h2>
+			<form>
+				<div class="user-box">
+					<input type="text" name="" required="">
+					<label>Username</label>
+				</div>
+				<div class="user-box">
+					<input type="password" name="" required="">
+					<label>Password</label>
+				</div>
+
+				<div class="button-form">
+					<a id="submit" href="#">Submit</a>
+					<div id="register">
+						Don't have an account ?
+						<a href="#"> Register</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- <form action="loginprocess.php" method="post">
 			<h2>Login</h2>
 			<p class="hint-text">Enter Login Details</p>
 			<div class="mb-3">
@@ -27,7 +49,7 @@
 				<button type="submit" name="save" class="btn btn-success btn-lg btn-block">Login</button>
 			</div>
 			<p>Don't have an account? <a href="register.php">Register Here</a>.</p>
-		</form>
+		</form> -->
 	</div>
 </body>
 </html>
