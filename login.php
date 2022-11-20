@@ -30,7 +30,7 @@
 					<a id="submit" href="#">Submit</a>
 					<div id="register">
 						Don't have an account ?
-						<a href="#"> Register</a>
+						<a href="register.php"> Register</a>
 					</div>
 				</div>
 			</form>
