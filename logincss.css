@@ -89,6 +89,23 @@ body{
 	margin-top: 20px;
 }
 
+#forget_pass{
+	font-size: 14px;
+	text-decoration: none;
+	margin: auto;
+	width: 60%;
+	text-align: center;
+}
+
+#forget_pass a{
+	font-size: 14px;
+	width: 60%;
+	margin: auto;
+	color: #8F7CEC;
+	text-decoration: none;
+	text-align: center;
+}
+
 #register{
 	font-size: 14px;
 	text-decoration: none;

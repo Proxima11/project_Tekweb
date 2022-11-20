@@ -23,7 +23,9 @@
 					<input type="password" name="" required="">
 					<label>Password</label>
 				</div>
-
+				<div id="forget_pass">
+					<a href="#"> Forget Password?</a>
+				</div>
 				<div class="button-form">
 					<a id="submit" href="#">Submit</a>
 					<div id="register">
