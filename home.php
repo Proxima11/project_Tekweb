@@ -16,7 +16,7 @@
 				<h2>Tekweb Home Music</h2>
 				<nav class="nav flex-column">
   					<a class="nav-link active" aria-current="page" href="home.php"><i class="fa-light fa-house"></i>Home</a>
-  					<a class="nav-link" href="#"><i class="fa-regular fa-magnifying-glass"></i>Search</a>
+  					<a class="nav-link" href="search.php"><i class="fa-regular fa-magnifying-glass"></i>Search</a>
   					<a class="nav-link" href="#"><i class="fa-light fa-books"></i>Library</a>
 				</nav>
 			</div>
