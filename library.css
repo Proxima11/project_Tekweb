@@ -12,20 +12,8 @@ body{
 	font-family: var(--font-style);
 }
 h2{
-	color: white;
+	color:white;
 }
 h3{
-	color: white;
-}
-input{
-	position: relative;
-	width: 100%;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #fff;
-	margin-bottom: 25px;
-	border: none;
-	border-bottom: 1px solid #fff;
-	outline: none;
-	background: transparent;
+	color:white;
 }
