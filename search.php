@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="bootstrap-5.2.0/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="home.css">
+	<link rel="stylesheet" type="text/css" href="search.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<style>
 		body{font: 14px sans-serif;}
@@ -15,7 +15,7 @@
 			<div class="col-4">
 				<h2>Tekweb Home Music</h2>
 				<nav class="nav flex-column">
-  					<a class="nav-link" href="home.php"><i class="fa-light fa-house"></i><div class="nav-text">Home</div></a>
+  					<a class="nav-link" href="homepage.php"><i class="fa-light fa-house"></i><div class="nav-text">Home</div></a>
   					<a class="nav-link active" aria-current="page" href="search.php"><i class="fa-regular fa-magnifying-glass"></i><div class="nav-text">Search</div></a>
   					<a class="nav-link" href="library.php"><i class="fa-light fa-books"></i><div class="nav-text">Library</div></a>
 				</nav>

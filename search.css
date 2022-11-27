@@ -29,7 +29,7 @@ input{
 	outline: none;
 	background: transparent;
 }
-@media all and (max-width: 480px){
+@media all and (max-width: 600px){
 	.nav-text{
 		display: none;
 	}
