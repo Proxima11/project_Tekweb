@@ -17,3 +17,8 @@ h2{
 h3{
 	color:white;
 }
+@media all and (max-width: 480px){
+	.nav-text{
+		display: none;
+	}
+}
