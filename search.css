@@ -29,3 +29,8 @@ input{
 	outline: none;
 	background: transparent;
 }
+@media all and (max-width: 480px){
+	.nav-text{
+		display: none;
+	}
+}

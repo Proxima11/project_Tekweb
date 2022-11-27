@@ -18,9 +18,9 @@ require "connect.php"
 			<div class="col-4">
 				<h2>Tekweb Home Music</h2>
 				<nav class="nav flex-column">
-  					<a class="nav-link" aria-current="page" href="home.php"><i class="fa-light fa-house"></i>Home</a>
-  					<a class="nav-link" href="search.php"><i class="fa-regular fa-magnifying-glass"></i>Search</a>
-  					<a class="nav-link active" href="library.php"><i class="fa-light fa-books"></i>Library</a>
+  					<a class="nav-link" aria-current="page" href="home.php"><i class="fa-light fa-house"></i><div class="nav-text">Home</div></a>
+  					<a class="nav-link" href="search.php"><i class="fa-regular fa-magnifying-glass"></i><div class="nav-text">Search</div></a>
+  					<a class="nav-link active" href="library.php"><i class="fa-light fa-books"></i><div class="nav-text">Library</div></a>
 				</nav>
 			</div>
 			<div class="col-8">
