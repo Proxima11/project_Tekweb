@@ -60,9 +60,9 @@
 					      </div>
 					    </div>
 					</div> -->
-	<div class="wrapper">
+	<div class="wrapper d-flex">
 		<div class="row">
-			<div class="col-4" id="sidebar">
+			<div class="col-4 flex-column" id="sidebar">
 				<div class="wrapper">
 				<h2 style="color : white;">Tekweb Home Music</h2>
 				<nav class="nav flex-column">

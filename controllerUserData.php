@@ -1,10 +1,17 @@
 <?php 
 session_start();
-require "connect.php";
+require "connection.php";
 $email = "";
 $name = "";
 $errors = array();
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
+//if user signup button
 if(isset($_POST['signup'])){
     $name = mysqli_real_escape_string($con, $_POST['name']);
     $email = mysqli_real_escape_string($con, $_POST['email']);
@@ -28,18 +35,30 @@ if(isset($_POST['signup'])){
         if($data_check){
             $subject = "Email Verification Code";
             $message = "Your verification code is $code";
-            $sender = "From: shahiprem7890@gmail.com";
-            if(mail($email, $subject, $message, $sender)){
-                $info = "We've sent a verification code to your email - $email";
+
+            $mail = new PHPMailer(true);
+
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'petramusicplayer@gmail.com';
+            $mail->Password = 'kmrrfwlzobhbktsn';
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
+
+            $mail->setFrom('petramusicplayer@gmail.com');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+            $mail->send();
+            $info = "We've sent a verification code to your email - $email";
                 $_SESSION['info'] = $info;
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;
                 header('location: user-otp.php');
                 exit();
             }else{
-                $errors['otp-error'] = "Failed while sending code!";
-            }
-        }else{
             $errors['db-error'] = "Failed while inserting data into database!";
         }
     }
@@ -62,7 +81,7 @@ if(isset($_POST['signup'])){
             if($update_res){
                 $_SESSION['name'] = $name;
                 $_SESSION['email'] = $email;
-                header('location: home.php');
+                header('location: login-user.php');
                 exit();
             }else{
                 $errors['otp-error'] = "Failed while updating code!";
@@ -87,7 +106,7 @@ if(isset($_POST['signup'])){
                 if($status == 'verified'){
                   $_SESSION['email'] = $email;
                   $_SESSION['password'] = $password;
-                    header('location: home.php');
+                    header('location: homepage.php');
                 }else{
                     $info = "It's look like you haven't still verify your email - $email";
                     $_SESSION['info'] = $info;
@@ -113,16 +132,28 @@ if(isset($_POST['signup'])){
             if($run_query){
                 $subject = "Password Reset Code";
                 $message = "Your password reset code is $code";
-                $sender = "From: shahiprem7890@gmail.com";
-                if(mail($email, $subject, $message, $sender)){
-                    $info = "We've sent a passwrod reset otp to your email - $email";
-                    $_SESSION['info'] = $info;
-                    $_SESSION['email'] = $email;
-                    header('location: reset-code.php');
-                    exit();
-                }else{
-                    $errors['otp-error'] = "Failed while sending code!";
-                }
+                $mail = new PHPMailer(true);
+
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'petramusicplayer@gmail.com';
+                $mail->Password = 'kmrrfwlzobhbktsn';
+                $mail->SMTPSecure = 'ssl';
+                $mail->Port = 465;
+
+                $mail->setFrom('petramusicplayer@gmail.com');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = $subject;
+                $mail->Body = $message;
+                $mail->send();
+                $info = "We've sent a verification code to your email - $email";
+                $_SESSION['info'] = $info;
+                $_SESSION['email'] = $email;
+                $_SESSION['password'] = $password;
+                header('location: reset-code.php');
+                exit();
             }else{
                 $errors['db-error'] = "Something went wrong!";
             }
