@@ -8,16 +8,16 @@
 }
 
 body{
-	background: #131315;
+	background: #292626;
 	font-family: var(--font-style);
 }
-a{
-	color: #8F7CEC;
-	text-decoration: none;
-}
-h2{
-	color:white;
-}
-h3{
+a {
 	color: white;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+#sidebar{
+	background: #111111;
+	box-shadow: 12px 0 15px -4px rgba(143, 124, 236, 0.7);
 }
