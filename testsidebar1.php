@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-  <!-- Coding by CodingLab | www.codinglabweb.com -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="testsidebar1css.css">
-
-    
-    <!--<title>Dashboard Sidebar Menu</title>--> 
+    <link rel="stylesheet" href="testsidebar1css.css"/>
+    <link rel="stylesheet" href="tes.css"/>
 </head>
 <body>
     <nav class="sidebar close">
@@ -98,6 +96,12 @@
 
     <section class="home">
         <div class="text">Dashboard Sidebar</div>
+        <div class="card mb-3 ml-5">
+            <img class="card-img" src="picture/imgSementara.jpg">
+            <div class="details">
+            </div>
+        </div>
+</div>
     </section>
 
     <script>
