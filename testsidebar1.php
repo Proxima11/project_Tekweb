@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/8111334eea.js" crossorigin="anonymous"></script>
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="testsidebar1css.css"/>
     <link rel="stylesheet" href="tes.css"/>
@@ -92,6 +93,19 @@
         <div class="card mb-3 ml-5">
             <img class="card-img" src="picture/imgSementara.jpg">
             <div class="details">
+                <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                <div class="row" style="max-height: 0px;">
+                    <div class="col-sm-2">
+                        <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-2">
+                    <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                    <div class="col-sm-2">
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
 </div>

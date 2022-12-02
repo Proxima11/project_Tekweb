@@ -34,3 +34,12 @@
   opacity: 0;
   transition: 0.8s ease;
 }
+
+.details #play{
+  align-items: center;
+  size: 2rem;
+}
+
+#play:hover{
+  color: #00cC00;
+}
