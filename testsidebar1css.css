@@ -98,6 +98,12 @@ body.dark{
 .sidebar.close .text{
     opacity: 0;
 }
+/* Geser logo ke kiri */
+.sidebar li{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
 /* =========================== */
 
 .sidebar header{
