@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/8111334eea.js" crossorigin="anonymous"></script>
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="testsidebar1css.css"/>
     <link rel="stylesheet" href="tes.css"/>
@@ -30,6 +29,13 @@
 
         <div class="menu-bar">
             <div class="menu">
+
+                <li class="search-box">
+                    <p>&nbsp;&nbsp;</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 30px; height: 30px;"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg>
+                    <p>&nbsp;&nbsp;&nbsp;</p>
+                    <input type="text" placeholder="Search...">
+                </li>
 
                 <ul class="menu-links">
                     <li class="nav-link">
@@ -93,19 +99,6 @@
         <div class="card mb-3 ml-5">
             <img class="card-img" src="picture/imgSementara.jpg">
             <div class="details">
-                <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-                <div class="row" style="max-height: 0px;">
-                    <div class="col-sm-2">
-                        <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
-                    </div>
-                    <div class="col-sm-2">
-                    </div>
-                    <div class="col-sm-2">
-                    <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-                    <div class="col-sm-2">
-                    </div>
-                    </div>
-                </div>
             </div>
         </div>
 </div>
@@ -115,12 +108,17 @@
         const body = document.querySelector('body'),
       sidebar = body.querySelector('nav'),
       toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
       modeSwitch = body.querySelector(".toggle-switch"),
       modeText = body.querySelector(".mode-text");
 
 
 toggle.addEventListener("click" , () =>{
     sidebar.classList.toggle("close");
+})
+
+searchBtn.addEventListener("click" , () =>{
+    sidebar.classList.remove("close");
 })
 
 modeSwitch.addEventListener("click" , () =>{
