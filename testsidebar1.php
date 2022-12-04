@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -90,39 +91,268 @@
 
     <section class="home">
         <div class="text">Dashboard Sidebar</div>
-        <div class="card mb-3 ml-5">
-            <img class="card-img" src="picture/imgSementara.jpg">
-            <div class="details">
-                <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-                <div class="row" style="max-height: 0px;">
-                    <div class="col-sm-2">
-                        <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+        <div class="text">New Releases</div>
+        <div class="row" style="min-width: 0px; display: inline-flex;">
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                    <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-                    <div class="col-sm-2">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-</div>
-    </section>
+        <div class="text">Artists</div>
+        <div class="row" style="min-width: 0px;">
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3 ml-5">
+                    <img class="card-img" src="picture/imgSementara.jpg">
+                    <div class="details">
+                        <button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+                        <div class="row" style="max-height: 0px;">
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script>
-        const body = document.querySelector('body'),
-      sidebar = body.querySelector('nav'),
-      toggle = body.querySelector(".toggle"),
-      modeSwitch = body.querySelector(".toggle-switch"),
-      modeText = body.querySelector(".mode-text");
+<script>
+    const body = document.querySelector('body'),
+    sidebar = body.querySelector('nav'),
+    toggle = body.querySelector(".toggle"),
+    modeSwitch = body.querySelector(".toggle-switch"),
+    modeText = body.querySelector(".mode-text");
 
 
-toggle.addEventListener("click" , () =>{
-    sidebar.classList.toggle("close");
-})
+    toggle.addEventListener("click" , () =>{
+        sidebar.classList.toggle("close");
+    })
 
+<<<<<<< HEAD
 modeSwitch.addEventListener("click" , () =>{
     body.classList.toggle("dark");
     
@@ -133,6 +363,19 @@ modeSwitch.addEventListener("click" , () =>{
     }
 });
     </script>
+=======
+    modeSwitch.addEventListener("click" , () =>{
+        body.classList.toggle("dark");
+
+        if(body.classList.contains("dark")){
+            modeText.innerText = "Light mode";
+        }else{
+            modeText.innerText = "Dark mode";
+
+        }
+    });
+</script>
+>>>>>>> 69b971449cf5a0ba8755c6cb447abaeb638a89c4
 
 </body>
 </html>
