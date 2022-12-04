@@ -1,5 +1,5 @@
 <?php
-require "connect.php"
+require "connection.php"
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,22 +28,32 @@ require "connect.php"
 				<div id="playlist">
 					<h3>Daftar putar</h3>
 					<?php
-						$sql="Select * from ..."; //tabel playlist
+						$sql="Select * from playlists"; //tabel playlist
 		 				$res=mysqli_query($con,$sql);
-						if(!empty($res))
-						{		
+		 				$count = 0;
+						if(!empty($res)){	
+							echo '<div class="row row-cols-1 row-cols-md-5 g-4">';
 							while($row=mysqli_fetch_array($res)){
-								echo "<div class="row row-cols-1 row-cols-md-5 g-4">
-										  <div class="col">
+								echo '<div class="col">
 										    <div class="card h-100">
-										      <img src="..." class="card-img-top" alt="...">
-										      <div class="card-body">
-										        <h5 class="card-title">...</h5>
-										        <p class="card-text">...</p>
-										      </div>
+										    	<a href="playlist.php?id='.$row["id"].'"">
+											      <img src="..." class="card-img-top" alt="...">
+											      <div class="card-body">
+											        <h5 class="card-title">'.$row["name"].'</h5>
+											        <p class="card-text">'.$row["description"].'</p>
+											        <br>
+											        <button type="button" class="btn btn-success">Play</button>
+											        <button type="button" class="btn btn-dark">Set</button>
+											      </div>
+											     </a>
 										    </div>
-										  </div>
-										</div>";
+										  </div>';
+								$count+=1;
+							}
+							echo '</div>';
+
+							if($count == 0){
+								echo '<p><h3>Tambahkan playlist terlebih dahulu</h3></p>';
 							}
 						}
 						mysqli_close($con);
