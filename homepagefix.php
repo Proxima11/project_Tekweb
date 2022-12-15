@@ -4,8 +4,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="bootstrap-5.2.0/css/bootstrap.css">
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<script src="jquery-3.6.1.js" type="text/javascript"></script>
 	<script src="https://kit.fontawesome.com/8111334eea.js" crossorigin="anonymous"></script>
@@ -35,23 +37,23 @@
 			line-height: 65px;
 			user-select: none;
 			margin-bottom: 50px;
-			padding-right: 10px;
+			padding-right: 30px;
 		}
 
 		.sidebar ul.menu a{
 			display: block;
 			height: 100%;
 			width: 100%;
-			line-height: 65px;
+			line-height: 50px;
 			font-size: 18px;
 			color: white;
 			box-sizing: border-box;
 			transition: .5s;
 			text-decoration: none;
-			padding-left: 30px;
+			padding-left: 0px;
 		}
 		ul.menu li:hover a{
-			padding-left: 40px;
+			padding-left: 10px;
 			text-decoration: none;
 			border-right: 2px solid white;
 		}
@@ -61,7 +63,8 @@
 		}
 
 		ul.menu li a.active{
-			color: purple;
+			color: #B266FF;
+			border-right: 2px solid #B266FF;
 		}
 		section{
 			background-color: #202020;
@@ -70,8 +73,8 @@
 			margin-left: 200px;
 		}
 		.card {
-			height: 5rem;
-			width: 5rem;
+			height: 10rem;
+			width: 10rem;
 			overflow: hidden;
 			position: relative;
 			cursor: pointer;
@@ -101,6 +104,48 @@
 			opacity: 0;
 			transition: 0.5s ease;
 		}
+
+		.top_bar{
+			height: 70px;
+			background-color: rgba(0, 0, 0, 0.2);
+		}
+		section .top_bar .d-flex #search{
+			margin-left:0 auto; 
+			margin-right:0 auto;
+			margin-top: 15px;
+			margin-bottom: 15px;
+			border-radius: 50%;
+			color: #B266FF;
+			background-color: transparent;
+			border-color: #B266FF;
+			transition: .4s;
+		}
+		section .top_bar .d-flex #search:hover{
+			border-radius: 50%;
+			color: #FFFFFF;
+			background-color: #B266FF;
+			transition: .4s;
+		}
+		section .top_bar .d-flex input{
+			margin-top: 15px;
+			margin-bottom: 15px;
+			width: 20%;
+			border-radius: 30px;
+			color: white;
+			border-color: #B266FF;
+			background-color: transparent;
+			transition: .4s;
+		}
+		section .top_bar .d-flex input::placeholder{
+			color: #C0C0C0;
+		}
+		section .top_bar .d-flex input:focus{
+			border-radius: 30px;
+			color: black;
+			border-color: #FFFFFF;
+			background-color: #FFFFFF;
+			transition: .4s;
+		}
 	</style>
 </head>
 <body>
@@ -108,12 +153,23 @@
 		<div class="sidebar">
 			<ul class="menu">
 				<header>Music Player</header>
-				<li><a href="homepagefix.php"><i class="fa-solid fa-house"></i>Home</a></li>
+				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
+				<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
 				<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
+				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
+				<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
 			</ul>
 		</div>
 		<section class="view">
+			<div class="top_bar">
+				<div style="align-content: center; align-items: center;">
+					<form class="d-flex" role="search">
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</form>
+				</div>
+			</div>
 			<div class="col-sm-3">
 				<div class="card mb-3 ml-5">
 					<img class="card-img" src="picture/imgSementara.jpg">
