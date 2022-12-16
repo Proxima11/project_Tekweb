@@ -187,7 +187,17 @@
 		#playbarright{
 			
 		}
-
+		#coverimage{
+			margin-left: 30px;
+			margin-top: 15px;
+			height: 70px;
+			width: 70px;
+			background-color: white;
+		}
+		#songinfo{
+			margin-left: 10px;
+			margin-top: 20px;
+		}
 		/*#check{
 			display: none;
 		}
@@ -317,7 +327,14 @@
 			<div class="playbar">
 		<div class="row">
 			<div class="col-md-4" id="playbarleft">
+				<div class="row">
+					<div class="col-md-4" id="coverimage"></div>
 				
+				<div class="col-md-6" id="songinfo">
+					<h4>Title</h4>
+					<h7>Singer</h7>
+				</div>
+			</div>
 			</div>
 			<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
 				<button class='btn btn-empty border-0' onclick="alert('aa?')">
