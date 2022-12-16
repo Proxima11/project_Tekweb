@@ -165,6 +165,29 @@
 			background-color: #B266FF;
 			font-color: black;
 		}
+
+		.playbar{
+			position: fixed;
+			right: 0;
+			left:0;
+			bottom: 0;
+			height: 100px;
+			background-color: black;
+			color: white;
+		}
+		.lol{
+			height: 5000px;
+		}
+		#playbarcenter{
+			text-align: center;
+		}
+		#playbarleft{
+
+		}
+		#playbarright{
+			
+		}
+
 		/*#check{
 			display: none;
 		}
@@ -291,7 +314,28 @@
 					</div>
 				</div>
 			</section>
-
+			<div class="playbar">
+		<div class="row">
+			<div class="col-md-4" id="playbarleft">
+				
+			</div>
+			<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
+				<button class='btn btn-empty border-0' onclick="alert('aa?')">
+						<i class="fa-solid fa-backward-step" style='color:white'></i>
+				</button>
+				<button class='btn btn-empty border-0'>
+						<i class="fa-solid fa-play" style='color:white'></i>
+				</button>
+				<button class='btn btn-empty border-0'>
+						<i class="fa-solid fa-forward-step" style='color:white'></i>
+				</button>
+				
+			</div>
+			<div class="col-md-4" id="playbarright">
+				
+			</div>
+		</div>
+	</div>
 			<!--  -->
 		</div>
 	</body>
