@@ -129,7 +129,7 @@
 		section .top_bar .d-flex input{
 			margin-top: 15px;
 			margin-bottom: 15px;
-			width: 20%;
+			width: 70%;
 			border-radius: 30px;
 			color: white;
 			border-color: #B266FF;
@@ -146,6 +146,43 @@
 			background-color: #FFFFFF;
 			transition: .4s;
 		}
+		/*#check{
+			display: none;
+		}
+		label #btn, label #cancel{
+			position: absolute;
+			cursor: pointer;
+			background: rgba(0, 0, 0, 0.2);
+			border-radius: 3px;
+		}
+		label #btn{
+			left: 40px;
+			top: 25px;
+			font-size: 35px;
+			color: white;
+			padding: 6px 12px;
+			}
+		label #cancel{
+			z-index: 1111;
+			left: 165px;
+			top: 17px;
+			font-size: 20px;
+			color: white;
+			padding: 4px 9px;
+		}
+		#check:checked ~ .sidebar{
+			left: 0;
+		}
+		#check:checked ~ label #btn{
+			left: 200px;
+			opacity: 0;
+			pointer-events: none;
+		}
+		#check:checked ~ label #btn{
+			left: -165px;
+			opacity: 0;
+			pointer-events: none;
+		}*/
 	</style>
 </head>
 <body>
@@ -163,7 +200,20 @@
 		</div>
 		<section class="view">
 			<div class="top_bar">
-				<div style="align-content: center; align-items: center;">
+				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 15px;">
+					<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
+				</div>
+				<div class="dropdown" style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:15px;">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:40%;">
+						<i class="fa-solid fa-gear"></i>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</div>
+				<div style=" float: right;">
 					<form class="d-flex" role="search">
 						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -171,7 +221,7 @@
 				</div>
 			</div>
 			<div class="col-sm-3">
-				<div class="card mb-3 ml-5">
+				<div class="card mb-3 ml-5 mu-5">
 					<img class="card-img" src="picture/imgSementara.jpg">
 					<div class="details">
 						<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
