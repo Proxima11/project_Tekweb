@@ -247,7 +247,7 @@
 				</div>
 			</div>
 			<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-				<div class="row-">
+				<div class="row">
 					<div class="col-sm-2">
 						<div class="card mb-3 ml-5 mu-5">
 							<img class="card-img" src="picture/imgSementara.jpg">
@@ -267,6 +267,7 @@
 								</div>
 							</div>
 						</div>
+					</div>
 						<div class="col-sm-2">
 							<div class="card mb-3 ml-5 mu-5">
 								<img class="card-img" src="picture/imgSementara.jpg">
