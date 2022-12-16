@@ -146,6 +146,25 @@
 			background-color: #FFFFFF;
 			transition: .4s;
 		}
+		.wrapper section .top_bar .dropdown #user_menu{
+			background-color: transparent;
+			border-color: transparent;
+			transition: .5s;
+		}
+		.wrapper section .top_bar .dropdown #user_menu:hover{
+			background-color: transparent;
+			border: 1px solid #B266FF;
+		}
+		.wrapper section .top_bar #profile img:hover{
+			scale: 1.1;
+		}
+		.wrapper section .top_bar .dropdown ul li button:hover{
+			transition: .5s;
+		}
+		.wrapper section .top_bar .dropdown ul li button:hover{
+			background-color: #B266FF;
+			text-color: black;
+		}
 		/*#check{
 			display: none;
 		}
@@ -200,18 +219,21 @@
 		</div>
 		<section class="view">
 			<div class="top_bar">
-				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 15px;">
+				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
 					<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
 				</div>
-				<div class="dropdown" style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:15px;">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:40%;">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false"  style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:20px;">
 						<i class="fa-solid fa-gear"></i>
 					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</div>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
+						<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
+						<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+					</ul>
+				</div>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#">Edit Profile</a>
+					<a class="dropdown-item" href="#">Logout</a>
 				</div>
 				<div style=" float: right;">
 					<form class="d-flex" role="search">
