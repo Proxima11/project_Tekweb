@@ -1,14 +1,27 @@
 <?php
 require "connection.php";
 
-if (isset($_POST['insert'])){
-    $nama = $_POST['nama'];
-    $url = $_POST['url'];
-    $gambar = $_POST['gambar'];
-    $album = $_POST['album'];
-	$sql="insert into audios values(NULL, '$nama', '$url', '$gambar', '$album')";
+if (isset($_POST['showdata'])){
+	$sql="select * from admin";
 	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result)){
+		echo '
+		<div class="row">
+			<div class="col-6">'.$row['username'].'</div>
+            <div class="col-4">
+                <input type="text" id="'.$row['username'].'">
+                <button type="button" ide="'.$row['username'].'" class="btn btn-primary" name="ganti">Ganti</button>
+            </div>
+		</div>';
+	}
 	exit();
+}
+
+if(isset($_POST['ganti'])){
+    $un = $_POST['un'];
+    $id = $_POST['id'];
+    $sql="update admin set username='$un' where id=$id";
+	$result=mysqli_query($con,$sql);
 }
 ?>
 
@@ -206,12 +219,17 @@ if (isset($_POST['insert'])){
 			margin-top: 15px;
 			height: 70px;
 			width: 70px;
-			background-color: white;
+		}
+		#playimage{
+			margin-right: 30px;
+			height: 70px;
+			width: 70px;
 		}
 		#songinfo{
 			margin-left: 10px;
 			margin-top: 20px;
 		}
+
 		/*#check{
 			display: none;
 		}
@@ -250,98 +268,95 @@ if (isset($_POST['insert'])){
 			pointer-events: none;
 		}*/
 	</style>
-	<script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="sidebar">
+			<ul class="menu">
+				<header>Music Player</header>
+				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
+				<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
+				<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
+				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
+				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
+				<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
+			</ul>
+		</div>
+		<section class="view">
+			<!-- bar atas -->
+			<div class="top_bar">
+				<!-- <div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
+					Listen, Feel, Happy
+				</div> -->
+				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
+					<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
+				</div>
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false"  style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:20px;">
+						<i class="fa-solid fa-gear"></i>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
+						<li><a href="admin.php"><button class="dropdown-item" type="button" style="color:white;">Insert Data</button></a></li>
+						<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+					</ul>
+				</div>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="admin.php">Insert Lagu</a>
+					<a class="dropdown-item" href="#">Logout</a>
+				</div>
+				<div style=" float: left; margin-left: 15px;">
+					<form class="d-flex" role="search">
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</form>
+				</div>
+			</div>
+			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Data Admin</h3>
+			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+				<div id="showdata">
+				</div>
+			</div>
+		</section>
+		</div>
+		<!--  -->
+		<script>
 		$(document).ready(function(){
-            $('#insert').click(function(){
-                nama_in = $('#nama').val();
-                url_in = $('#url').val();
-                gambar_in = $('gambar').val();
-                album_in = $('album').val();
+			showdata();
+
+            $('#showdata').delegate('[name="ganti"]', 'click',function(){
+                id_in = $(this).attr("ide")
+                un_in = $('#' + id_in).val();
 
                 $.ajax({
-					url	  : "admin.php",
+					url : "ajaxfull.php",
+					type : "POST",
+					data : {
+						ganti : 1,
+                        id : id_in,
+                        un : un_in
+					},
+					success : function(result){
+						
+					}
+				});
+            });
+		});
+
+        function showdata(){
+				$.ajax({
+					url	  : "admin_edit.php",
 					type  : "POST",
 					async : true,
 					data  : {
-						insert : 1,
-                        nama : nama_in,
-                        gambar : gambar_in,
-                        album : album_in
+						showdata : 1
 					},
 					success : function(res){
-						alert('Success Insert');
-					}
-                });
-            });
-		});
-			</script>
-		</head>
-		<body>
-			<div class="wrapper">
-				<div class="sidebar">
-					<ul class="menu">
-						<header>Music Player</header>
-						<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
-						<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
-						<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
-						<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
-						<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-						<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
-					</ul>
-				</div>
-				<section class="view">
-					<!-- bar atas -->
-					<div class="top_bar">
-						<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
-							Insert audio
-						</div>
-						<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
-							<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
-						</div>
-						<div class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle" type="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false"  style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:20px;">
-								<i class="fa-solid fa-gear"></i>
-							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-								<li><a href="admin_edit.php"><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></a></li>
-								<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
-							</ul>
-						</div>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="admin_edit.php">Edit Profile</a>
-							<a class="dropdown-item" href="#">Logout</a>
-						</div>
-						<div style=" float: right;">
-							<form class="d-flex" role="search">
-								<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-								<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
-							</form>
-						</div>
-					</div>
-					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Masukkan lagu di sini</h3>
-					<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-                        <div class="mb-3">
-                            <label class="form-label" style="color:white;">Nama</label>
-                            <input type="text" class="form-control" id="nama">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label" style="color:white;">URL audio</label>
-                            <textarea class="form-control" id="url" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label" style="color:white;">Gambar</label>
-                            <textarea class="form-control" type="text" id="gambar" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" style="color:white;">Album</label>
-                            <textarea class="form-control" id="album" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" id="insert" class="btn btn-success btn-lg btn-block">Insert</button>
-                        </div>
-					</div>
-				</section>
-				<!--  -->
-			</div>
-		</body>
-		</html>
+						$("#showdata").html(res);
+					}	
+				});
+		};
+			
+		</script>
+	</div>
+</body>
+</html>
