@@ -2,11 +2,32 @@
 require "connection.php";
 
 if (isset($_POST['showsong'])){
-	$sql="select * from audios order by tanggal_rilis ASC";
+	$sql="select * from audios order by tanggal_rilis DESC";
 	$result=mysqli_query($con,$sql);
 	$counter=0;
 	while($row=mysqli_fetch_array($result)){
 		$counter += 1;
+		$didengar = $row['didengar'];
+		$pendengar = " ";
+		if ($didengar/1000 >= 1){
+			$didengar = $didengar/1000;
+			if($didengar/1000 >= 1){
+				$didengar = $didengar/1000;
+				if($didengar/1000 >= 1){
+					$didengar = $didengar/1000;
+					$pendengar = $didengar." B";
+				}
+				else{
+					$pendengar = $didengar." M";
+				}
+			}
+			else{
+				$pendengar = $didengar." K";
+			}
+		}
+		else{
+			$pendengar = $didengar;
+		}
 		if($counter <= 6){
 		echo "
 		<div class='col-sm-2'>
@@ -14,17 +35,13 @@ if (isset($_POST['showsong'])){
 				<img class='card-img' src='".$row['gambar']."'>
 				<div class='details'>
 					<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
-					<div class='row' style='max-height: 0px'>
-						<div class='col-sm-2'>
-							<i class='fa-solid fa-heart' style='color: white;' id='like'></i>
-						</div>
-						<div class='col-sm-2'>
-						</div>
-						<div class='col-sm-2'>
-							<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
-							<div class='col-sm-2'>
-							</div>
-						</div>
+					<div class='row'>
+					<divstyle='max-height: 0px; color:white;'>
+						<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
+					</div>
+					<div style='max-height: 0px; color:white;'>
+						".$pendengar."
+					</div>
 					</div>
 				</div>
 			</div>
