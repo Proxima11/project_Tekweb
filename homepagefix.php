@@ -54,7 +54,7 @@ if (isset($_POST['showsong'])){
 	exit();
 }
 
-if (isset($_POST['showsong'])){
+if (isset($_POST['popularsong'])){
 	$sql="select * from audios order by didengar DESC";
 	$result=mysqli_query($con,$sql);
 	$counter=0;
@@ -492,6 +492,7 @@ if(isset($_POST['playsong']))
 		<script>
 		$(document).ready(function(){
 			showsongs();
+			popularsongs();
 			function showsongs(){
 				$.ajax({
 					url	  : "homepagefix.php",
