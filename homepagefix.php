@@ -154,7 +154,6 @@ if(isset($_POST['playsong']))
 }
 
 if (isset($_POST['homemenu'])){
-	alert();
 	echo"<br>
 			<h3 style='float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;' class='mt-4'>New Releases</h3>
 			<div class='wrap mt-6' style='background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;'>
@@ -526,7 +525,7 @@ if (isset($_POST['homemenu'])){
 					</form>
 				</div>
 			</div>
-			<div id="#isi">
+			<div id="isi">
 				<!-- <br>
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">New Releases</h3>
 			<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
@@ -579,9 +578,9 @@ if (isset($_POST['homemenu'])){
 		<!--  -->
 		<script>
 			$(document).ready(function(){
+				homepage();
 				showsongs();
 				popularsongs();
-				homepage();
 			});
 				function showsongs(){
 					$.ajax({
@@ -714,24 +713,8 @@ if (isset($_POST['homemenu'])){
 						music.pause();
 					}
 				});
-				function homepage(){
-					$.ajax({
-						url	  : "homepagefix.php",
-						type  : "POST",
-						async : true,
-						data  : {
-							homemenu : 1
-						},
-						success : function(res){
-							$("#isi").html(res);
-							// showSlides();
-						}
-					});
-				}
-			</script>
-			<script>
+				let slideIndex = 0;
 				function showSlides() {
-					let slideIndex = 0;
 					let i;
 					let slides = document.getElementsByClassName("mySlides");
 					let dots = document.getElementsByClassName("dot");
@@ -743,10 +726,24 @@ if (isset($_POST['homemenu'])){
 						for (i = 0; i < dots.length; i++) {
 							dots[i].className = dots[i].className.replace(" slider-active", "");
 						}
-						// slides[slideIndex-1].style.display = "block";  
-						// dots[slideIndex-1].className += " slider-active";
+						slides[slideIndex-1].style.display = "block";  
+						dots[slideIndex-1].className += " slider-active";
   					setTimeout(showSlides, 4000);
 					}
+				function homepage(){
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							homemenu : 1
+						},
+						success : function(res){
+							$("#isi").html(res);
+							showSlides();
+						}
+					});
+				}
 			</script>
 		</div>
 </body>
