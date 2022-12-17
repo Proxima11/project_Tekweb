@@ -188,6 +188,60 @@ if (isset($_POST['homemenu'])){
 			</div>";
 	exit();
 }
+
+if(isset($_POST['search'])){
+	$search_query = $_POST['search_query'];
+	$sql="select * from audios where nama='$search_query' or penyanyi='$search_query' order by tanggal_rilis DESC";
+	$result=mysqli_query($con,$sql);
+	$counter=0;
+	while($row=mysqli_fetch_array($result)){
+		$counter += 1;
+		$didengar = $row['didengar'];
+		$pendengar = " ";
+		if ($didengar/1000 >= 1){
+			$didengar = $didengar/1000;
+			if($didengar/1000 >= 1){
+				$didengar = $didengar/1000;
+				if($didengar/1000 >= 1){
+					$didengar = $didengar/1000;
+					$pendengar = $didengar." B";
+				}
+				else{
+					$pendengar = $didengar." M";
+				}
+			}
+			else{
+				$pendengar = $didengar." K";
+			}
+		}
+		else{
+			$pendengar = $didengar;
+		}
+		if($counter <= 6){
+			echo "
+			<div class='col-sm-8 col-md-4 col-lg-2'>
+			<div class='card mb-3 ml-5 mu-5'>
+			<img class='card-img' src='".$row['gambar']."'>
+			<div class='details'>
+			<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
+			<div class='row'>
+			<divstyle='max-height: 0px; color:white;'>
+			<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
+			</div>
+			<div style='max-height: 0px; color:white;'>
+			".$pendengar."
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>";
+		}
+		else{
+			break;
+		}
+	}
+	exit();
+}
 ?>
 	<!DOCTYPE html>
 	<html>
@@ -539,7 +593,7 @@ if (isset($_POST['homemenu'])){
 				</div>
 				<div style=" float: left; margin-left: 15px;">
 					<form class="d-flex" role="search">
-						<input class="form-control me-2 textfield" type="search" placeholder="Search" aria-label="Search">
+						<input class="form-control me-2 textfield" type="search" id="search_query" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</form>
 				</div>
@@ -609,6 +663,29 @@ if (isset($_POST['homemenu'])){
 				showsongs();
 				popularsongs();
 				showSlides();
+				$("#search").click(function(){
+					search_query_in = $('#search_query').val();
+
+					if (search_query_in == ""){
+						showsongs();
+					}
+					else{
+						$.ajax({
+							url		: "admin_edit.php",
+							type 	: "POST",
+							async	: true,
+							data    : {
+								search : 1,
+								search_query :search_query_in
+							},
+							success	: function(result)
+							{ 
+								alert("Searching...");
+								$('#newarrival').html(result);
+							}
+						});
+					}
+				});
 			});
 				function showsongs(){
 					$.ajax({
