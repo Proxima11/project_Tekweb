@@ -79,6 +79,28 @@ if(isset($_POST['songinfo']))
 	exit();
 }
 
+if(isset($_POST['playsong']))
+{
+	$id=$_POST['songid'];
+	$sql="select * from audios where ID like '%$id%'";
+	$result=mysqli_query($con,$sql);
+	$row=mysqli_fetch_array($result);
+		echo "<button class='btn btn-empty border-0'>
+						<i class='fa-solid fa-backward-step' style='color:white'></i>
+					</button>
+					<button class='btn btn-empty border-0' id='playbarplaybutton'>
+						<i class='fa-solid fa-play' style='color:white'></i>
+					</button>
+					<button class='btn btn-empty border-0'>
+						<i class='fa-solid fa-forward-step' style='color:white'></i>
+					</button>";
+		echo '<audio id="playingsong" autoplay="true" style="display:none;">
+         <source src="'.$row[2].'" type="audio/wav">
+      </audio>';
+	exit();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -382,16 +404,6 @@ if(isset($_POST['songinfo']))
 					</div>
 				</div>
 				<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
-					<button class='btn btn-empty border-0' onclick="alert('aa?')">
-						<i class="fa-solid fa-backward-step" style='color:white'></i>
-					</button>
-					<button class='btn btn-empty border-0'>
-						<i class="fa-solid fa-play" style='color:white'></i>
-					</button>
-					<button class='btn btn-empty border-0'>
-						<i class="fa-solid fa-forward-step" style='color:white'></i>
-					</button>
-
 				</div>
 				<div class="col-md-4" id="playbarright">
 
@@ -447,6 +459,32 @@ if(isset($_POST['songinfo']))
 						$("#songinfo").html(res);
 					}	
 				});
+			});
+
+			$("#newarrival").delegate('#play', 'click', function(){
+				var v_songid=$(this).attr('songID');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						playsong : 1,
+						songid	: v_songid
+					},
+					success : function(res){
+						$("#playbarcenter").html(res);
+					}
+				});
+			});
+
+			$("#playbarcenter").delegate('#playbarplaybutton', 'click', function(){
+				var music=document.getElementById('playingsong');
+				if (music.paused){
+					music.play();
+				}
+				else{
+					music.pause();
+				}
 			});
 		});
 			
