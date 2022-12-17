@@ -30,7 +30,7 @@ if (isset($_POST['showsong'])){
 		}
 		if($counter <= 6){
 		echo "
-		<div class='col-sm-2'>
+		<div class='col-sm-8 col-md-4 col-lg-2'>
 			<div class='card mb-3 ml-5 mu-5'>
 				<img class='card-img' src='".$row['gambar']."'>
 				<div class='details'>
@@ -119,8 +119,27 @@ if(isset($_POST['playsong']))
 	<style type="text/css">
 		body{
 			font-family: 'Roboto', sans-serif;
+			height: 600px;
 		}
+		* {
+    scrollbar-width: auto;
+    scrollbar-color: #712985 #000000;
+  }
 
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(#000000 0%, #5D1E94 100%);
+    border-radius: 10px;
+    border: 0px solid #ffffff;
+  }
 		*{
 			margin: 0;
 			padding: 0;
@@ -173,7 +192,7 @@ if(isset($_POST['playsong']))
 		}
 		section{
 			background-color: #202020;
-			height: 100vh;
+			height: 200vh;
 			transition: all .5s ease;
 			margin-left: 200px;
 		}
@@ -213,6 +232,7 @@ if(isset($_POST['playsong']))
 		.top_bar{
 			height: 70px;
 			background-color: rgba(0, 0, 0, 0.2);
+			position: relative;
 		}
 		section .top_bar .d-flex #search{
 			margin-left:0 auto; 
@@ -390,6 +410,11 @@ if(isset($_POST['playsong']))
 				</div>
 			</div>
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">New Releases</h3>
+			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+				<div class="row" id="newarrival">
+				</div>
+			</div>
+			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Most Played</h3>
 			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 				<div class="row" id="newarrival">
 				</div>
