@@ -212,8 +212,6 @@ if (isset($_POST['homemenu'])){
 				scrollbar-width: auto;
 				scrollbar-color: #712985 #000000;
 			}
-
-			/* Chrome, Edge, and Safari */
 			*::-webkit-scrollbar {
 				width: 10px;
 			}
@@ -525,8 +523,8 @@ if (isset($_POST['homemenu'])){
 					</form>
 				</div>
 			</div>
-			<div id="isi">
-				<!-- <br>
+			<div id="isi" class="hidden">
+				<br>
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">New Releases</h3>
 			<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 				<div class="row" id="newarrival">
@@ -557,7 +555,7 @@ if (isset($_POST['homemenu'])){
 				<span class="dot"></span> 
 				<span class="dot"></span> 
 				<span class="dot"></span> 
-			</div> -->
+			</div>
 		</div>
 		</section>
 		<div class="playbar">
@@ -571,16 +569,16 @@ if (isset($_POST['homemenu'])){
 				<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
 				</div>
 				<div class="col-md-4" id="playbarright">
-
 				</div>
 			</div>
 		</div>
 		<!--  -->
 		<script>
 			$(document).ready(function(){
-				homepage();
+				// homepage();
 				showsongs();
 				popularsongs();
+				showSlides();
 			});
 				function showsongs(){
 					$.ajax({
@@ -594,9 +592,6 @@ if (isset($_POST['homemenu'])){
 							$("#newarrival").html(res);
 						}	
 					});
-				}
-				function playsong(){
-
 				}
 				function popularsongs(){
 					$.ajax({
