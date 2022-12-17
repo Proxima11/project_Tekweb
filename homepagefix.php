@@ -2,7 +2,7 @@
 require "connection.php";
 
 if (isset($_POST['showsong'])){
-	$sql="select * from audios";
+	$sql="select * from audios order by tanggal_rilis ASC";
 	$result=mysqli_query($con,$sql);
 	$counter=0;
 	while($row=mysqli_fetch_array($result)){
@@ -29,6 +29,9 @@ if (isset($_POST['showsong'])){
 				</div>
 			</div>
 		</div>";
+		}
+		else{
+			break;
 		}
 	}
 	exit();
