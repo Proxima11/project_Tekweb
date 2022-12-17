@@ -191,7 +191,7 @@ if (isset($_POST['homemenu'])){
 
 if(isset($_POST['search'])){
 	$search_query = $_POST['search_query'];
-	$sql="select * from audios where nama='$search_query' or penyanyi='$search_query' order by tanggal_rilis DESC";
+	$sql="select * from audios where nama like '%$search_query%' or penyanyi like '%$search_query%' order by tanggal_rilis DESC";
 	$result=mysqli_query($con,$sql);
 	$counter=0;
 	while($row=mysqli_fetch_array($result)){
