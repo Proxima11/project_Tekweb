@@ -2,33 +2,106 @@
 require "connection.php";
 
 if (isset($_POST['showsong'])){
-	$sql="select * from audios";
+	$sql="select * from audios order by tanggal_rilis DESC";
 	$result=mysqli_query($con,$sql);
 	$counter=0;
 	while($row=mysqli_fetch_array($result)){
 		$counter += 1;
+		$didengar = $row['didengar'];
+		$pendengar = " ";
+		if ($didengar/1000 >= 1){
+			$didengar = $didengar/1000;
+			if($didengar/1000 >= 1){
+				$didengar = $didengar/1000;
+				if($didengar/1000 >= 1){
+					$didengar = $didengar/1000;
+					$pendengar = $didengar." B";
+				}
+				else{
+					$pendengar = $didengar." M";
+				}
+			}
+			else{
+				$pendengar = $didengar." K";
+			}
+		}
+		else{
+			$pendengar = $didengar;
+		}
 		if($counter <= 6){
-		echo "
-		<div class='col-sm-2'>
+			echo "
+			<div class='col-sm-8 col-md-4 col-lg-2'>
 			<div class='card mb-3 ml-5 mu-5'>
-				<img class='card-img' src='".$row['gambar']."'>
-				<div class='details'>
-					<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
-					<div class='row' style='max-height: 0px'>
-						<div class='col-sm-2'>
-							<i class='fa-solid fa-heart' style='color: white;' id='like'></i>
-						</div>
-						<div class='col-sm-2'>
-						</div>
-						<div class='col-sm-2'>
-							<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
-							<div class='col-sm-2'>
-							</div>
-						</div>
-					</div>
-				</div>
+			<img class='card-img' src='".$row['gambar']."'>
+			<div class='details'>
+			<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
+			<div class='row'>
+			<divstyle='max-height: 0px; color:white;'>
+			<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
 			</div>
-		</div>";
+			<div style='max-height: 0px; color:white;'>
+			".$pendengar."
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>";
+		}
+		else{
+			break;
+		}
+	}
+	exit();
+}
+
+if (isset($_POST['popularsong'])){
+	$sql="select * from audios order by didengar DESC";
+	$result=mysqli_query($con,$sql);
+	$counter=0;
+	while($row=mysqli_fetch_array($result)){
+		$counter += 1;
+		$didengar = $row['didengar'];
+		$pendengar = " ";
+		if ($didengar/1000 >= 1){
+			$didengar = $didengar/1000;
+			if($didengar/1000 >= 1){
+				$didengar = $didengar/1000;
+				if($didengar/1000 >= 1){
+					$didengar = $didengar/1000;
+					$pendengar = $didengar." B";
+				}
+				else{
+					$pendengar = $didengar." M";
+				}
+			}
+			else{
+				$pendengar = $didengar." K";
+			}
+		}
+		else{
+			$pendengar = $didengar;
+		}
+		if($counter <= 6){
+			echo "
+			<div class='col-sm-8 col-md-4 col-lg-2'>
+			<div class='card mb-3 ml-5 mu-5'>
+			<img class='card-img' src='".$row['gambar']."'>
+			<div class='details'>
+			<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
+			<div class='row'>
+			<divstyle='max-height: 0px; color:white;'>
+			<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
+			</div>
+			<div style='max-height: 0px; color:white;'>
+			".$pendengar."
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>";
+		}
+		else{
+			break;
 		}
 	}
 	exit();
@@ -59,6 +132,28 @@ if(isset($_POST['songinfo']))
 	exit();
 }
 
+if(isset($_POST['playsong']))
+{
+	$id=$_POST['songid'];
+	$sql="select * from audios where ID like '%$id%'";
+	$result=mysqli_query($con,$sql);
+	$row=mysqli_fetch_array($result);
+	echo "<button class='btn btn-empty border-0'>
+	<i class='fa-solid fa-backward-step' style='color:white'></i>
+	</button>
+	<button class='btn btn-empty border-0' id='playbarplaybutton'>
+	<i class='fa-solid fa-play' style='color:white'></i>
+	</button>
+	<button class='btn btn-empty border-0'>
+	<i class='fa-solid fa-forward-step' style='color:white'></i>
+	</button>";
+	echo '<audio id="playingsong" autoplay="true" style="display:none;">
+	<source src="'.$row[2].'" type="audio/wav">
+	</audio>';
+	exit();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -77,8 +172,27 @@ if(isset($_POST['songinfo']))
 	<style type="text/css">
 		body{
 			font-family: 'Roboto', sans-serif;
+			height: 600px;
+		}
+		* {
+			scrollbar-width: auto;
+			scrollbar-color: #712985 #000000;
 		}
 
+		/* Chrome, Edge, and Safari */
+		*::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		*::-webkit-scrollbar-track {
+			background: #000000;
+		}
+
+		*::-webkit-scrollbar-thumb {
+			background-image: linear-gradient(#000000 0%, #5D1E94 50%, #000000 100%);
+			border-radius: 10px;
+			border: 0px solid #ffffff;
+		}
 		*{
 			margin: 0;
 			padding: 0;
@@ -131,7 +245,7 @@ if(isset($_POST['songinfo']))
 		}
 		section{
 			background-color: #202020;
-			height: 100vh;
+			height: 200vh;
 			transition: all .5s ease;
 			margin-left: 200px;
 		}
@@ -171,6 +285,7 @@ if(isset($_POST['songinfo']))
 		.top_bar{
 			height: 70px;
 			background-color: rgba(0, 0, 0, 0.2);
+			position: relative;
 		}
 		section .top_bar .d-flex #search{
 			margin-left:0 auto; 
@@ -303,6 +418,27 @@ if(isset($_POST['songinfo']))
 			opacity: 0;
 			pointer-events: none;
 		}*/
+		.slideshow-container {
+			max-width: 100%;
+			max-height: 100px;
+			position: relative;
+			margin: auto;
+		}
+		.dot {
+			height: 15px;
+			width: 15px;
+			margin: 0 2px;
+			background-color: #bbb;
+			border-radius: 50%;
+			display: inline-block;
+			transition: background-color 0.6s ease;
+		}
+
+		.slider-active {
+			background-color: #717171;
+		}
+
+
 	</style>
 </head>
 <body>
@@ -347,10 +483,40 @@ if(isset($_POST['songinfo']))
 					</form>
 				</div>
 			</div>
-			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">New Releases</h3>
-			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">New Releases</h3>
+			<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 				<div class="row" id="newarrival">
 				</div>
+			</div>
+			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Most Played</h3>
+			<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+				<div class="row" id="popular">
+				</div>
+			</div>
+			<div class="slideshow-container mb-3 mt-5">
+
+				<div class="mySlides">
+					<img src="picture/promo3.jpg" style="width:100%; height:400px;">
+					<div class="text">Caption Text</div>
+				</div>
+
+				<div class="mySlides">
+					<img src="picture/promo2.jpg" style="width:100%; height:400px;">
+					<div class="text">Caption Two</div>
+				</div>
+
+				<div class="mySlides">
+					<img src="picture/promo4.jpg" style="width:100%; height:400px;">
+					<div class="text">Caption Three</div>
+				</div>
+
+			</div>
+			<br>
+
+			<div style="text-align:center">
+				<span class="dot"></span> 
+				<span class="dot"></span> 
+				<span class="dot"></span> 
 			</div>
 		</section>
 		<div class="playbar">
@@ -362,16 +528,6 @@ if(isset($_POST['songinfo']))
 					</div>
 				</div>
 				<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
-					<button class='btn btn-empty border-0' onclick="alert('aa?')">
-						<i class="fa-solid fa-backward-step" style='color:white'></i>
-					</button>
-					<button class='btn btn-empty border-0'>
-						<i class="fa-solid fa-play" style='color:white'></i>
-					</button>
-					<button class='btn btn-empty border-0'>
-						<i class="fa-solid fa-forward-step" style='color:white'></i>
-					</button>
-
 				</div>
 				<div class="col-md-4" id="playbarright">
 
@@ -380,57 +536,164 @@ if(isset($_POST['songinfo']))
 		</div>
 		<!--  -->
 		<script>
-		$(document).ready(function(){
-			showsongs();
-			function showsongs(){
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						showsong : 1
-					},
-					success : function(res){
-						$("#newarrival").html(res);
-					}	
-				});
-			};
-			function playsong(){
+			$(document).ready(function(){
+				showsongs();
+				popularsongs();
+				function showsongs(){
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							showsong : 1
+						},
+						success : function(res){
+							$("#newarrival").html(res);
+						}	
+					});
+				};
+				function playsong(){
 
-			}
-			$("#newarrival").delegate('#play', 'click', function(){
-				var v_songid=$(this).attr('songID');
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						songicon : 1,
-						songid	: v_songid
-					},
-					success : function(res){
-						$("#coverimage").html(res);
-					}	
+				}
+				function popularsongs(){
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							popularsong : 1
+						},
+						success : function(res){
+							$("#popular").html(res);
+						}	
+					});
+				}
+				$("#newarrival").delegate('#play', 'click', function(){
+					var v_songid=$(this).attr('songID');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songicon : 1,
+							songid	: v_songid
+						},
+						success : function(res){
+							$("#coverimage").html(res);
+						}	
+					});
+				});
+				$("#newarrival").delegate('#play', 'click', function(){
+					var v_songid=$(this).attr('songID');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songinfo : 1,
+							songid	: v_songid
+						},
+						success : function(res){
+							$("#songinfo").html(res);
+						}	
+					});
+				});
+
+				$("#newarrival").delegate('#play', 'click', function(){
+					var v_songid=$(this).attr('songID');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							playsong : 1,
+							songid	: v_songid
+						},
+						success : function(res){
+							$("#playbarcenter").html(res);
+						}
+					});
+				});
+
+				$("#popular").delegate('#play', 'click', function(){
+					var v_songid=$(this).attr('songID');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songicon : 1,
+							songid	: v_songid
+						},
+						success : function(res){
+							$("#coverimage").html(res);
+						}	
+					});
+				});
+				$("#popular").delegate('#play', 'click', function(){
+					var v_songid=$(this).attr('songID');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songinfo : 1,
+							songid	: v_songid
+						},
+						success : function(res){
+							$("#songinfo").html(res);
+						}	
+					});
+				});
+
+				$("#popular").delegate('#play', 'click', function(){
+					var v_songid=$(this).attr('songID');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							playsong : 1,
+							songid	: v_songid
+						},
+						success : function(res){
+							$("#playbarcenter").html(res);
+						}
+					});
+				});
+				$("#playbarcenter").delegate('#playbarplaybutton', 'click', function(){
+					var music=document.getElementById('playingsong');
+					if (music.paused){
+						music.play();
+					}
+					else{
+						music.pause();
+					}
 				});
 			});
-			$("#newarrival").delegate('#play', 'click', function(){
-				var v_songid=$(this).attr('songID');
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						songinfo : 1,
-						songid	: v_songid
-					},
-					success : function(res){
-						$("#songinfo").html(res);
-					}	
-				});
-			});
-		});
 			
 		</script>
-	</div>
+		<script>
+			let slideIndex = 0;
+			showSlides();
+
+			function showSlides() {
+				let i;
+				let slides = document.getElementsByClassName("mySlides");
+				let dots = document.getElementsByClassName("dot");
+				for (i = 0; i < slides.length; i++) {
+					slides[i].style.display = "none";  
+				}
+				slideIndex++;
+				if (slideIndex > slides.length) {slideIndex = 1}    
+					for (i = 0; i < dots.length; i++) {
+						dots[i].className = dots[i].className.replace(" active", "");
+					}
+					slides[slideIndex-1].style.display = "block";  
+					dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 4000); // Change image every 2 seconds
+}
+</script>
+</div>
 </body>
 </html>
