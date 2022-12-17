@@ -10,7 +10,7 @@ if (isset($_POST['showsong'])){
 			<div class='card mb-3 ml-5 mu-5'>
 				<img class='card-img' src='".$row['gambar']."'>
 				<div class='details'>
-					<button type='button' class='btn btn-secondary btn-lg mb-2' id='play'><i class='fa-solid fa-play'></i></button>
+					<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
 					<div class='row' style='max-height: 0px'>
 						<div class='col-sm-2'>
 							<i class='fa-solid fa-heart' style='color: white;' id='like'></i>
@@ -29,6 +29,32 @@ if (isset($_POST['showsong'])){
 	}
 	exit();
 }
+
+if(isset($_POST['songicon']))
+{
+	$id=$_POST['songid'];
+	$sql="select * from audios where ID like '%$id%'";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result))
+	{
+		echo "<img id='playimage' src='".$row['gambar']."'>";
+	}
+	exit();
+}
+if(isset($_POST['songinfo']))
+{
+	$id=$_POST['songid'];
+	$sql="select * from audios where ID like '%$id%'";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result))
+	{
+		echo "
+		<h4 id='playtitle'>".$row['nama']."</h4>
+		<h7 id='playsinger'>".$row['penyanyi']."</h7>";
+	}
+	exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -225,12 +251,17 @@ if (isset($_POST['showsong'])){
 			margin-top: 15px;
 			height: 70px;
 			width: 70px;
-			background-color: white;
+		}
+		#playimage{
+			margin-right: 30px;
+			height: 70px;
+			width: 70px;
 		}
 		#songinfo{
 			margin-left: 10px;
 			margin-top: 20px;
 		}
+
 		/*#check{
 			display: none;
 		}
@@ -323,11 +354,7 @@ if (isset($_POST['showsong'])){
 				<div class="col-md-4" id="playbarleft">
 					<div class="row">
 						<div class="col-md-4" id="coverimage"></div>
-
-						<div class="col-md-6" id="songinfo">
-							<h4>Title</h4>
-							<h7>Singer</h7>
-						</div>
+						<div class="col-md-6" id="songinfo"></div>
 					</div>
 				</div>
 				<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
@@ -351,7 +378,6 @@ if (isset($_POST['showsong'])){
 		<script>
 		$(document).ready(function(){
 			showsongs();
-		});
 			function showsongs(){
 				$.ajax({
 					url	  : "homepagefix.php",
@@ -365,6 +391,41 @@ if (isset($_POST['showsong'])){
 					}	
 				});
 			};
+			function playsong(){
+
+			}
+			$("#newarrival").delegate('#play', 'click', function(){
+				var v_songid=$(this).attr('songID');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						songicon : 1,
+						songid	: v_songid
+					},
+					success : function(res){
+						$("#coverimage").html(res);
+					}	
+				});
+			});
+			$("#newarrival").delegate('#play', 'click', function(){
+				var v_songid=$(this).attr('songID');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						songinfo : 1,
+						songid	: v_songid
+					},
+					success : function(res){
+						$("#songinfo").html(res);
+					}	
+				});
+			});
+		});
+			
 		</script>
 	</div>
 </body>
