@@ -23,6 +23,22 @@ if(isset($_POST['ganti'])){
     $sql="update admin set username='$un' where id=$id";
 	$result=mysqli_query($con,$sql);
 }
+if(isset($_POST['search'])){
+    $search_query = $_POST['search_query'];
+    $sql="select * from admin where username like '%$search_query%'";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result)){
+		echo '
+		<div class="row">
+			<div class="col-6">'.$row['username'].'</div>
+            <div class="col-4">
+                <input type="text" id="'.$row['username'].'">
+                <button type="button" ide="'.$row['username'].'" class="btn btn-primary" name="ganti">Ganti</button>
+            </div>
+		</div>';
+	}
+	exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -306,7 +322,7 @@ if(isset($_POST['ganti'])){
 				</div>
 				<div style=" float: left; margin-left: 15px;">
 					<form class="d-flex" role="search">
-						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<input class="form-control me-2" type="search" id="search_query" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</form>
 				</div>
@@ -339,6 +355,30 @@ if(isset($_POST['ganti'])){
 						
 					}
 				});
+            });
+
+            $('#search').click(function(){
+                search_query_in = $('#search_query').val();
+
+                if (search_query_in == ""){
+                    showdata();
+                }
+                else{
+                    $.ajax({
+                        url		: "admin_edit.php",
+                        type 	: "POST",
+                        async	: true,
+                        data    : {
+                            search : 1,
+                            search_query :search_query_in
+                        },
+                        success	: function(result)
+                        { 
+                            alert("Searching...");
+                            $('#showdata').html(result);
+                        }
+                    });
+                }
             });
 		});
 

@@ -188,6 +188,60 @@ if (isset($_POST['homemenu'])){
 	</div>";
 	exit();
 }
+
+if(isset($_POST['search'])){
+	$search_query = $_POST['search_query'];
+	$sql="select * from audios where nama like '%$search_query%' or penyanyi like '%$search_query%' order by tanggal_rilis DESC";
+	$result=mysqli_query($con,$sql);
+	$counter=0;
+	while($row=mysqli_fetch_array($result)){
+		$counter += 1;
+		$didengar = $row['didengar'];
+		$pendengar = " ";
+		if ($didengar/1000 >= 1){
+			$didengar = $didengar/1000;
+			if($didengar/1000 >= 1){
+				$didengar = $didengar/1000;
+				if($didengar/1000 >= 1){
+					$didengar = $didengar/1000;
+					$pendengar = $didengar." B";
+				}
+				else{
+					$pendengar = $didengar." M";
+				}
+			}
+			else{
+				$pendengar = $didengar." K";
+			}
+		}
+		else{
+			$pendengar = $didengar;
+		}
+		if($counter <= 6){
+			echo "
+			<div class='col-sm-8 col-md-4 col-lg-2'>
+			<div class='card mb-3 ml-5 mu-5'>
+			<img class='card-img' src='".$row['gambar']."'>
+			<div class='details'>
+			<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
+			<div class='row'>
+			<divstyle='max-height: 0px; color:white;'>
+			<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
+			</div>
+			<div style='max-height: 0px; color:white;'>
+			".$pendengar."
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>";
+		}
+		else{
+			break;
+		}
+	}
+	exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -487,6 +541,18 @@ if (isset($_POST['homemenu'])){
 			border-bottom: white 1px solid;
 		}
 
+		.modal-header{
+			background-color: #202020;
+			color: white;
+		}
+		.modal-body{
+			background-color: grey;
+		}
+		.modal-footer{
+			background-color: #202020;
+			color: white;
+		}
+
 	</style>
 </head>
 <body>
@@ -499,7 +565,8 @@ if (isset($_POST['homemenu'])){
 				<li><a href="#library"><i class="fa-solid fa-book"></i>Library</a></li>
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
+				<li><a href="#" onclick="#addplaylist"><i class="fa-solid fa-square-plus" data-bs-toggle="modal" data-bs-target="#addplaylist"></i>New Playlist</a></li>
+					
 			</ul>
 		</div>
 		<section class="view">
@@ -526,7 +593,7 @@ if (isset($_POST['homemenu'])){
 				</div>
 				<div style=" float: left; margin-left: 15px;">
 					<form class="d-flex" role="search">
-						<input class="form-control me-2 textfield" type="search" placeholder="Search" aria-label="Search">
+						<input class="form-control me-2 textfield" type="search" id="search_query" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</form>
 				</div>
@@ -571,7 +638,12 @@ if (isset($_POST['homemenu'])){
 			</div>
 			</div>
 			<div id="garis"></div><br>
-			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3><br>
+			<div class="row">
+				<div class="col-sm-6"><h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3>
+				</div>
+				<div class="col-sm-6">
+				</div>
+			</div><br>
 			<div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
@@ -615,6 +687,29 @@ if (isset($_POST['homemenu'])){
 				showsongs();
 				popularsongs();
 				showSlides();
+				$("#search").click(function(){
+					search_query_in = $('#search_query').val();
+
+					if (search_query_in == ""){
+						showsongs();
+					}
+					else{
+						$.ajax({
+							url		: "admin_edit.php",
+							type 	: "POST",
+							async	: true,
+							data    : {
+								search : 1,
+								search_query :search_query_in
+							},
+							success	: function(result)
+							{ 
+								alert("Searching...");
+								$('#newarrival').html(result);
+							}
+						});
+					}
+				});
 			});
 			function showsongs(){
 				$.ajax({
@@ -777,5 +872,27 @@ if (isset($_POST['homemenu'])){
 				}
 			</script>
 		</div>
+<<<<<<< HEAD
 	</body>
 	</html>
+=======
+		<div class="modal fade" id="addplaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Understood</button>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>
+>>>>>>> 6f8f51834bb765915fbf4d8c2e6a17565ba178a9
