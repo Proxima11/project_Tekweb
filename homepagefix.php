@@ -479,6 +479,14 @@ if (isset($_POST['homemenu'])){
 			}
 		}
 
+		#garis {
+			padding-top: 50px;
+			margin-left: 40px;
+			margin-right: 40px;
+			height: 1px;
+			border-bottom: white 1px solid;
+		}
+
 	</style>
 </head>
 <body>
@@ -535,6 +543,10 @@ if (isset($_POST['homemenu'])){
 				<div class="row" id="popular">
 				</div>
 			</div>
+			<div id="garis"></div><br>
+			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Library</h3><br>
+			<div id="garis"></div><br>
+			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3><br>
 			<div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
