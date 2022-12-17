@@ -4,7 +4,10 @@ require "connection.php";
 if (isset($_POST['showsong'])){
 	$sql="select * from audios";
 	$result=mysqli_query($con,$sql);
+	$counter=0;
 	while($row=mysqli_fetch_array($result)){
+		$counter += 1;
+		if($counter <= 6){
 		echo "
 		<div class='col-sm-2'>
 			<div class='card mb-3 ml-5 mu-5'>
@@ -26,6 +29,7 @@ if (isset($_POST['showsong'])){
 				</div>
 			</div>
 		</div>";
+		}
 	}
 	exit();
 }
@@ -317,9 +321,9 @@ if(isset($_POST['songinfo']))
 		<section class="view">
 			<!-- bar atas -->
 			<div class="top_bar">
-				<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
+				<!-- <div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
 					Listen, Feel, Happy
-				</div>
+				</div> -->
 				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
 					<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
 				</div>
@@ -336,15 +340,15 @@ if(isset($_POST['songinfo']))
 					<a class="dropdown-item" href="#">Edit Profile</a>
 					<a class="dropdown-item" href="#">Logout</a>
 				</div>
-				<div style=" float: right;">
+				<div style=" float: left; margin-left: 15px;">
 					<form class="d-flex" role="search">
 						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</form>
 				</div>
 			</div>
-			<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">New Releases</h3>
-			<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">New Releases</h3>
+			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 				<div class="row" id="newarrival">
 				</div>
 			</div>
