@@ -487,6 +487,18 @@ if (isset($_POST['homemenu'])){
 			border-bottom: white 1px solid;
 		}
 
+		.modal-header{
+			background-color: #202020;
+			color: white;
+		}
+		.modal-body{
+			background-color: grey;
+		}
+		.modal-footer{
+			background-color: #202020;
+			color: white;
+		}
+
 	</style>
 </head>
 <body>
@@ -499,7 +511,8 @@ if (isset($_POST['homemenu'])){
 				<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
+				<li><a href="#" onclick="#addplaylist"><i class="fa-solid fa-square-plus" data-bs-toggle="modal" data-bs-target="#addplaylist"></i>New Playlist</a></li>
+					
 			</ul>
 		</div>
 		<section class="view">
@@ -546,7 +559,12 @@ if (isset($_POST['homemenu'])){
 			<div id="garis"></div><br>
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Library</h3><br>
 			<div id="garis"></div><br>
-			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3><br>
+			<div class="row">
+				<div class="col-sm-6"><h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3>
+				</div>
+				<div class="col-sm-6">
+				</div>
+			</div><br>
 			<div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
@@ -752,6 +770,23 @@ if (isset($_POST['homemenu'])){
 					});
 				}
 			</script>
+		</div>
+		<div class="modal fade" id="addplaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Understood</button>
+					</div>
+				</div>
+			</div>
 		</div>
 </body>
 </html>
