@@ -1,3 +1,34 @@
+<?php
+require "connection.php";
+
+if (isset($_POST['showsongs'])){
+	$sql="select * from audios";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result)){
+		echo "<div class='col-sm-2'>
+			<div class='card mb-3 ml-5 mu-5'>
+				<img class='card-img' src='".$row['gambar']."'>
+				<div class='details'>
+					<button type='button' class='btn btn-secondary btn-lg mb-2' id='play'><i class='fa-solid fa-play'></i></button>
+					<div class='row' style='max-height: 0px'>
+						<div class='col-sm-2'>
+							<i class='fa-solid fa-heart' style='color: white;' id='like'></i>
+						</div>
+					<div class='col-sm-2'>
+					</div>
+					<div class='col-sm-2'>
+						<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
+						<div class='col-sm-2'>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div";
+	}
+	exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -236,205 +267,220 @@
 			pointer-events: none;
 		}*/
 	</style>
-</head>
-<body>
-	<div class="wrapper">
-		<div class="sidebar">
-			<ul class="menu">
-				<header>Music Player</header>
-				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
-				<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
-				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
-				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
-			</ul>
-		</div>
-		<section class="view">
-			<!-- bar atas -->
-			<div class="top_bar">
-				<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
-					Listen, Feel, Happy
-				</div>
-				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
-					<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
-				</div>
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false"  style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:20px;">
-						<i class="fa-solid fa-gear"></i>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-						<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
-						<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+	<script>
+		$(document).ready(function(){
+			function showsongs(){
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						showsongs : 1
+					},
+					success : function(res){
+						$("#newarrival").html(res);
+					}	
+				});
+			</script>
+		</head>
+		<body>
+			<div class="wrapper">
+				<div class="sidebar">
+					<ul class="menu">
+						<header>Music Player</header>
+						<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
+						<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
+						<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
+						<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
+						<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
+						<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
 					</ul>
 				</div>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Edit Profile</a>
-					<a class="dropdown-item" href="#">Logout</a>
-				</div>
-				<div style=" float: right;">
-					<form class="d-flex" role="search">
-						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
-					</form>
-				</div>
-			</div>
-			<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">New Releases</h3>
-			<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-				<div class="row">
-					<div class="col-sm-2">
-						<div class="card mb-3 ml-5 mu-5">
-							<img class="card-img" src="picture/imgSementara.jpg">
-							<div class="details">
-								<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-								<div class="row" style="max-height: 0px;">
-									<div class="col-sm-2">
-										<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+				<section class="view">
+					<!-- bar atas -->
+					<div class="top_bar">
+						<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
+							Listen, Feel, Happy
+						</div>
+						<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
+							<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
+						</div>
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false"  style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:20px;">
+								<i class="fa-solid fa-gear"></i>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
+								<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
+								<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+							</ul>
+						</div>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="#">Edit Profile</a>
+							<a class="dropdown-item" href="#">Logout</a>
+						</div>
+						<div style=" float: right;">
+							<form class="d-flex" role="search">
+								<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+								<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+							</form>
+						</div>
+					</div>
+					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">New Releases</h3>
+					<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+						<div class="row", id="newarrival">
+							<div class="col-sm-2">
+								<div class="card mb-3 ml-5 mu-5">
+									<img class="card-img" src="picture/imgSementara.jpg">
+									<div class="details">
+										<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+										<div class="row" style="max-height: 0px;">
+											<div class="col-sm-2">
+												<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+											</div>
+											<div class="col-sm-2">
+											</div>
+											<div class="col-sm-2">
+												<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+												<div class="col-sm-2">
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="col-sm-2">
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="card mb-3 ml-5 mu-5">
+									<img class="card-img" src="picture/imgSementara.jpg">
+									<div class="details">
+										<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+										<div class="row" style="max-height: 0px;">
+											<div class="col-sm-2">
+												<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+											</div>
+											<div class="col-sm-2">
+											</div>
+											<div class="col-sm-2">
+												<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+												<div class="col-sm-2">
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="col-sm-2">
-										<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-										<div class="col-sm-2">
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="card mb-3 ml-5 mu-5">
+									<img class="card-img" src="picture/imgSementara.jpg">
+									<div class="details">
+										<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+										<div class="row" style="max-height: 0px;">
+											<div class="col-sm-2">
+												<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+											</div>
+											<div class="col-sm-2">
+											</div>
+											<div class="col-sm-2">
+												<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+												<div class="col-sm-2">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="card mb-3 ml-5 mu-5">
+									<img class="card-img" src="picture/imgSementara.jpg">
+									<div class="details">
+										<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+										<div class="row" style="max-height: 0px;">
+											<div class="col-sm-2">
+												<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+											</div>
+											<div class="col-sm-2">
+											</div>
+											<div class="col-sm-2">
+												<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+												<div class="col-sm-2">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="card mb-3 ml-5 mu-5">
+									<img class="card-img" src="picture/imgSementara.jpg">
+									<div class="details">
+										<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+										<div class="row" style="max-height: 0px;">
+											<div class="col-sm-2">
+												<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+											</div>
+											<div class="col-sm-2">
+											</div>
+											<div class="col-sm-2">
+												<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+												<div class="col-sm-2">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="card mb-3 ml-5 mu-5">
+									<img class="card-img" src="picture/imgSementara.jpg">
+									<div class="details">
+										<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
+										<div class="row" style="max-height: 0px;">
+											<div class="col-sm-2">
+												<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
+											</div>
+											<div class="col-sm-2">
+											</div>
+											<div class="col-sm-2">
+												<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
+												<div class="col-sm-2">
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-						<div class="col-sm-2">
-							<div class="card mb-3 ml-5 mu-5">
-								<img class="card-img" src="picture/imgSementara.jpg">
-								<div class="details">
-									<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-									<div class="row" style="max-height: 0px;">
-										<div class="col-sm-2">
-											<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
-										</div>
-										<div class="col-sm-2">
-										</div>
-										<div class="col-sm-2">
-											<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-											<div class="col-sm-2">
-											</div>
-										</div>
-									</div>
+				</section>
+				<div class="playbar">
+					<div class="row">
+						<div class="col-md-4" id="playbarleft">
+							<div class="row">
+								<div class="col-md-4" id="coverimage"></div>
+
+								<div class="col-md-6" id="songinfo">
+									<h4>Title</h4>
+									<h7>Singer</h7>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-2">
-							<div class="card mb-3 ml-5 mu-5">
-								<img class="card-img" src="picture/imgSementara.jpg">
-								<div class="details">
-									<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-									<div class="row" style="max-height: 0px;">
-										<div class="col-sm-2">
-											<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
-										</div>
-										<div class="col-sm-2">
-										</div>
-										<div class="col-sm-2">
-											<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-											<div class="col-sm-2">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
+							<button class='btn btn-empty border-0' onclick="alert('aa?')">
+								<i class="fa-solid fa-backward-step" style='color:white'></i>
+							</button>
+							<button class='btn btn-empty border-0'>
+								<i class="fa-solid fa-play" style='color:white'></i>
+							</button>
+							<button class='btn btn-empty border-0'>
+								<i class="fa-solid fa-forward-step" style='color:white'></i>
+							</button>
+
 						</div>
-						<div class="col-sm-2">
-							<div class="card mb-3 ml-5 mu-5">
-								<img class="card-img" src="picture/imgSementara.jpg">
-								<div class="details">
-									<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-									<div class="row" style="max-height: 0px;">
-										<div class="col-sm-2">
-											<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
-										</div>
-										<div class="col-sm-2">
-										</div>
-										<div class="col-sm-2">
-											<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-											<div class="col-sm-2">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="card mb-3 ml-5 mu-5">
-								<img class="card-img" src="picture/imgSementara.jpg">
-								<div class="details">
-									<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-									<div class="row" style="max-height: 0px;">
-										<div class="col-sm-2">
-											<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
-										</div>
-										<div class="col-sm-2">
-										</div>
-										<div class="col-sm-2">
-											<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-											<div class="col-sm-2">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<div class="card mb-3 ml-5 mu-5">
-								<img class="card-img" src="picture/imgSementara.jpg">
-								<div class="details">
-									<button type="button" class="btn btn-secondary btn-lg mb-2" id="play"><i class="fa-solid fa-play"></i></button>
-									<div class="row" style="max-height: 0px;">
-										<div class="col-sm-2">
-											<i class="fa-solid fa-heart" style="color: white;" id="like"></i>
-										</div>
-										<div class="col-sm-2">
-										</div>
-										<div class="col-sm-2">
-											<i class="fa-solid fa-headphones" style="color: white;" id="heard"></i>
-											<div class="col-sm-2">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div class="col-md-4" id="playbarright">
+
 						</div>
 					</div>
 				</div>
-			</section>
-			<div class="playbar">
-		<div class="row">
-			<div class="col-md-4" id="playbarleft">
-				<div class="row">
-					<div class="col-md-4" id="coverimage"></div>
-				
-				<div class="col-md-6" id="songinfo">
-					<h4>Title</h4>
-					<h7>Singer</h7>
-				</div>
+				<!--  -->
 			</div>
-			</div>
-			<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
-				<button class='btn btn-empty border-0' onclick="alert('aa?')">
-						<i class="fa-solid fa-backward-step" style='color:white'></i>
-				</button>
-				<button class='btn btn-empty border-0'>
-						<i class="fa-solid fa-play" style='color:white'></i>
-				</button>
-				<button class='btn btn-empty border-0'>
-						<i class="fa-solid fa-forward-step" style='color:white'></i>
-				</button>
-				
-			</div>
-			<div class="col-md-4" id="playbarright">
-				
-			</div>
-		</div>
-	</div>
-			<!--  -->
-		</div>
-	</body>
-	</html>
+		</body>
+		</html>
