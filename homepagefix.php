@@ -54,6 +54,59 @@ if (isset($_POST['showsong'])){
 	exit();
 }
 
+if (isset($_POST['showsong'])){
+	$sql="select * from audios order by didengar DESC";
+	$result=mysqli_query($con,$sql);
+	$counter=0;
+	while($row=mysqli_fetch_array($result)){
+		$counter += 1;
+		$didengar = $row['didengar'];
+		$pendengar = " ";
+		if ($didengar/1000 >= 1){
+			$didengar = $didengar/1000;
+			if($didengar/1000 >= 1){
+				$didengar = $didengar/1000;
+				if($didengar/1000 >= 1){
+					$didengar = $didengar/1000;
+					$pendengar = $didengar." B";
+				}
+				else{
+					$pendengar = $didengar." M";
+				}
+			}
+			else{
+				$pendengar = $didengar." K";
+			}
+		}
+		else{
+			$pendengar = $didengar;
+		}
+		if($counter <= 6){
+		echo "
+		<div class='col-sm-8 col-md-4 col-lg-2'>
+			<div class='card mb-3 ml-5 mu-5'>
+				<img class='card-img' src='".$row['gambar']."'>
+				<div class='details'>
+					<button type='button' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
+					<div class='row'>
+					<divstyle='max-height: 0px; color:white;'>
+						<i class='fa-solid fa-headphones' style='color: white;' id='heard'></i>
+					</div>
+					<div style='max-height: 0px; color:white;'>
+						".$pendengar."
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>";
+		}
+		else{
+			break;
+		}
+	}
+	exit();
+}
+
 if(isset($_POST['songicon']))
 {
 	$id=$_POST['songid'];
@@ -136,7 +189,7 @@ if(isset($_POST['playsong']))
   }
 
   *::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(#000000 0%, #5D1E94 100%);
+    background-image: linear-gradient(#000000 0%, #5D1E94 50%, #000000 100%);
     border-radius: 10px;
     border: 0px solid #ffffff;
   }
@@ -416,7 +469,7 @@ if(isset($_POST['playsong']))
 			</div>
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Most Played</h3>
 			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-				<div class="row" id="newarrival">
+				<div class="row" id="popular">
 				</div>
 			</div>
 		</section>
@@ -454,6 +507,19 @@ if(isset($_POST['playsong']))
 			};
 			function playsong(){
 
+			}
+			function popularsongs(){
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						popularsong : 1
+					},
+					success : function(res){
+						$("#popular").html(res);
+					}	
+				});
 			}
 			$("#newarrival").delegate('#play', 'click', function(){
 				var v_songid=$(this).attr('songID');
