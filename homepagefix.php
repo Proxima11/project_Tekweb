@@ -153,233 +153,265 @@ if(isset($_POST['playsong']))
 	exit();
 }
 
+if (isset($_POST['homemenu'])){
+	alert();
+	echo"<br>
+			<h3 style='float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;' class='mt-4'>New Releases</h3>
+			<div class='wrap mt-6' style='background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;'>
+				<div class='row' id='newarrival'>
+				</div>
+			</div>
+			<h3 style='float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;' class='mt-4'>Most Played</h3>
+			<div class='wrap mt-6' style='background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;'>
+				<div class='row' id='popular'>
+				</div>
+			</div>
+			<div class='slideshow-container mb-3 mt-5'>
 
+				<div class='mySlides'>
+					<img src='picture/promo3.jpg' style='width:100%; height:400px;'>
+				</div>
+
+				<div class='mySlides'>
+					<img src='picture/promo2.jpg' style='width:100%; height:400px;'>
+				</div>
+
+				<div class='mySlides'>
+					<img src='picture/promo4.jpg' style='width:100%; height:400px;'>
+				</div>
+
+			</div>
+			<br>
+			<div style='text-align:center'>
+				<span class='dot'></span> 
+				<span class='dot'></span> 
+				<span class='dot'></span> 
+			</div>";
+	exit();
+}
 ?>
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap-5.2.0/css/bootstrap.css">
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="bootstrap-5.2.0/css/bootstrap.css">
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+		<script src="jquery-3.6.1.js" type="text/javascript"></script>
+		<script src="https://kit.fontawesome.com/8111334eea.js" crossorigin="anonymous"></script>
+		<style type="text/css">
+			body{
+				font-family: 'Roboto', sans-serif;
+				height: 1000px;
+				min-width: 500px;
+			}
+			* {
+				scrollbar-width: auto;
+				scrollbar-color: #712985 #000000;
+			}
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-	<script src="jquery-3.6.1.js" type="text/javascript"></script>
-	<script src="https://kit.fontawesome.com/8111334eea.js" crossorigin="anonymous"></script>
-	<style type="text/css">
-		body{
-			font-family: 'Roboto', sans-serif;
-			height: 600px;
-		}
-		* {
-			scrollbar-width: auto;
-			scrollbar-color: #712985 #000000;
-		}
+			/* Chrome, Edge, and Safari */
+			*::-webkit-scrollbar {
+				width: 10px;
+			}
 
-		/* Chrome, Edge, and Safari */
-		*::-webkit-scrollbar {
-			width: 10px;
-		}
+			*::-webkit-scrollbar-track {
+				background: #000000;
+			}
 
-		*::-webkit-scrollbar-track {
-			background: #000000;
-		}
+			*::-webkit-scrollbar-thumb {
+				background-image: linear-gradient(#000000 0%, #5D1E94 50%, #000000 100%);
+				border-radius: 10px;
+				border: 0px solid #ffffff;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}
+			.sidebar{
+				background-image: linear-gradient(#404040 0%, #202020 80%);
+				position: fixed;
+				left: 0;
+				width:200px;
+				height: 100%;
+				transition: all .5s ease;
+			}
+			.sidebar header{
+				font-size: 20px;
+				color: white;
+				text-align: center;
+				line-height: 65px;
+				user-select: none;
+				margin-bottom: 50px;
+				padding-right: 30px;
+			}
 
-		*::-webkit-scrollbar-thumb {
-			background-image: linear-gradient(#000000 0%, #5D1E94 50%, #000000 100%);
-			border-radius: 10px;
-			border: 0px solid #ffffff;
-		}
-		*{
-			margin: 0;
-			padding: 0;
-			list-style: none;
-			text-decoration: none;
-		}
-		.sidebar{
-			background-image: linear-gradient(#404040 0%, #202020 80%);
-			position: fixed;
-			left: 0;
-			width:200px;
-			height: 100%;
-			transition: all .5s ease;
-		}
-		.sidebar header{
-			font-size: 20px;
-			color: white;
-			text-align: center;
-			line-height: 65px;
-			user-select: none;
-			margin-bottom: 50px;
-			padding-right: 30px;
-		}
+			.sidebar ul.menu a{
+				display: block;
+				height: 100%;
+				width: 100%;
+				line-height: 50px;
+				font-size: 18px;
+				color: white;
+				box-sizing: border-box;
+				transition: .5s;
+				text-decoration: none;
+				padding-left: 0px;
+			}
+			ul.menu li:hover a{
+				padding-left: 10px;
+				text-decoration: none;
+				border-right: 2px solid white;
+			}
 
-		.sidebar ul.menu a{
-			display: block;
-			height: 100%;
-			width: 100%;
-			line-height: 50px;
-			font-size: 18px;
-			color: white;
-			box-sizing: border-box;
-			transition: .5s;
-			text-decoration: none;
-			padding-left: 0px;
-		}
-		ul.menu li:hover a{
-			padding-left: 10px;
-			text-decoration: none;
-			border-right: 2px solid white;
-		}
+			.sidebar ul a i{
+				margin-right: 15px;
+			}
 
-		.sidebar ul a i{
-			margin-right: 15px;
-		}
+			ul.menu li a.active{
+				color: #B266FF;
+				border-right: 2px solid #B266FF;
+			}
+			section{
+				background-color: #202020;
+				height: 100%;
+				transition: all .5s ease;
+				margin-left: 200px;
+			}
+			.card {
+				height: 10rem;
+				width: 10rem;
+				overflow: hidden;
+				position: relative;
+				cursor: pointer;
+				border: none;
+			}
 
-		ul.menu li a.active{
-			color: #B266FF;
-			border-right: 2px solid #B266FF;
-		}
-		section{
-			background-color: #202020;
-			height: 200vh;
-			transition: all .5s ease;
-			margin-left: 200px;
-		}
-		.card {
-			height: 10rem;
-			width: 10rem;
-			overflow: hidden;
-			position: relative;
-			cursor: pointer;
-			border: none;
-		}
+			.view .card img {
+				height: 100%;
+				width: 100%;
+			}
 
-		.view .card img {
-			height: 100%;
-			width: 100%;
-		}
+			.view .card:hover .details {
+				opacity: 1;
+				height: 100%;
+			}
 
-		.view .card:hover .details {
-			opacity: 1;
-			height: 100%;
-		}
+			.view .details {
+				position: absolute;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				bottom: 0;
+				width: 100%;
+				height: 0%;
+				background: rgba(0, 0, 0, 0.7);
+				opacity: 0;
+				transition: 0.5s ease;
+			}
 
-		.view .details {
-			position: absolute;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			bottom: 0;
-			width: 100%;
-			height: 0%;
-			background: rgba(0, 0, 0, 0.7);
-			opacity: 0;
-			transition: 0.5s ease;
-		}
+			.top_bar{
+				height: 70px;
+				background-color: rgba(0, 0, 0, 0.2);
+				position: relative;
+			}
+			section .top_bar .d-flex #search{
+				margin-left:0 auto; 
+				margin-right:0 auto;
+				margin-top: 15px;
+				margin-bottom: 15px;
+				border-radius: 50%;
+				color: #B266FF;
+				background-color: transparent;
+				border-color: #B266FF;
+				transition: .4s;
+			}
+			section .top_bar .d-flex #search:hover{
+				border-radius: 50%;
+				color: #FFFFFF;
+				background-color: #B266FF;
+				transition: .4s;
+			}
+			section .top_bar .d-flex input{
+				margin-top: 15px;
+				margin-bottom: 15px;
+				width: 70%;
+				border-radius: 30px;
+				color: white;
+				border-color: #B266FF;
+				background-color: transparent;
+				transition: .4s;
+			}
+			section .top_bar .d-flex input::placeholder{
+				color: #C0C0C0;
+			}
+			section .top_bar .d-flex input:focus{
+				border-radius: 30px;
+				color: black;
+				border-color: #FFFFFF;
+				background-color: #FFFFFF;
+				transition: .4s;
+			}
+			.wrapper section .top_bar .dropdown #user_menu{
+				background-color: transparent;
+				border-color: transparent;
+				transition: .5s;
+			}
+			.wrapper section .top_bar .dropdown #user_menu:hover{
+				background-color: transparent;
+				border: 1px solid #B266FF;
+			}
+			.wrapper section .top_bar #profile img:hover{
+				scale: 1.1;
+			}
+			.wrapper section .top_bar .dropdown ul li button:hover{
+				transition: .5s;
+			}
+			.wrapper section .top_bar .dropdown ul li button:hover{
+				background-color: #B266FF;
+				font-color: black;
+			}
 
-		.top_bar{
-			height: 70px;
-			background-color: rgba(0, 0, 0, 0.2);
-			position: relative;
-		}
-		section .top_bar .d-flex #search{
-			margin-left:0 auto; 
-			margin-right:0 auto;
-			margin-top: 15px;
-			margin-bottom: 15px;
-			border-radius: 50%;
-			color: #B266FF;
-			background-color: transparent;
-			border-color: #B266FF;
-			transition: .4s;
-		}
-		section .top_bar .d-flex #search:hover{
-			border-radius: 50%;
-			color: #FFFFFF;
-			background-color: #B266FF;
-			transition: .4s;
-		}
-		section .top_bar .d-flex input{
-			margin-top: 15px;
-			margin-bottom: 15px;
-			width: 70%;
-			border-radius: 30px;
-			color: white;
-			border-color: #B266FF;
-			background-color: transparent;
-			transition: .4s;
-		}
-		section .top_bar .d-flex input::placeholder{
-			color: #C0C0C0;
-		}
-		section .top_bar .d-flex input:focus{
-			border-radius: 30px;
-			color: black;
-			border-color: #FFFFFF;
-			background-color: #FFFFFF;
-			transition: .4s;
-		}
-		.wrapper section .top_bar .dropdown #user_menu{
-			background-color: transparent;
-			border-color: transparent;
-			transition: .5s;
-		}
-		.wrapper section .top_bar .dropdown #user_menu:hover{
-			background-color: transparent;
-			border: 1px solid #B266FF;
-		}
-		.wrapper section .top_bar #profile img:hover{
-			scale: 1.1;
-		}
-		.wrapper section .top_bar .dropdown ul li button:hover{
-			transition: .5s;
-		}
-		.wrapper section .top_bar .dropdown ul li button:hover{
-			background-color: #B266FF;
-			font-color: black;
-		}
+			.playbar{
+				position: fixed;
+				right: 0;
+				left:0;
+				bottom: 0;
+				height: 100px;
+				background-color: black;
+				color: white;
+			}
+			#playbarcenter{
+				text-align: center;
+			}
+			#playbarleft{
 
-		.playbar{
-			position: fixed;
-			right: 0;
-			left:0;
-			bottom: 0;
-			height: 100px;
-			background-color: black;
-			color: white;
-		}
-		.lol{
-			height: 5000px;
-		}
-		#playbarcenter{
-			text-align: center;
-		}
-		#playbarleft{
+			}
+			#playbarright{
 
-		}
-		#playbarright{
-			
-		}
-		#coverimage{
-			margin-left: 30px;
-			margin-top: 15px;
-			height: 70px;
-			width: 70px;
-		}
-		#playimage{
-			margin-right: 30px;
-			height: 70px;
-			width: 70px;
-		}
-		#songinfo{
-			margin-left: 10px;
-			margin-top: 20px;
-		}
+			}
+			#coverimage{
+				margin-left: 30px;
+				margin-top: 15px;
+				height: 70px;
+				width: 70px;
+			}
+			#playimage{
+				margin-right: 30px;
+				height: 70px;
+				width: 70px;
+			}
+			#songinfo{
+				margin-left: 10px;
+				margin-top: 20px;
+			}
 
 		/*#check{
 			display: none;
@@ -438,6 +470,17 @@ if(isset($_POST['playsong']))
 			background-color: #717171;
 		}
 
+		.bottom {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+		}
+
+		@media screen and (max-width: 30%) {
+			section .top_bar .d-flex input{
+				width: 30%;
+			}
+		}
 
 	</style>
 </head>
@@ -447,7 +490,7 @@ if(isset($_POST['playsong']))
 			<ul class="menu">
 				<header>Music Player</header>
 				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
+				<li><a href="homepagefix.php" id="#home" class="button active" onclick='return homepage()'><i class="fa-solid fa-house"></i>Home</a></li>
 				<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
@@ -478,11 +521,13 @@ if(isset($_POST['playsong']))
 				</div>
 				<div style=" float: left; margin-left: 15px;">
 					<form class="d-flex" role="search">
-						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+						<input class="form-control me-2 textfield" type="search" placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</form>
 				</div>
 			</div>
+			<div id="#isi">
+				<!-- <br>
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">New Releases</h3>
 			<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 				<div class="row" id="newarrival">
@@ -497,27 +542,24 @@ if(isset($_POST['playsong']))
 
 				<div class="mySlides">
 					<img src="picture/promo3.jpg" style="width:100%; height:400px;">
-					<div class="text">Caption Text</div>
 				</div>
 
 				<div class="mySlides">
 					<img src="picture/promo2.jpg" style="width:100%; height:400px;">
-					<div class="text">Caption Two</div>
 				</div>
 
 				<div class="mySlides">
 					<img src="picture/promo4.jpg" style="width:100%; height:400px;">
-					<div class="text">Caption Three</div>
 				</div>
 
 			</div>
 			<br>
-
 			<div style="text-align:center">
 				<span class="dot"></span> 
 				<span class="dot"></span> 
 				<span class="dot"></span> 
-			</div>
+			</div> -->
+		</div>
 		</section>
 		<div class="playbar">
 			<div class="row">
@@ -539,6 +581,8 @@ if(isset($_POST['playsong']))
 			$(document).ready(function(){
 				showsongs();
 				popularsongs();
+				homepage();
+			});
 				function showsongs(){
 					$.ajax({
 						url	  : "homepagefix.php",
@@ -551,7 +595,7 @@ if(isset($_POST['playsong']))
 							$("#newarrival").html(res);
 						}	
 					});
-				};
+				}
 				function playsong(){
 
 				}
@@ -670,30 +714,40 @@ if(isset($_POST['playsong']))
 						music.pause();
 					}
 				});
-			});
-			
-		</script>
-		<script>
-			let slideIndex = 0;
-			showSlides();
-
-			function showSlides() {
-				let i;
-				let slides = document.getElementsByClassName("mySlides");
-				let dots = document.getElementsByClassName("dot");
-				for (i = 0; i < slides.length; i++) {
-					slides[i].style.display = "none";  
+				function homepage(){
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							homemenu : 1
+						},
+						success : function(res){
+							$("#isi").html(res);
+							// showSlides();
+						}
+					});
 				}
-				slideIndex++;
-				if (slideIndex > slides.length) {slideIndex = 1}    
-					for (i = 0; i < dots.length; i++) {
-						dots[i].className = dots[i].className.replace(" active", "");
+			</script>
+			<script>
+				function showSlides() {
+					let slideIndex = 0;
+					let i;
+					let slides = document.getElementsByClassName("mySlides");
+					let dots = document.getElementsByClassName("dot");
+					for (i = 0; i < slides.length; i++) {
+						slides[i].style.display = "none";  
 					}
-					slides[slideIndex-1].style.display = "block";  
-					dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 4000); // Change image every 2 seconds
-}
-</script>
-</div>
+					slideIndex++;
+					if (slideIndex > slides.length) {slideIndex = 1}    
+						for (i = 0; i < dots.length; i++) {
+							dots[i].className = dots[i].className.replace(" slider-active", "");
+						}
+						// slides[slideIndex-1].style.display = "block";  
+						// dots[slideIndex-1].className += " slider-active";
+  					setTimeout(showSlides, 4000);
+					}
+			</script>
+		</div>
 </body>
 </html>
