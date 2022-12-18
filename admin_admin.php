@@ -7,7 +7,10 @@ if (isset($_POST['showdata'])){
 	while($row=mysqli_fetch_array($result)){
 		echo '
 		<tr>
-			<td>'.$row['username'].'</td>
+			<td>'.$row['name'].'</td>
+			<td>'.$row['email'].'</td>
+			<td>'.$row['code'].'</td>
+			<td>'.$row['status'].'</td>
             <td>
                 <button type="button" ide="'.$row['ID'].'" class="btn btn-success" name="edit">Edit</button>
                 <button type="button" idd="'.$row['ID'].'" class="btn btn-danger" name="delete">Delete</button>
@@ -17,8 +20,11 @@ if (isset($_POST['showdata'])){
 	exit();
 }
 if (isset($_POST['insert'])){
-    $un = $_POST['un'];
-	$sql="insert into admin values(NULL, '$un', '12345678'";
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $code = $_POST['code'];
+    $status = $_POST['status'];
+	$sql="insert into admin values(NULL, '$name', '$email', '12345678', $code, '$status')";
 	$result=mysqli_query($con,$sql);
 	exit();
 }
@@ -31,8 +37,10 @@ if (isset($_POST['edit'])){
 	exit();
 }
 if(isset($_POST['update'])){
-    $un = $_POST['un'];
-    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $code = $_POST['code'];
+    $status = $_POST['status'];
     $sql="update admin set username='$un' where ID=$id";
 	$result=mysqli_query($con,$sql);
 }
@@ -49,10 +57,13 @@ if(isset($_POST['search'])){
 	while($row=mysqli_fetch_array($result)){
 		echo '
 		<tr>
-			<td>'.$row['username'].'</td>
+			<td>'.$row['name'].'</td>
+			<td>'.$row['email'].'</td>
+			<td>'.$row['code'].'</td>
+			<td>'.$row['status'].'</td>
             <td>
-                <button type="button" ide="'.$row['username'].'" class="btn btn-success" name="edit">Edit</button>
-                <button type="button" idd="'.$row['username'].'" class="btn btn-danger" name="delete">Delete</button>
+                <button type="button" ide="'.$row['ID'].'" class="btn btn-success" name="edit">Edit</button>
+                <button type="button" idd="'.$row['ID'].'" class="btn btn-danger" name="delete">Delete</button>
             </td>
 		</tr>';
 	}
@@ -354,8 +365,20 @@ if(isset($_POST['search'])){
 					<label id="id" class="form-label" style="color:white;"></label>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" style="color:white;">Username</label>
-                    <input type="text" class="form-control" id="username">
+                    <label class="form-label" style="color:white;">Name</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="color:white;">Email</label>
+                    <input type="text" class="form-control" id="email">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="color:white;">Code</label>
+                    <input type="text" class="form-control" id="code">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="color:white;">Status</label>
+                    <textarea class="form-control" id="status" rows="1"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="button" id="insert" class="btn btn-primary">Insert</button>
@@ -366,7 +389,10 @@ if(isset($_POST['search'])){
 			<table class="table" style="color: white;">
 			  <thead>
 			    <tr>
-			      <th scope="col">Username</th>
+			      <th scope="col">Name</th>
+			      <th scope="col">Email</th>
+			      <th scope="col">Code</th>
+			      <th scope="col">Status</th>
 			      <th scope="col">Action</th>
 			    </tr>
 			  </thead>
@@ -381,7 +407,10 @@ if(isset($_POST['search'])){
 			showdata();
 
 			$('#insert').click(function(){
-				var un_in = $('#username').val();
+				var name_in = $('#name').val();
+				var email_in = $('#email').val();
+				var code_in = $('#code').val();
+				var status_in = $('#status').val();
 
 				$.ajax({
 					url : "admin_admin.php",
@@ -389,7 +418,10 @@ if(isset($_POST['search'])){
 					async : true,
 					data : {
 						insert : 1,
-						un : un_in
+						name : name_in,
+						email : email_in,
+						code : code_in,
+						status : status_in
 					},
 					success : function(result){
 						alert("Success Insert");
@@ -405,12 +437,15 @@ if(isset($_POST['search'])){
 					type : "POST",
 					data : {
 						edit : 1,
-						id_in : id
+						id : id_in
 					},
 					success : function(result){
 						myObj=$.parseJSON(result);
 						$('#id').text('ID:' + myObj.ID);
-						$('#username').val(myObj.username);
+						$('#name').val(myObj.name);
+						$('#email').val(myObj.email);
+						$('#code').val(myObj.code);
+						$('#status').val(myObj.status);
 					}
 				});
 			});
