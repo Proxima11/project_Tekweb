@@ -1,6 +1,10 @@
 <?php
 require "connection.php";
 session_start();
+if (!isset ($_SESSION["id"])){
+	header("location: login-admin.php");
+}
+
 if (isset($_POST['update'])){
 	$id=$_SESSION['id'];
 	$password=$_POST['password'];
@@ -249,85 +253,82 @@ if (isset($_POST['update'])){
 			pointer-events: none;
 		}*/
 	</style>
-	<script>
-		$(document).ready(function(){
-			showdata();
-
-            $("#update").click(function(){
-				pass_in = $('#id').text();
-
-				$.ajax({
-					url : "admin_lagu.php",
-					type : "POST",
-					async : true,
-					data : {
-						update : 1,
-						password: pass_in,
-					},
-					success : function(result){
-						alert("Success Update");
-					}
-				});
-			});
-		});
-
-			</script>
-		</head>
-		<body>
-			<div class="wrapper">
-				<div class="sidebar">
-					<ul class="menu">
-						<header>Music Player</header>
-						<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
-						<li><a href="admin_lagu.php"><i class="fa-solid fa-music"></i>Lagu</a></li>
-						<li><a href="admin_penyanyi.php"><i class="fa-solid fa-microphone-lines"></i>Penyanyi</a></li>
-						<li><a href="admin_category.php"><i class="fa-solid fa-puzzle-piece"></i>Category</a></li>
-						<li><a href="admin_admin.php"><i class="fa-solid fa-key"></i>Admin</a></li>
-						<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-						<!-- <li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li> -->
+</head>
+<body>
+	<div class="wrapper">
+		<div class="sidebar">
+			<ul class="menu">
+				<header>Music Player</header>
+				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
+				<li><a href="admin_lagu.php"><i class="fa-solid fa-music"></i>Lagu</a></li>
+				<li><a href="admin_penyanyi.php"><i class="fa-solid fa-microphone-lines"></i>Penyanyi</a></li>
+				<li><a href="admin_category.php"><i class="fa-solid fa-puzzle-piece"></i>Category</a></li>
+				<li><a href="admin_admin.php"><i class="fa-solid fa-key"></i>Admin</a></li>
+				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
+				<!-- <li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li> -->
+			</ul>
+		</div>
+		<section class="view">
+			<!-- bar atas -->
+			<div class="top_bar">
+				<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
+					Ubah Password <?php echo $_SESSION['id'].' tes '.$_SESSION['password'] ?>
+				</div>
+				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
+					<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
+				</div>
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false"  style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:20px;">
+						<i class="fa-solid fa-gear"></i>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
+						<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
+						<li><a href="admin-change-password.php"><button class="dropdown-item" type="button" style="color:white;">Change Password</button></a></li>
+						<li><a href="logout-admin.php"><button class="dropdown-item" type="button" style="color:white;">Logout</button></a></li>
 					</ul>
 				</div>
-				<section class="view">
-					<!-- bar atas -->
-					<div class="top_bar">
-						<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
-							Ubah Password
-						</div>
-						<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
-							<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
-						</div>
-						<div class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle" type="button" id="user_menu" data-bs-toggle="dropdown" aria-expanded="false"  style="float: right; margin-top: 15px; margin-bottom: 15px; margin-right:20px;">
-								<i class="fa-solid fa-gear"></i>
-							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-								<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
-								<li><a href="admin-change-password.php"><button class="dropdown-item" type="button" style="color:white;">Change Password</button></a></li>
-								<li><a href="logout-admin.php"><button class="dropdown-item" type="button" style="color:white;">Logout</button></a></li>
-							</ul>
-						</div>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">Edit Profile</a>
-							<a class="dropdown-item" href="#">Logout</a>
-						</div>
-						<div style=" float: right;">
-							<form class="d-flex" role="search">
-								<input class="form-control me-2" type="search" id="search_query" placeholder="Search" aria-label="Search">
-								<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
-							</form>
-						</div>
-					</div>
-					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Ubah Password</h3>
-					<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-                        <div class="mb-3">
-                            <label class="form-label" style="color:white;">Password Baru</label>
-                            <input type="password" class="form-control" id="password">
-                        <div class="form-group">
-                            <button type="button" id="update" class="btn btn-success">Update</button>
-                        </div>
-					</div>
-				</section>
-				<!--  -->
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#">Edit Profile</a>
+					<a class="dropdown-item" href="#">Logout</a>
+				</div>
+				<div style=" float: right;">
+					<form class="d-flex" role="search">
+						<input class="form-control me-2" type="search" id="search_query" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</form>
+				</div>
 			</div>
-		</body>
-		</html>
+			<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Ubah Password</h3>
+			<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+                <div class="mb-3">
+                    <label class="form-label" style="color:white;">Password Baru</label>
+                    <input type="password" class="form-control" id="password">
+                <div class="form-group">
+                    <button type="button" id="update" class="btn btn-success">Update</button>
+                </div>
+			</div>
+		</section>
+		<!--  -->
+		<script>
+			$(document).ready(function(){
+	            $('#update').click(function(){
+					var password_in = $('#password').val();
+
+	                $.ajax({
+						url : "admin_change_password.php",
+						type : "POST",
+						data : {
+							update : 1,
+	                        password : password_in
+						},
+						success : function(result){
+							alert("Success Update");
+						}
+					});
+           		});
+	        });
+	
+		</script>
+	</div>
+</body>
+</html>

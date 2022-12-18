@@ -1,5 +1,9 @@
 <?php
+session_start();
 require "connection.php";
+if (!isset ($_SESSION["id"])){
+	header("location: login-admin.php");
+}
 
 if(isset($_POST['showdata'])){
 	$sql="select * from penyanyi";
@@ -406,7 +410,7 @@ if(isset($_POST['search'])){
                         success	: function(result)
                         { 
                             alert("Searching...");
-                            $('#showtable').html(result);
+                            $('#searchtable').html(result);
                         }
                     });
                 }
@@ -416,15 +420,15 @@ if(isset($_POST['search'])){
 
 		function showdata(){
 			$.ajax({
-					url	  : "admin_penyanyi.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						showdata : 1
-					},
-					success : function(res){
-						$('#showtable').html(res);
-					}
+				url	  : "admin_penyanyi.php",
+				type  : "POST",
+				async : true,
+				data  : {
+					showdata : 1
+				},
+				success : function(res){
+					$('#showtable').html(res);
+				}
             });
 		}
 
@@ -459,7 +463,7 @@ if(isset($_POST['search'])){
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
 								<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
-								<li><a href="admin-change-password.php"><button class="dropdown-item" type="button" style="color:white;">Change Password</button></a></li>
+								<li><a href="admin_change_password.php"><button class="dropdown-item" type="button" style="color:white;">Change Password</button></a></li>
 								<li><a href="logout-admin.php"><button class="dropdown-item" type="button" style="color:white;">Logout</button></a></li>
 							</ul>
 						</div>
@@ -502,6 +506,19 @@ if(isset($_POST['search'])){
 					    </tr>
 					  </thead>
 					  <tbody id="showtable">
+					  </tbody>
+					</table>
+
+					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Hasil Search Query</h3>
+					<table class="table" style="color: white;">
+					  <thead>
+					    <tr>
+					      <th scope="col">Nama</th>
+					      <th scope="col">Gambar</th>
+					      <th scope="col">Action</th>
+					    </tr>
+					  </thead>
+					  <tbody id="searchtable">
 					  </tbody>
 					</table>
 				</section>

@@ -2,15 +2,15 @@
 <?php
 session_start();
 require 'connection.php';
-if(isset($_POST['save'])){
-    $username=$_POST['username'];
+if(isset($_POST['login'])){
+    $email=$_POST['email'];
     $password=$_POST['password'];
-    $sql=mysqli_query($con, "SELECT * FROM admin WHERE username='$username' and password='$password'");
+    $sql=mysqli_query($con, "SELECT * FROM admin WHERE email='$email' and password='$password'");
     $row=mysqli_fetch_array($sql);
 
     if(is_array($row)){
         $_SESSION["id"] = $row['ID'];
-        $_SESSION["username"] = $row['username'];
+        $_SESSION["email"] = $row['email'];
         $_SESSION["password"] = $row['password'];
         header("Location: admin_lagu.php");
     }
@@ -95,7 +95,7 @@ if(isset($_POST['save'])){
                     <h2 class="text-center">Login</h2>
                     <p class="text-center">Login with your username and password.</p>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="username" placeholder="Username">
+                        <input class="form-control" type="email" name="email" placeholder="Email Address">
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="password" name="password" placeholder="Password" required>
