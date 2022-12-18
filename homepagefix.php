@@ -319,16 +319,19 @@ if(isset($_POST['showartist'])){
 if(isset($_POST['playsongplaylist']))
 {
     $id=$_POST['songid'];
+    $next=$_POST['next'];
+    $prev=$_POST['prev'];
+    $play_id=$_POST['pid'];
     $sql="select * from audios where ID like '%$id%'";
     $result=mysqli_query($con,$sql);
     $row=mysqli_fetch_array($result);
-    echo "<button class='btn btn-empty border-0'>
+    echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$prev."' playlistid='".$play_id."'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
     </button>
-    <button class='btn btn-empty border-0' id='playbarplaybutton'>
+    <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$play_id."'>
     <i class='fa-solid fa-play' style='color:white'></i>
     </button>
-    <button class='btn btn-empty border-0'>
+    <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$next."' playlistid='".$play_id."'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
     echo '<audio id="playingsong" autoplay="true" style="display:none;">
@@ -410,7 +413,7 @@ if(isset($_POST['showplaylist'])){
 								<div class='card mb-3 ml-5 mu-5' style='height:70px; width:70px; margin-left:30px;'>
 									<img class='card-img' src='".$row2['gambar']."' style='height:70px; width:70px;'>
 									<div class='details' style='height:70px; width:70px;'>
-										<button type='button' class='btn btn-secondary btn-lg mb-2' id='playplaylist' songID='".$row2['ID']."' next='".$id[$next]."' prev='".$id[$previous]."'><i class='fa-solid fa-play'></i></button>		
+										<button type='button' class='btn btn-secondary btn-lg mb-2' id='playplaylist' songID='".$row2['ID']."' next='".$id[$next]."' prev='".$id[$previous]."' playlistid='".$row[0]."'><i class='fa-solid fa-play'></i></button>		
 									</div>
 								</div>
 							</div>
@@ -925,7 +928,10 @@ if(isset($_POST['showartistsong']))
 		<script>
 			$(document).ready(function(){
 				var playlist = [];
-				// homepage();
+				var next = "";
+				var previous = "";
+				var ply_id = "";
+				// homepage();/=
 				showsongs();
 				popularsongs();
 				showSlides();
@@ -1159,6 +1165,16 @@ if(isset($_POST['showartistsong']))
 					music.pause();
 				}
 			});
+
+			$("#playbarcenter").delegate('#playbarrewindbutton', 'click', function(){
+				var v_prev = $(this).attr('prev');
+				var v_pid = $(this).attr('playlistid');
+			});
+
+			$("#playbarcenter").delegate('#playbarforwardbutton', 'click', function(){
+				var v_prev = $(this).attr('prev');
+				var v_pid = $(this).attr('playlistid');
+			});
 			let slideIndex = 0;
 			function showSlides() {
 				let i;
@@ -1303,13 +1319,20 @@ if(isset($_POST['showartistsong']))
 
             $("#playlistaccordion").delegate('#playplaylist', 'click', function(){
                 var v_songid=$(this).attr('songID');
+                var v_next=$(this).attr('next');
+                var v_prev=$(this).attr('prev');
+                var v_pid=$(this).attr('playlistid');
+                alert(v_next);
                 $.ajax({
                     url      : "homepagefix.php",
                     type  : "POST",
                     async : true,
                     data  : {
                         playsongplaylist : 1,
-                        songid    : v_songid
+                        songid    : v_songid,
+                        next 	  : v_next,
+                        prev      : v_prev,
+                        pid       : v_pid
                     },
                     success : function(res){
                         $("#playbarcenter").html(res);
