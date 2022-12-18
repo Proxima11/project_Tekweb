@@ -400,7 +400,7 @@ if(isset($_POST['showcategoryextend'])){
 			<div class='card mb-3 ml-5 mu-5' style='width:95%;'>
 			<img class='card-img' src=".$row['gambar'].">
 			<div class='details'>
-			<button type='button' id=categorysong' class='btn btn-lg mb-2' category_nama='".$row['nama']."' data-bs-toggle='modal' data-bs-target='#viewsongcategory' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
+			<button type='button' id='categorysong' class='btn btn-lg mb-2' category_nama='".$row['nama']."' data-bs-toggle='modal' data-bs-target='#viewsongcategory' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
 			<div class='row'>
 			<div style='max-height: 0px; color:white;'>
 			".$row['nama']."
