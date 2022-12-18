@@ -285,7 +285,7 @@ if(isset($_POST['addnewplaylist']))
 		$playlist_id+=1;
 	}
 
-	$sql="INSERT INTO playlist1 values('$playlist_id','custom','$playlist',30)";
+	$sql="INSERT INTO playlist1 values('$playlist_id','$name','$playlist',30)";
 	$result=mysqli_query($con,$sql);
 	
 	exit();
@@ -562,31 +562,31 @@ if(isset($_POST['backwardplay'])){
 	$index=0;
 	foreach ($array as $key => $value) {
     	for($i=0;$i<count($id);$i++){
-    		if($id[$i] == $pid){
+    		if($id[$i] == $prev){
     			$index=$i;
     			break;
     		}
     	}
     }
-    $previous=$index-1;
-    $next=$index+1;
-    if ($previous < 0){
-    	$previous=count($id)-1;
+    $prev_index=$index-1;
+    $next_index=$index+1;
+    if ($prev_index < 0){
+    	$prev_index=count($id)-1;
     }
-    if ($next >= count($id)){
-    	$next=0;
+    if ($next_index >= count($id)){
+    	$next_index=0;
     }
     $sql="select * from audios where ID like '%$prev%'";
     $result=mysqli_query($con, $sql);
     $row=mysqli_fetch_array($result);
 
-    echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$previous]."' playlistid='".$pid."' onclick='stopaudio()'>
+    echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$prev_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
     </button>
     <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$pid."'>
     <i class='fa-solid fa-play' style='color:white'></i>
     </button>
-    <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next]."' playlistid='".$pid."' onclick='stopaudio()'>
+    <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
     echo '<audio id="playingsong" autoplay="true" style="display:none;">
@@ -609,31 +609,31 @@ if(isset($_POST['forwardplay'])){
 	$index=0;
 	foreach ($array as $key => $value) {
     	for($i=0;$i<count($id);$i++){
-    		if($id[$i] == $pid){
+    		if($id[$i] == $next){
     			$index=$i;
     			break;
     		}
     	}
     }
-    $previous=$index-1;
-    $next=$index+1;
-    if ($previous < 0){
-    	$previous=count($id)-1;
+    $prev_index=$index-1;
+    $next_index=$index+1;
+    if ($prev_index < 0){
+    	$prev_index=count($id)-1;
     }
-    if ($next >= count($id)){
-    	$next=0;
+    if ($next_index >= count($id)){
+    	$next_index=0;
     }
     $sql="select * from audios where ID like '%$next%'";
     $result=mysqli_query($con, $sql);
     $row=mysqli_fetch_array($result);
 
-    echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$previous]."' playlistid='".$pid."' onclick='stopaudio()'>
+    echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$prev_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
     </button>
     <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$pid."'>
     <i class='fa-solid fa-play' style='color:white'></i>
     </button>
-    <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next]."' playlistid='".$pid."' onclick='stopaudio()'>
+    <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
     echo '<audio id="playingsong" autoplay="true" style="display:none;">
