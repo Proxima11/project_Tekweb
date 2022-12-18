@@ -344,7 +344,6 @@ if(isset($_POST['showartistextend'])){
 		body{
 			font-family: 'Roboto', sans-serif;
 			height: 1000px;
-			min-width: 500px;
 		}
 		* {
 			scrollbar-width: auto;
@@ -609,12 +608,6 @@ if(isset($_POST['showartistextend'])){
 			position: fixed;
 			bottom: 0;
 			width: 100%;
-		}
-
-		@media screen and (max-width: 30%) {
-			section .top_bar .d-flex input{
-				width: 30%;
-			}
 		}
 
 		#garis {
