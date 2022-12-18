@@ -1328,7 +1328,6 @@ if(isset($_POST['showcategorysong']))
 						}
 					}
 					playlist = songarray;
-					alert(playlist);
 				}
 
 				function addplaylisttodatabase(){
