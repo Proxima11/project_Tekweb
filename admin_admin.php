@@ -381,7 +381,7 @@ if(isset($_POST['search'])){
 			showdata();
 
 			$('#insert').click(function(){
-				un_in = $('#username').val();
+				var un_in = $('#username').val();
 
 				$.ajax({
 					url : "admin_admin.php",

@@ -26,7 +26,7 @@ if (isset($_POST['insert'])){
     $gambar = $_POST['gambar'];
     $penyanyi = $_POST['penyanyi'];
     $category = $_POST['category'];
-	$sql="insert into audios values(NULL, '$nama', '$url', '$gambar', '$penyanyi', SYSDATE, 0, '$category')";
+	$sql="insert into audios values(NULL, '$nama', '$url', '$gambar', '$penyanyi', SYSDATE(), 0, '$category')";
 	$result=mysqli_query($con,$sql);
 	exit();
 }
@@ -320,11 +320,11 @@ if(isset($_POST['search'])){
 			showdata();
 
             $('#insert').click(function(){
-                nama_in = $('#nama').val();
-                url_in = $('#url').val();
-                gambar_in = $('#gambar').val();
-                penyanyi_in = $('#penyanyi').val();
-                category_in = $('#category').val();
+                var nama_in = $('#nama').val();
+                var url_in = $('#url').val();
+                var gambar_in = $('#gambar').val();
+                var penyanyi_in = $('#penyanyi').val();
+                var category_in = $('#category').val();
 
                 $.ajax({
 					url	  : "admin_lagu.php",
@@ -340,6 +340,7 @@ if(isset($_POST['search'])){
 					},
 					success : function(res){
 						alert('Success Insert');
+						showdata();
 					}
                 });
             });

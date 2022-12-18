@@ -308,8 +308,8 @@ if(isset($_POST['search'])){
 			showdata();
 
             $('#insert').click(function(){
-                nama_in = $('#nama').val();
-                gambar_in = $('#gambar').val();
+                var nama_in = $('#nama').val();
+                var gambar_in = $('#gambar').val();
 
                 $.ajax({
 					url	  : "admin_penyanyi.php",
@@ -322,6 +322,7 @@ if(isset($_POST['search'])){
 					},
 					success : function(res){
 						alert('Success Insert');
+						showdata();
 					}
                 });
             });
