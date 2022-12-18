@@ -335,29 +335,31 @@ if(isset($_POST['showplaylist'])){
 	$result=mysqli_query($con,$sql);
 	$counter=0;
 	while($row=mysqli_fetch_array($result)){
-		// $song_id=$row[1];
-		// $array=unserialize($song_id, array());
-		// var_dump($array);
-		// echo "<div></div>";
-
 		$count = 0;
 		$song_id=$row[1];
 		$array=unserialize($song_id);
 		$id = $array['playlist'];
-		echo count($id);
-		// foreach ($array as $key => $value) {
-		// 	for ($i=0; $i<2; $i++){
-		// 		echo "$value[$i]";
-		// 	};
-		// }
-		// $store = "";
-		// foreach ($song_id as $id => $value) {
-		// 	$store += `
-		// 	<div>`+$song_id[$counter]+`</div>`;
-		// 	$counter += 1;
-		// }
-		// echo "$store";
-		
+
+		echo "
+		<div class='accordion-item'>
+			<h2 class='accordion-header' id='heading".$counter."'>
+				<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."'>
+					".$row[0]."
+				</button>
+			</h2>";
+		foreach ($array as $key => $value) {
+			for ($i=0; $i<count($id); $i++){
+				echo "
+					<div id='collapse'".$counter."' class='accordion-collapse collapse show' aria-labelledby='heading".$counter."' data-bs-parent='#playlistaccordion'>
+						<div class='accordion-body'>
+							".$value[$i]."
+						</div>
+					</div>";
+		$counter+=1;
+			}
+		}
+
+		echo "</div>";
 	}
 	exit();
 }
@@ -765,7 +767,10 @@ if(isset($_POST['showplaylist'])){
 			<div id="garis"></div><br>
 			<div id="playlistbar">
 				<h2 class="mt-3"style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Playlist</h2><br>
-				<div id="playlist" style="color: white;"></div>
+				<div id="playlist" style="color: white;">
+					<div class="accordion" id="playlistaccordion" style="width: 1000px;">
+					</div>
+				</div>
 			</div><br><br><br><br><br><br><br><br><br>
 			<!-- <div class="slideshow-container mb-3 mt-5">
 
@@ -1078,7 +1083,7 @@ if(isset($_POST['showplaylist'])){
 						showplaylist : 1
 					},
 					success : function(res){
-						$("#playlist").html(res);
+						$("#playlistaccordion").html(res);
 					}	
 				});
 				}
