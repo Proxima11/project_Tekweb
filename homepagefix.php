@@ -140,10 +140,10 @@ if(isset($_POST['playsong']))
 	$row=mysqli_fetch_array($result);
 	echo "<button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-backward-step' style='color:grey'></i>
-	</button>
-	<button class='btn btn-empty border-0' id='playbarplaybutton'>
-	<i class='fa-solid fa-play' style='color:white'></i>
-	</button>
+	<div id='playbarplaybutton' style='display:inline-block;'>
+    <button class='btn btn-empty border-0' >
+    <i class='fa-solid fa-play' style='color:white'></i>
+    </button></div>
 	<button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-forward-step' style='color:grey'></i>
 	</button>";
@@ -327,10 +327,10 @@ if(isset($_POST['playsongplaylist']))
     $row=mysqli_fetch_array($result);
     echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$prev."' playlistid='".$play_id."'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
-    </button>
-    <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$play_id."'>
+   <div id='playbarplaybutton' playlistid='".$play_id."' style='display:inline-block;'>
+    <button class='btn btn-empty border-0' >
     <i class='fa-solid fa-play' style='color:white'></i>
-    </button>
+    </button></div>
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$next."' playlistid='".$play_id."'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
@@ -583,9 +583,10 @@ if(isset($_POST['backwardplay'])){
     echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$prev_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
     </button>
-    <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$pid."'>
+    <div id='playbarplaybutton' playlistid='".$pid."' style='display:inline-block;'>
+    <button class='btn btn-empty border-0' >
     <i class='fa-solid fa-play' style='color:white'></i>
-    </button>
+    </button></div>
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
@@ -629,10 +630,10 @@ if(isset($_POST['forwardplay'])){
 
     echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$prev_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
-    </button>
-    <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$pid."'>
+    </button><div id='playbarplaybutton' playlistid='".$pid."' style='display:inline-block;'>
+    <button class='btn btn-empty border-0' >
     <i class='fa-solid fa-play' style='color:white'></i>
-    </button>
+    </button></div>
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
