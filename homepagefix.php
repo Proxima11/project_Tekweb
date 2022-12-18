@@ -340,26 +340,43 @@ if(isset($_POST['showplaylist'])){
 		$array=unserialize($song_id);
 		$id = $array['playlist'];
 
-		echo "
+		echo "  
 		<div class='accordion-item'>
-			<h2 class='accordion-header' id='heading".$counter."'>
-				<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."'>
-					".$row[0]."
-				</button>
-			</h2>";
-		foreach ($array as $key => $value) {
-			for ($i=0; $i<count($id); $i++){
-				echo "
-					<div id='collapse'".$counter."' class='accordion-collapse collapse show' aria-labelledby='heading".$counter."' data-bs-parent='#playlistaccordion'>
-						<div class='accordion-body'>
-							".$value[$i]."
-						</div>
-					</div>";
-		$counter+=1;
-			}
-		}
+    		<h2 class='accordion-header' id='heading".$counter."'>
+      			<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."' style='color:white; background-color:grey;'>
+        		".$row[0]."
+      			</button>
+    		</h2>";
 
-		echo "</div>";
+
+    	foreach ($array as $key => $value) {
+    		for($i=0;$i<count($id);$i++){
+    			$curid=$value[$i];
+				$sql2="select * from audios where ID like '%$curid%'";
+				$result2=mysqli_query($con,$sql2);
+				while($row2=mysqli_fetch_array($result2)){
+    			echo"
+    			<div id='collapse".$counter."' class='accordion-collapse collapse show' aria-labelledby='heading".$counter."' data-bs-parent='#accordionExample' >
+      				<div class='accordion-body'>
+      					<div class='row' id='choosesong' style='padding-left: 20px;''>
+							<div class='col-sm-2' id='playlistsongicon'>
+								<img src='".$row2['gambar']."' style='height: 50px; width: 50px'>
+							</div>
+							<div class='col-sm-8' style='float: left; color:grey; margin-left:20px'>
+								<h7>".$row2['nama']."</h7><br>
+								<h9>".$row2['penyanyi']."</h9>
+							</div>
+							<div class='col-sm-2' id='action'>
+								
+							</div>
+						</div>
+      				</div>
+    			</div>";
+    			}
+    		}		
+    	}	
+  		echo "</div>";
+		$counter+=1;
 	}
 	exit();
 }
@@ -766,9 +783,9 @@ if(isset($_POST['showplaylist'])){
 			</div>
 			<div id="garis"></div><br>
 			<div id="playlistbar">
-				<h2 class="mt-3"style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Playlist</h2><br>
+				<h2 class="mt-3"style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Playlist</h2><br><br><br>
 				<div id="playlist" style="color: white;">
-					<div class="accordion" id="playlistaccordion" style="width: 1000px;">
+					<div class="accordion" id="playlistaccordion" style="width: 1200px; margin-left: 65px;">
 					</div>
 				</div>
 			</div><br><br><br><br><br><br><br><br><br>
