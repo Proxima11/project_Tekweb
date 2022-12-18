@@ -37,11 +37,12 @@ if (isset($_POST['edit'])){
 	exit();
 }
 if(isset($_POST['update'])){
+	$id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
     $code = $_POST['code'];
     $status = $_POST['status'];
-    $sql="update admin set username='$un' where ID=$id";
+    $sql="update admin set name='$name', email='$email', code='$code', status='$status' where ID=$id";
 	$result=mysqli_query($con,$sql);
 }
 if(isset($_POST['delete'])){
@@ -362,7 +363,7 @@ if(isset($_POST['search'])){
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Data Admin</h3>
 			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 				<div class="mb-3">
-					<label id="id" class="form-label" style="color:white;"></label>
+					<label class="form-label" style="color:white;">ID: <span id="id"></span></label>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" style="color:white;">Name</label>
@@ -441,7 +442,7 @@ if(isset($_POST['search'])){
 					},
 					success : function(result){
 						myObj=$.parseJSON(result);
-						$('#id').text('ID:' + myObj.ID);
+						$('#id').text(myObj.ID);
 						$('#name').val(myObj.name);
 						$('#email').val(myObj.email);
 						$('#code').val(myObj.code);
@@ -451,8 +452,11 @@ if(isset($_POST['search'])){
 			});
 
             $('#update').click(function(){
-                id_in = $('#id').text();
-                un_in = $('#username').val();
+            	var id_in = $('#id').text();
+                var name_in = $('#name').val();
+				var email_in = $('#email').val();
+				var code_in = $('#code').val();
+				var status_in = $('#status').val();
 
                 $.ajax({
 					url : "admin_admin.php",
@@ -460,7 +464,10 @@ if(isset($_POST['search'])){
 					data : {
 						update : 1,
                         id : id_in,
-                        un : un_in
+                        name : name_in,
+						email : email_in,
+						code : code_in,
+						status : status_in
 					},
 					success : function(result){
 						alert("Success Update");

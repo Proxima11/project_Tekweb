@@ -41,11 +41,11 @@ if (isset($_POST['edit'])){
 if (isset($_POST['update'])){
 	$id=$_POST['id'];
 	$nama=$_POST['nama'];
-	$audio_url=$_POST['audio_url'];
+	$url=$_POST['url'];
 	$gambar=$_POST['gambar'];
 	$penyanyi=$_POST['penyanyi'];
 	$category=$_POST['category'];
-	$sql="update audios set nama='$nama', audio_url='$audio_url', gambar='$gambar', penyanyi='$penyanyi', category='$category' where ID=$id";
+	$sql="update audios set nama='$nama', audio_url='$url', gambar='$gambar', penyanyi='$penyanyi', category='$category' where ID=$id";
 	$result=mysqli_query($con,$sql);
 	exit();
 }
@@ -357,7 +357,7 @@ if(isset($_POST['search'])){
 					},
 					success : function(result){
 						myObj=$.parseJSON(result);
-						$('#id').html('ID: ' + myObj.ID);
+						$('#id').html(myObj.ID);
 						$('#nama').val(myObj.nama);
 						$('#url').val(myObj.audio_url);
 						$('#gambar').val(myObj.gambar);
@@ -370,7 +370,7 @@ if(isset($_POST['search'])){
             $("#update").click(function(){
 				id_in = $('#id').text();
 				nama_in =$('#nama').val();
-				url_in =$('#url_in').val();
+				url_in =$('#url').val();
 				gambar_in=$('#gambar').val();
 				penyanyi_in=$("#penyanyi").val();
 				category_in=$("#category").val();
@@ -504,7 +504,7 @@ if(isset($_POST['search'])){
 					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Ubah Database Audio</h3>
 					<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 						<div class="mb-3">
-                            <label id="id" class="form-label" style="color:white;"></label>
+                            <label class="form-label" style="color:white;">ID: <span id="id"></span></label>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color:white;">Nama</label>

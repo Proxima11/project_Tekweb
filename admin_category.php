@@ -322,6 +322,7 @@ if(isset($_POST['search'])){
 					},
 					success : function(res){
 						alert('Success Insert');
+						showdata();
 					}
                 });
             });
@@ -338,7 +339,7 @@ if(isset($_POST['search'])){
 					},
 					success : function(result){
 						myObj=$.parseJSON(result);
-						$('#id').html('ID: ' + myObj.ID);
+						$('#id').text(myObj.id);
 						$('#nama').val(myObj.nama);
 						$('#gambar').val(myObj.gambar);
 					}
@@ -361,7 +362,7 @@ if(isset($_POST['search'])){
 					},
 					success : function(result){
 						alert("Success Update");
-						$('#id').html('');
+						$('#id').text('');
 						showdata();
 					}
 				});
@@ -476,7 +477,7 @@ if(isset($_POST['search'])){
 					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Ubah Database Kategori</h3>
 					<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
 						<div class="mb-3">
-                            <label id="id" class="form-label" style="color:white;"></label>
+                            <label class="form-label" style="color:white;">ID: <span id="id"></span></label>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color:white;">Nama</label>
