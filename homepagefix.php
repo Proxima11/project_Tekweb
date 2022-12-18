@@ -242,6 +242,39 @@ if(isset($_POST['search'])){
 	}
 	exit();
 }
+
+if(isset($_POST['shownewplaylistoption']))
+{
+	$sql="select * from audios";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result)){
+		echo "
+		<div class='container' style='background-color: grey; padding-top:5px; padding-bottom:5px; margin-top:10px;'>
+		<div class='row' id='choosesong' style='padding-left: 20px;''>
+			<div class='col-sm-2' id='playlistsongicon'>
+				<img src='".$row['gambar']."' style='height: 50px; width: 50px'>
+			</div>
+			<div class='col-sm-8' style='float: left; color:whitesmoke;''>
+				<h7 id='choicetitle'>".$row['nama']."</h7><br>
+				<h9 id='choicesinger'>".$row['penyanyi']."</h9>
+			</div>
+			<div class='col-sm-2' style='margin-top: 15px;'>
+				<input type='checkbox' name='songcheckbox' style='float: right; margin-right: 30px;' value='".$row[0]."' onclick='addsongtoplaylist();'>
+			</div>
+		</div>
+		</div>";
+	}
+	exit();
+}
+
+if(isset($_POST['addnewplaylist']))
+{
+	$playlist=$_POST['playlist'];
+	$sql="INSERT INTO playlist values('1','$playlist')";
+	$result=mysqli_query($con,$sql);
+	
+	exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -546,7 +579,7 @@ if(isset($_POST['search'])){
 			color: white;
 		}
 		.modal-body{
-			background-color: grey;
+			background-color: #202020;
 		}
 		.modal-footer{
 			background-color: #202020;
@@ -683,10 +716,12 @@ if(isset($_POST['search'])){
 		<!--  -->
 		<script>
 			$(document).ready(function(){
+				var playlist = [];
 				// homepage();
 				showsongs();
 				popularsongs();
 				showSlides();
+				addnewplaylist();
 				$("#search").click(function(){
 					search_query_in = $('#search_query').val();
 
@@ -870,6 +905,50 @@ if(isset($_POST['search'])){
 						}
 					});
 				}
+				function addnewplaylist(){
+					$.ajax({
+						url		: "homepagefix.php",
+						type	: "POST",
+						async	: true,
+						data	: {
+							shownewplaylistoption : 1
+						},
+						success : function(res){
+							$(".modal-body").html(res);
+						}
+
+					});
+				}
+				function addsongtoplaylist(){
+					var checkboxes = document.getElementsByName("songcheckbox");
+					var songarray = []
+
+					for (var i=0; i<checkboxes.length; i++){
+						if (checkboxes[i].checked){
+							songarray.push(checkboxes[i].value);
+						}
+					}
+					playlist = songarray;
+					alert(playlist);
+				}
+
+				function addplaylisttodatabase(){
+					var v_playlist = playlist;
+					var v_empty = "";
+					$.ajax({
+						url		: "homepagefix.php",
+						type	: "POST",
+						async	: true,
+						data	: {
+							addplaylist : 1,
+							playlist : {playlist: $(v_playlist).serializeArray()}
+						},
+						success : function(res){
+							alert("Playlist added");
+							playlist = [];
+						}
+					});
+				}
 			</script>
 		</div>
 <<<<<<< HEAD
@@ -884,11 +963,10 @@ if(isset($_POST['search'])){
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a<br>a
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Understood</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addplaylisttodatabase();">Save Playlist</button>
 					</div>
 				</div>
 			</div>
