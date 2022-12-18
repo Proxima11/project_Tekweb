@@ -350,13 +350,13 @@ if(isset($_POST['showartistextend'])){
 	exit();
 }
 
-<<<<<<< Updated upstream
-=======
 // <<<<<<< Updated upstream
 // =======
 // // <<<<<<< Updated upstream
+// // =======
+// // // <<<<<<< Updated upstream
+// // >>>>>>> Stashed changes
 // >>>>>>> Stashed changes
->>>>>>> Stashed changes
 if(isset($_POST['showplaylist'])){
 	$sql="select * from playlist1";
 	$result=mysqli_query($con,$sql);
@@ -413,14 +413,14 @@ if(isset($_POST['showplaylist'])){
 	exit();
 }
 
-<<<<<<< Updated upstream
-
-=======
 // <<<<<<< Updated upstream
+
 // =======
+// // <<<<<<< Updated upstream
 // // =======
+// // // =======
+// // >>>>>>> Stashed changes
 // >>>>>>> Stashed changes
->>>>>>> Stashed changes
 if(isset($_POST['showartistsong']))
 {	
 	$nama=$_POST['artistnama'];
@@ -448,15 +448,15 @@ if(isset($_POST['showartistsong']))
 	}
 	exit();
 }
-<<<<<<< Updated upstream
-
-=======
 // <<<<<<< Updated upstream
 
 // =======
+// // <<<<<<< Updated upstream
+
+// // =======
+// // // >>>>>>> Stashed changes
 // // >>>>>>> Stashed changes
 // >>>>>>> Stashed changes
->>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html>
@@ -477,7 +477,7 @@ if(isset($_POST['showartistsong']))
 			height: 1000px;
 		}
 		* {
-			scrollbar-width: auto;
+			scrollbar-width: 0 auto;
 			scrollbar-color: #712985 #000000;
 		}
 		*::-webkit-scrollbar {
@@ -845,13 +845,13 @@ if(isset($_POST['showartistsong']))
 			</div>
 			<div id="garis"></div><br>
 			<div id="library">
-				<div class="row">
-					<h2 class="mt-3"style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Library</h2><br>
+				<div class="row" style="width:95%;">
+					<h2 class="mt-3" style="float:left; margin-left: 30px; color: white; height: 0 auto; position:relative;">Library</h2><br>
 					<div class="col">
-						<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Artists</h3>
+						<h3 style="float:left; color: white; margin-left:30px; height: 0 auto; position:relative;" class="mt-2">Artists</h3>
 					</div>
 					<div class="col">
-						<a href="#library" onclick="showartistsextend();"style="float:right; color: white; height: 0 auto; padding-top: 20px; text-decoration: none; color: #FF99FF; margin-right: 30px; position:relative; font-size: 14px;" class="mt-2">See All</a>
+						<a href="#library" onclick="showartistsextend();"style="float:right; color: white; height: 0 auto; padding-top: 20px; text-decoration: none; color: #FF99FF; position:relative; font-size: 20px;" class="mt-2">See All</a>
 					</div>
 				</div>
 				<div class="wrap mt-2" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
@@ -862,7 +862,7 @@ if(isset($_POST['showartistsong']))
 			<div id="playlistbar">
 				<h2 class="mt-3"style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Playlist</h2><br><br><br>
 				<div id="playlist" style="color: white;">
-					<div class="accordion" id="playlistaccordion" style="width: 1200px; margin-left: 65px;">
+					<div class="accordion" id="playlistaccordion" style="width: 90%; margin-left: 30px; margin-right:0 auto;">
 					</div>
 				</div>
 			</div><br><br><br><br>
@@ -902,7 +902,6 @@ if(isset($_POST['showartistsong']))
 				</div>
 			</div>
 		</div>
-		<!--  -->
 		<script>
 			$(document).ready(function(){
 				var playlist = [];
@@ -1246,7 +1245,7 @@ if(isset($_POST['showartistsong']))
 
 					});
 				});
-<<<<<<< Updated upstream
+// <<<<<<< Updated upstream
 
 				$("#playlistaccordion").delegate('#playplaylist', 'click', function(){
                 var v_songid=$(this).attr('songID');
@@ -1294,11 +1293,11 @@ if(isset($_POST['showartistsong']))
                     }
                 });
             });
-=======
+// =======
 				function refreshcard(){
 
 				}
->>>>>>> Stashed changes
+// >>>>>>> Stashed changes
 			</script>
 		</div>
 		<<<<<<< HEAD
