@@ -290,7 +290,7 @@ if(isset($_POST['showartist'])){
 			<div class='card mb-3 ml-5 mu-5' style='width:95%;'>
 			<img class='card-img' src=".$row['gambar'].">
 			<div class='details'>
-			<button type='button' class='btn btn-lg mb-2' id='play' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;''><i class='fa-solid fa-music'></i></button>
+			<button type='button' id='artistsong' class='btn btn-lg mb-2' artist_nama='".$row['nama']."' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
 			<div class='row'>
 			<div style='max-height: 0px; color:white;'>
 			".$row['nama']."
@@ -315,7 +315,7 @@ if(isset($_POST['showartistextend'])){
 			<div class='card mb-3 ml-5 mu-5' style='width:95%;'>
 			<img class='card-img' src=".$row['gambar'].">
 			<div class='details'>
-			<button type='button' class='btn btn-lg mb-2' id='play' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;''><i class='fa-solid fa-music'></i></button>
+			<button type='button' id='artistsong' class='btn btn-lg mb-2' artist_nama='".$row['nama']."' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
 			<div class='row'>
 			<div style='max-height: 0px; color:white;'>
 			".$row['nama']."
@@ -329,6 +329,7 @@ if(isset($_POST['showartistextend'])){
 	exit();
 }
 
+<<<<<<< Updated upstream
 if(isset($_POST['showplaylist'])){
 
 	$sql="select * from playlist1";
@@ -364,6 +365,37 @@ if(isset($_POST['showplaylist'])){
 	exit();
 }
 
+=======
+if(isset($_POST['showartistsong']))
+{	
+	alert();
+	$nama=$_POST['artistnama'];
+	echo "
+	<h8 style='color: white; margin-bottom:10px;'>Playlist Name :</h8><br><br>
+	<input type='text' id='playlistname' style='width: 455px; float:middle; border-radius:10px'><br>
+	<div style='height:1px; margin-left:10px; margin-right:10px; margin-top:30px; border-bottom: white 1px solid;'></div><br>";
+	$sql="select * from audios where penyanyi like '%$nama'";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result)){
+		echo "
+		<div class='container' style='background-color: rgba(128,128,128,0.3); padding-top:5px; padding-bottom:5px; margin-top:10px; border-radius:30px;'>
+		<div class='row' id='choosesong' style='padding-left: 20px;''>
+		<div class='col-sm-2' id='playlistsongicon'>
+		<img src='".$row['gambar']."' style='height: 50px; width: 50px'>
+		</div>
+		<div class='col-sm-8' style='float: left; color:whitesmoke;''>
+		<h7 id='choicetitle'>".$row['nama']."</h7><br>
+		<h9 id='choicesinger'>".$row['penyanyi']."</h9>
+		</div>
+		<div class='col-sm-2' style='margin-top: 15px;'>
+		<input type='checkbox' name='songcheckbox' style='float: right; margin-right: 30px;' value='".$row[0]."' onclick='addsongtoplaylist();'>
+		</div>
+		</div>
+		</div>";
+	}
+	exit();
+}
+>>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html>
@@ -1087,6 +1119,24 @@ if(isset($_POST['showplaylist'])){
 					}	
 				});
 				}
+
+				$("#modal_artist_song").delegate('#artistsong', 'click', function(){
+					var v_artistnama=$(this).attr('artist_nama');
+					alert(v_artistnama);
+					$.ajax({
+						url		: "homepagefix.php",
+						type	: "POST",
+						async	: true,
+						data	: {
+							showartistsong : 1,
+							artistnama : v_artistnama
+						},
+						success : function(res){
+							$(".modal-body").html(res);
+						}
+
+					});
+				});
 			</script>
 		</div>
 		<<<<<<< HEAD
@@ -1109,6 +1159,7 @@ if(isset($_POST['showplaylist'])){
 			</div>
 		</div>
 	</div>
+	<div id="#modal_artist_song"></div>
 	<div class="modal fade" id="viewsongartist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
