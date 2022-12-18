@@ -644,7 +644,7 @@ if(isset($_POST['showartistextend'])){
 				<li><a href="#library"><i class="fa-solid fa-book"></i>Library</a></li>
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="#" onclick="#addplaylist" data-bs-toggle="modal" data-bs-target="#addplaylist"><i class="fa-solid fa-square-plus" ></i>New Playlist</a></li>
+				<li><a href="#" onclick="addnewplaylist();" data-bs-toggle="modal" data-bs-target="#addplaylist"><i class="fa-solid fa-square-plus" ></i>New Playlist</a></li>
 
 			</ul>
 		</div>
@@ -678,11 +678,11 @@ if(isset($_POST['showartistextend'])){
 				</div>
 			</div>
 			<div id="isi">
-				<div class="mb-5"style="height: 400px; margin-top: -100px;">
+				<div class="mb-5"style="height: 400px; margin-top: -70px;">
 				<div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
-					<img src="picture/promo3.jpg" style="width:100%; height:400px;">
+					<img src="picture/promo5.jpg" style="width:100%; height:400px;">
 				</div>
 
 				<div class="mySlides">
@@ -690,7 +690,7 @@ if(isset($_POST['showartistextend'])){
 				</div>
 
 				<div class="mySlides">
-					<img src="picture/promo4.jpg" style="width:100%; height:400px;">
+					<img src="picture/promo3.jpg" style="width:100%; height:400px;">
 				</div>
 
 			</div>
