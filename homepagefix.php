@@ -244,7 +244,11 @@ if(isset($_POST['search'])){
 }
 
 if(isset($_POST['shownewplaylistoption']))
-{
+{	
+	echo "
+	<h8 style='color: white; margin-bottom:10px;''>Playlist Name :</h8><br><br>
+	<input type='text' id='playlistname' style='width: 455px; float:middle;'><br>
+	<div style='height:1px; margin-left:10px; margin-right:10px; margin-top:30px; border-bottom: white 1px solid;'></div><br>";
 	$sql="select * from audios";
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
@@ -598,7 +602,7 @@ if(isset($_POST['addnewplaylist']))
 				<li><a href="#library"><i class="fa-solid fa-book"></i>Library</a></li>
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="#" onclick="#addplaylist"><i class="fa-solid fa-square-plus" data-bs-toggle="modal" data-bs-target="#addplaylist"></i>New Playlist</a></li>
+				<li><a href="#" onclick="#addplaylist" data-bs-toggle="modal" data-bs-target="#addplaylist"><i class="fa-solid fa-square-plus" ></i>New Playlist</a></li>
 					
 			</ul>
 		</div>
@@ -948,6 +952,10 @@ if(isset($_POST['addnewplaylist']))
 							playlist = [];
 						}
 					});
+				}
+
+				function checkdataammoun(){
+
 				}
 			</script>
 		</div>
