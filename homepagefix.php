@@ -293,6 +293,7 @@ if(isset($_POST['showartist'])){
 			<button type='button' class='btn btn-lg mb-2' id='play' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;''><i class='fa-solid fa-music'></i></button>
 			<div class='row'>
 			<div style='max-height: 0px; color:white;'>
+			".$row['nama']."
 			</div>
 			</div>
 			</div>
@@ -317,6 +318,7 @@ if(isset($_POST['showartistextend'])){
 			<button type='button' class='btn btn-lg mb-2' id='play' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;''><i class='fa-solid fa-music'></i></button>
 			<div class='row'>
 			<div style='max-height: 0px; color:white;'>
+			".$row['nama']."
 			</div>
 			</div>
 			</div>
