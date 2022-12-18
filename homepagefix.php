@@ -434,12 +434,12 @@ if(isset($_POST['showartistsong']))
 		<div class='container' id='chooseartistsong' style='background-color: rgba(128,128,128,0.3); padding-top:5px; padding-bottom:5px; margin-top:10px; border-radius:30px;'>
 		<div class='row' id='chooseartistsong' style='padding-left: 20px;''>
 		<div class='col-sm-2' id='playlistsongicon'>
-		<img src='".$row['gambar']."' style='height: 50px; width: 50px'>
+		<img src='".$row['gambar']."' style='height: 50px; width: 50px; margin-top:10px; margin-bottom:10px;'>
 		</div>
-		<div class='col-sm-8' style='float: left; color:whitesmoke;''>
-		<h7 id='choicetitle'>".$row['nama']."</h7><br>
-		<h9 id='choicesinger'>".$row['penyanyi']."</h9>
-		<button type='button' style='float: right; border-radius:50%;' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
+		<div class='col-sm-8' style='float: left; color:whitesmoke; padding-top:10px; padding-bottom:10px;'>
+		<button type='button' style='float: right; border-radius:50%; margin-top:4px; margin-bottom:4px; right:0 auto;' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
+		<h7 id='choicetitle' style='margin-top:4px; margin-bottom:4px;'>".$row['nama']."</h7><br>
+		<h9 id='choicesinger' style='margin-top:4px; margin-bottom:4px;'>".$row['penyanyi']."</h9>
 		</div>
 		<div class='col-sm-2' style='margin-top: 15px;'>
 		</div>
