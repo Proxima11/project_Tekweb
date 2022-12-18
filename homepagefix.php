@@ -140,10 +140,10 @@ if(isset($_POST['playsong']))
 	$row=mysqli_fetch_array($result);
 	echo "<button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-backward-step' style='color:grey'></i>
-	<div id='playbarplaybutton' style='display:inline-block;'>
-    <button class='btn btn-empty border-0' >
-    <i class='fa-solid fa-play' style='color:white'></i>
-    </button></div>
+	</button>
+	<button class='btn btn-empty border-0' id='playbarplaybutton'>
+	<i class='fa-solid fa-play' style='color:white'></i>
+	</button>
 	<button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-forward-step' style='color:grey'></i>
 	</button>";
@@ -327,10 +327,10 @@ if(isset($_POST['playsongplaylist']))
     $row=mysqli_fetch_array($result);
     echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$prev."' playlistid='".$play_id."'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
-   <div id='playbarplaybutton' playlistid='".$play_id."' style='display:inline-block;'>
-    <button class='btn btn-empty border-0' >
+    </button>
+    <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$play_id."'>
     <i class='fa-solid fa-play' style='color:white'></i>
-    </button></div>
+    </button>
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$next."' playlistid='".$play_id."'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
@@ -433,7 +433,7 @@ if(isset($_POST['showplaylist'])){
 		echo "  
 		<div class='accordion-item'>
     		<h2 class='accordion-header' id='heading".$counter."'>
-      			<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."' style='color:white; background-color:rgba(64,64,64,0.5); color:black;'>
+      			<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."' style='color:white; background-color:grey;'>
         		".$row[1]."
       			</button>
     		</h2>";
@@ -583,10 +583,9 @@ if(isset($_POST['backwardplay'])){
     echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$prev_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
     </button>
-    <div id='playbarplaybutton' playlistid='".$pid."' style='display:inline-block;'>
-    <button class='btn btn-empty border-0' >
+    <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$pid."'>
     <i class='fa-solid fa-play' style='color:white'></i>
-    </button></div>
+    </button>
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
@@ -630,10 +629,10 @@ if(isset($_POST['forwardplay'])){
 
     echo "<button id='playbarrewindbutton' class='btn btn-empty border-0' prev='".$id[$prev_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-backward-step' style='color:white'></i>
-    </button><div id='playbarplaybutton' playlistid='".$pid."' style='display:inline-block;'>
-    <button class='btn btn-empty border-0' >
+    </button>
+    <button class='btn btn-empty border-0' id='playbarplaybutton' playlistid='".$pid."'>
     <i class='fa-solid fa-play' style='color:white'></i>
-    </button></div>
+    </button>
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
@@ -1100,7 +1099,7 @@ if(isset($_POST['forwardplay'])){
 				<div class="col-md-4" id="playbarleft">
 					<div class="row">
 						<div class="col-md-4" id="coverimage"></div>
-						<div class="col-md-8" id="songinfo"></div>
+						<div class="col-md-6" id="songinfo"></div>
 					</div>
 				</div>
 				<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
