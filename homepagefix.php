@@ -290,7 +290,7 @@ if(isset($_POST['showartist'])){
 			<div class='card mb-3 ml-5 mu-5' style='width:95%;'>
 			<img class='card-img' src=".$row['gambar'].">
 			<div class='details'>
-			<button type='button' id='artistsong' class='btn btn-lg mb-2' artist_nama='".$row['nama']."' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
+			<button type='button' id='artistsong' class='btn btn-lg mb-2' artist_nama='".$row['nama']."' data-bs-toggle='modal' data-bs-target='#viewsongartist' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
 			<div class='row'>
 			<div style='max-height: 0px; color:white;'>
 			".$row['nama']."
@@ -336,7 +336,7 @@ if(isset($_POST['showartistextend'])){
 			<div class='card mb-3 ml-5 mu-5' style='width:95%;'>
 			<img class='card-img' src=".$row['gambar'].">
 			<div class='details'>
-			<button type='button' id='artistsong' class='btn btn-lg mb-2' artist_nama='".$row['nama']."' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
+			<button type='button' id='artistsong' class='btn btn-lg mb-2' artist_nama='".$row['nama']."'  data-bs-toggle='modal' data-bs-target='#viewsongartist'  style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;'><i class='fa-solid fa-music'></i></button>
 			<div class='row'>
 			<div style='max-height: 0px; color:white;'>
 			".$row['nama']."
@@ -350,8 +350,14 @@ if(isset($_POST['showartistextend'])){
 	exit();
 }
 
+<<<<<<< Updated upstream
+=======
+// <<<<<<< Updated upstream
+// =======
+// // <<<<<<< Updated upstream
+// >>>>>>> Stashed changes
+>>>>>>> Stashed changes
 if(isset($_POST['showplaylist'])){
-
 	$sql="select * from playlist1";
 	$result=mysqli_query($con,$sql);
 	$counter=0;
@@ -407,26 +413,33 @@ if(isset($_POST['showplaylist'])){
 	exit();
 }
 
+<<<<<<< Updated upstream
 
+=======
+// <<<<<<< Updated upstream
+// =======
+// // =======
+// >>>>>>> Stashed changes
+>>>>>>> Stashed changes
 if(isset($_POST['showartistsong']))
 {	
 	$nama=$_POST['artistnama'];
-	alert($nama);
 	echo "
-	<h8 style='color: white; margin-bottom:10px;'>Playlist Name :</h8><br><br>
-	<div style='height:1px; margin-left:10px; margin-right:10px; margin-top:30px; border-bottom: white 1px solid;'></div><br>";
+	<h8 style='color: white; margin-bottom:10px;'>Artist Name : ".$nama."</h8><br><br>
+	<div style='height:1px; margin-left:10px; margin-right:10px; border-bottom: white 1px solid;'></div><br>";
 	$sql="select * from audios where penyanyi like '%$nama%'";
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
 		echo "
-		<div class='container' style='background-color: rgba(128,128,128,0.3); padding-top:5px; padding-bottom:5px; margin-top:10px; border-radius:30px;'>
-		<div class='row' id='choosesong' style='padding-left: 20px;''>
+		<div class='container' id='chooseartistsong' style='background-color: rgba(128,128,128,0.3); padding-top:5px; padding-bottom:5px; margin-top:10px; border-radius:30px;'>
+		<div class='row' id='chooseartistsong' style='padding-left: 20px;''>
 		<div class='col-sm-2' id='playlistsongicon'>
 		<img src='".$row['gambar']."' style='height: 50px; width: 50px'>
 		</div>
 		<div class='col-sm-8' style='float: left; color:whitesmoke;''>
 		<h7 id='choicetitle'>".$row['nama']."</h7><br>
 		<h9 id='choicesinger'>".$row['penyanyi']."</h9>
+		<button type='button' style='float: right; border-radius:50%;' class='btn btn-secondary btn-lg mb-2' id='play' songID='".$row['ID']."'><i class='fa-solid fa-play'></i></button>
 		</div>
 		<div class='col-sm-2' style='margin-top: 15px;'>
 		</div>
@@ -435,7 +448,15 @@ if(isset($_POST['showartistsong']))
 	}
 	exit();
 }
+<<<<<<< Updated upstream
 
+=======
+// <<<<<<< Updated upstream
+
+// =======
+// // >>>>>>> Stashed changes
+// >>>>>>> Stashed changes
+>>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html>
@@ -538,8 +559,9 @@ if(isset($_POST['showartistsong']))
 		}
 
 		.view .card img {
-			height: 100%;
-			width: 100%;
+			min-height: 100%;
+			min-width: 100%;
+			position: absolute;
 		}
 
 		.view .card:hover .details {
@@ -553,7 +575,7 @@ if(isset($_POST['showartistsong']))
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			bottom: 0;
+			bottom: 0 auto;
 			width: 100%;
 			height: 0%;
 			background: rgba(0, 0, 0, 0.7);
@@ -942,7 +964,101 @@ if(isset($_POST['showartistsong']))
 					}	
 				});
 			}
-			$("#newarrival").delegate('#play', 'click', function(){
+			// $("#newarrival").delegate('#play', 'click', function(){
+			// 	var v_songid=$(this).attr('songID');
+			// 	$.ajax({
+			// 		url	  : "homepagefix.php",
+			// 		type  : "POST",
+			// 		async : true,
+			// 		data  : {
+			// 			songicon : 1,
+			// 			songid	: v_songid
+			// 		},
+			// 		success : function(res){
+			// 			$("#coverimage").html(res);
+			// 		}	
+			// 	});
+			// });
+			// $("#newarrival").delegate('#play', 'click', function(){
+			// 	var v_songid=$(this).attr('songID');
+			// 	$.ajax({
+			// 		url	  : "homepagefix.php",
+			// 		type  : "POST",
+			// 		async : true,
+			// 		data  : {
+			// 			songinfo : 1,
+			// 			songid	: v_songid
+			// 		},
+			// 		success : function(res){
+			// 			$("#songinfo").html(res);
+			// 		}	
+			// 	});
+			// });
+
+			// $("#newarrival").delegate('#play', 'click', function(){
+			// 	var v_songid=$(this).attr('songID');
+			// 	$.ajax({
+			// 		url	  : "homepagefix.php",
+			// 		type  : "POST",
+			// 		async : true,
+			// 		data  : {
+			// 			playsong : 1,
+			// 			songid	: v_songid
+			// 		},
+			// 		success : function(res){
+			// 			$("#playbarcenter").html(res);
+			// 		}
+			// 	});
+			// });
+
+			// $("#popular").delegate('#play', 'click', function(){
+			// 	var v_songid=$(this).attr('songID');
+			// 	$.ajax({
+			// 		url	  : "homepagefix.php",
+			// 		type  : "POST",
+			// 		async : true,
+			// 		data  : {
+			// 			songicon : 1,
+			// 			songid	: v_songid
+			// 		},
+			// 		success : function(res){
+			// 			$("#coverimage").html(res);
+			// 		}	
+			// 	});
+			// });
+			// $("#popular").delegate('#play', 'click', function(){
+			// 	var v_songid=$(this).attr('songID');
+			// 	$.ajax({
+			// 		url	  : "homepagefix.php",
+			// 		type  : "POST",
+			// 		async : true,
+			// 		data  : {
+			// 			songinfo : 1,
+			// 			songid	: v_songid
+			// 		},
+			// 		success : function(res){
+			// 			$("#songinfo").html(res);
+			// 		}	
+			// 	});
+			// });
+
+			// $("#popular").delegate('#play', 'click', function(){
+			// 	var v_songid=$(this).attr('songID');
+			// 	$.ajax({
+			// 		url	  : "homepagefix.php",
+			// 		type  : "POST",
+			// 		async : true,
+			// 		data  : {
+			// 			playsong : 1,
+			// 			songid	: v_songid
+			// 		},
+			// 		success : function(res){
+			// 			$("#playbarcenter").html(res);
+			// 		}
+			// 	});
+			// });
+
+			$("body").delegate('#play', 'click', function(){
 				var v_songid=$(this).attr('songID');
 				$.ajax({
 					url	  : "homepagefix.php",
@@ -957,7 +1073,8 @@ if(isset($_POST['showartistsong']))
 					}	
 				});
 			});
-			$("#newarrival").delegate('#play', 'click', function(){
+
+			$("body").delegate('#play', 'click', function(){
 				var v_songid=$(this).attr('songID');
 				$.ajax({
 					url	  : "homepagefix.php",
@@ -973,54 +1090,7 @@ if(isset($_POST['showartistsong']))
 				});
 			});
 
-			$("#newarrival").delegate('#play', 'click', function(){
-				var v_songid=$(this).attr('songID');
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						playsong : 1,
-						songid	: v_songid
-					},
-					success : function(res){
-						$("#playbarcenter").html(res);
-					}
-				});
-			});
-
-			$("#popular").delegate('#play', 'click', function(){
-				var v_songid=$(this).attr('songID');
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						songicon : 1,
-						songid	: v_songid
-					},
-					success : function(res){
-						$("#coverimage").html(res);
-					}	
-				});
-			});
-			$("#popular").delegate('#play', 'click', function(){
-				var v_songid=$(this).attr('songID');
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						songinfo : 1,
-						songid	: v_songid
-					},
-					success : function(res){
-						$("#songinfo").html(res);
-					}	
-				});
-			});
-
-			$("#popular").delegate('#play', 'click', function(){
+			$("body").delegate('#play', 'click', function(){
 				var v_songid=$(this).attr('songID');
 				$.ajax({
 					url	  : "homepagefix.php",
@@ -1176,6 +1246,7 @@ if(isset($_POST['showartistsong']))
 
 					});
 				});
+<<<<<<< Updated upstream
 
 				$("#playlistaccordion").delegate('#playplaylist', 'click', function(){
                 var v_songid=$(this).attr('songID');
@@ -1223,6 +1294,11 @@ if(isset($_POST['showartistsong']))
                     }
                 });
             });
+=======
+				function refreshcard(){
+
+				}
+>>>>>>> Stashed changes
 			</script>
 		</div>
 		<<<<<<< HEAD
@@ -1250,12 +1326,13 @@ if(isset($_POST['showartistsong']))
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="staticBackdropLabel">Add Songs to Playlist</h1>
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">Artist Songs</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" id="modal_body">
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
