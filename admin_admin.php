@@ -6,22 +6,41 @@ if (isset($_POST['showdata'])){
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
 		echo '
-		<div class="row">
-			<div class="col-6">'.$row['username'].'</div>
-            <div class="col-4">
-                <input type="text" id="'.$row['username'].'">
-                <button type="button" ide="'.$row['username'].'" class="btn btn-primary" name="ganti">Ganti</button>
-            </div>
-		</div>';
+		<tr>
+			<td>'.$row['username'].'</td>
+            <td>
+                <button type="button" ide="'.$row['ID'].'" class="btn btn-success" name="edit">Edit</button>
+                <button type="button" idd="'.$row['ID'].'" class="btn btn-danger" name="delete">Delete</button>
+            </td>
+		</tr>';
 	}
 	exit();
 }
-
-if(isset($_POST['ganti'])){
+if (isset($_POST['insert'])){
+    $un = $_POST['un'];
+	$sql="insert into admin values(NULL, '$un', '12345678'";
+	$result=mysqli_query($con,$sql);
+	exit();
+}
+if (isset($_POST['edit'])){
+	$id=$_POST['id'];
+	$sql="select * from admin where ID=$id";
+	$result=mysqli_query($con,$sql);
+	$row=mysqli_fetch_array($result);
+	echo json_encode($row);
+	exit();
+}
+if(isset($_POST['update'])){
     $un = $_POST['un'];
     $id = $_POST['id'];
-    $sql="update admin set username='$un' where id=$id";
+    $sql="update admin set username='$un' where ID=$id";
 	$result=mysqli_query($con,$sql);
+}
+if(isset($_POST['delete'])){
+	$id=$_POST['id'];
+	$sql="delete from admin where ID=$id";
+	$result=mysqli_query($con,$sql);
+	exit();
 }
 if(isset($_POST['search'])){
     $search_query = $_POST['search_query'];
@@ -29,13 +48,13 @@ if(isset($_POST['search'])){
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
 		echo '
-		<div class="row">
-			<div class="col-6">'.$row['username'].'</div>
-            <div class="col-4">
-                <input type="text" id="'.$row['username'].'">
-                <button type="button" ide="'.$row['username'].'" class="btn btn-primary" name="ganti">Ganti</button>
-            </div>
-		</div>';
+		<tr>
+			<td>'.$row['username'].'</td>
+            <td>
+                <button type="button" ide="'.$row['username'].'" class="btn btn-success" name="edit">Edit</button>
+                <button type="button" idd="'.$row['username'].'" class="btn btn-danger" name="delete">Delete</button>
+            </td>
+		</tr>';
 	}
 	exit();
 }
@@ -111,7 +130,7 @@ if(isset($_POST['search'])){
 		}
 		section{
 			background-color: #202020;
-			height: 100vh;
+			min-height: 100vh;
 			transition: all .5s ease;
 			margin-left: 200px;
 		}
@@ -291,11 +310,12 @@ if(isset($_POST['search'])){
 			<ul class="menu">
 				<header>Music Player</header>
 				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
-				<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
-				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
+				<li><a href="admin_lagu.php"><i class="fa-solid fa-music"></i>Lagu</a></li>
+				<li><a href="admin_penyanyi.php"><i class="fa-solid fa-microphone-lines"></i>Penyanyi</a></li>
+				<li><a href="admin_category.php"><i class="fa-solid fa-puzzle-piece"></i>Category</a></li>
+				<li><a href="admin_admin.php" class="active"><i class="fa-solid fa-key"></i>Admin</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
+				<!-- <li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li> -->
 			</ul>
 		</div>
 		<section class="view">
@@ -312,12 +332,13 @@ if(isset($_POST['search'])){
 						<i class="fa-solid fa-gear"></i>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-						<li><a href="admin.php"><button class="dropdown-item" type="button" style="color:white;">Insert Data</button></a></li>
-						<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+						<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
+						<li><a href="admin-change-password.php"><button class="dropdown-item" type="button" style="color:white;">Change Password</button></a></li>
+						<li><a href="logout-admin.php"><button class="dropdown-item" type="button" style="color:white;">Logout</button></a></li>
 					</ul>
 				</div>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="admin.php">Insert Lagu</a>
+					<a class="dropdown-item" href="#">Edit Profile</a>
 					<a class="dropdown-item" href="#">Logout</a>
 				</div>
 				<div style=" float: left; margin-left: 15px;">
@@ -329,9 +350,29 @@ if(isset($_POST['search'])){
 			</div>
 			<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Data Admin</h3>
 			<div class="wrap mt-5" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-				<div id="showdata">
-				</div>
+				<div class="mb-3">
+					<label id="id" class="form-label" style="color:white;"></label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="color:white;">Username</label>
+                    <input type="text" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <button type="button" id="insert" class="btn btn-primary">Insert</button>
+                    <button type="button" id="update" class="btn btn-success">Update</button>
+                </div>
 			</div>
+
+			<table class="table" style="color: white;">
+			  <thead>
+			    <tr>
+			      <th scope="col">Username</th>
+			      <th scope="col">Action</th>
+			    </tr>
+			  </thead>
+			  <tbody id="showtable">
+			  </tbody>
+			</table>
 		</section>
 		</div>
 		<!--  -->
@@ -339,23 +380,80 @@ if(isset($_POST['search'])){
 		$(document).ready(function(){
 			showdata();
 
-            $('#showdata').delegate('[name="ganti"]', 'click',function(){
-                id_in = $(this).attr("ide")
-                un_in = $('#' + id_in).val();
+			$('#insert').click(function(){
+				un_in = $('#username').val();
 
-                $.ajax({
-					url : "ajaxfull.php",
+				$.ajax({
+					url : "admin_admin.php",
+					type : "POST",
+					async : true,
+					data : {
+						insert : 1,
+						un : un_in
+					},
+					success : function(result){
+						alert("Success Insert");
+						showdata();
+					}
+				});
+			});
+
+			$('#showtable').delegate('[name="edit"]', 'click', function(){
+				id_in = $(this).attr('ide');
+				$.ajax({
+					url : "admin_admin.php",
 					type : "POST",
 					data : {
-						ganti : 1,
+						edit : 1,
+						id_in : id
+					},
+					success : function(result){
+						myObj=$.parseJSON(result);
+						$('#id').text('ID:' + myObj.ID);
+						$('#username').val(myObj.username);
+					}
+				});
+			});
+
+            $('#update').click(function(){
+                id_in = $('#id').text();
+                un_in = $('#username').val();
+
+                $.ajax({
+					url : "admin_admin.php",
+					type : "POST",
+					data : {
+						update : 1,
                         id : id_in,
                         un : un_in
 					},
 					success : function(result){
-						
+						alert("Success Update");
+						$('#id').text('');
+						showdata();
 					}
 				});
             });
+
+            $('#showtable').delegate('[name="delete"]', 'click', function(){
+				id_in = $(this).attr('idd');
+				conf = window.confirm("Are You Sure ?");
+				if (conf){
+					$.ajax({
+						url : "admin_admin.php",
+						type : "POST",
+						async : true,
+						data : {
+							delete : 1,
+							id : id_in
+						},
+						success : function(result){
+							alert("Success Delete");
+							showdata();
+						}
+					});
+				}
+			});
 
             $('#search').click(function(){
                 search_query_in = $('#search_query').val();
@@ -365,7 +463,7 @@ if(isset($_POST['search'])){
                 }
                 else{
                     $.ajax({
-                        url		: "admin_edit.php",
+                        url		: "admin_admin.php",
                         type 	: "POST",
                         async	: true,
                         data    : {
@@ -375,7 +473,7 @@ if(isset($_POST['search'])){
                         success	: function(result)
                         { 
                             alert("Searching...");
-                            $('#showdata').html(result);
+                            $('#showtable').html(result);
                         }
                     });
                 }
@@ -383,17 +481,17 @@ if(isset($_POST['search'])){
 		});
 
         function showdata(){
-				$.ajax({
-					url	  : "admin_edit.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						showdata : 1
-					},
-					success : function(res){
-						$("#showdata").html(res);
-					}	
-				});
+			$.ajax({
+				url	  : "admin_admin.php",
+				type  : "POST",
+				async : true,
+				data  : {
+					showdata : 1
+				},
+				success : function(res){
+					$("#showtable").html(res);
+				}	
+			});
 		};
 			
 		</script>

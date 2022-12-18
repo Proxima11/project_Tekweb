@@ -1,13 +1,78 @@
 <?php
 require "connection.php";
 
+if(isset($_POST['showdata'])){
+	$sql="select * from audios";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result)){
+		echo '
+		<tr>
+			<td>'.$row['nama'].'</td>
+			<td>'.$row['audio_url'].'</td>
+			<td>'.$row['gambar'].'</td>
+			<td>'.$row['penyanyi'].'</td>
+			<td>'.$row['category'].'</td>
+            <td>
+                <button type="button" ide="'.$row['ID'].'" class="btn btn-primary" name="edit">Edit</button>
+                <button type="button" idd="'.$row['ID'].'" class="btn btn-danger" name="delete">Delete</button>
+            </td>
+		</tr>';
+	}
+	exit();
+}
 if (isset($_POST['insert'])){
     $nama = $_POST['nama'];
     $url = $_POST['url'];
     $gambar = $_POST['gambar'];
-    $album = $_POST['album'];
-	$sql="insert into audios values(NULL, '$nama', '$url', '$gambar', '$album')";
+    $penyanyi = $_POST['penyanyi'];
+    $category = $_POST['category'];
+	$sql="insert into audios values(NULL, '$nama', '$url', '$gambar', '$penyanyi', SYSDATE, 0, '$category')";
 	$result=mysqli_query($con,$sql);
+	exit();
+}
+if (isset($_POST['edit'])){
+	$nrp=$_POST['id'];
+	$sql="select * from audios where ID=$id";
+	$result=mysqli_query($con,$sql);
+	$row=mysqli_fetch_array($result);
+	echo json_encode($row);
+	exit();
+}
+if (isset($_POST['update'])){
+	$id=$_POST['id'];
+	$nama=$_POST['nama'];
+	$audio_url=$_POST['audio_url'];
+	$gambar=$_POST['gambar'];
+	$penyanyi=$_POST['penyanyi'];
+	$category=$_POST['category'];
+	$sql="update audios set nama='$nama', audio_url='$audio_url', gambar='$gambar', penyanyi='$penyanyi', category='$category' where ID=$id";
+	$result=mysqli_query($con,$sql);
+	exit();
+}
+if(isset($_POST['delete'])){
+	$id=$_POST['id'];
+	$sql="delete from audios where ID=$id";
+	$result=mysqli_query($con,$sql);
+	exit();
+}
+if(isset($_POST['search'])){
+    $search_query = $_POST['search_query'];
+    $sql="select * from audios where nama like '%$search_query%' or penyanyi like '%$search_query%'";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result)){
+		echo '
+		<tr>
+			<td>'.$row['nama'].'</td>
+			<td>'.$row['audio_url'].'</td>
+			<td>'.$row['gambar'].'</td>
+			<td>'.$row['penyanyi'].'</td>
+			<td>'.$row['category'].'</td>
+            <td>
+                <button type="button" ide="'.$row['ID'].'" class="btn btn-primary" name="edit">Edit</button>
+                <button type="button" idd="'.$row['ID'].'" class="btn btn-danger" name="delete">Delete</button>
+            </td>
+		</tr>';
+	}
 	exit();
 }
 ?>
@@ -82,7 +147,7 @@ if (isset($_POST['insert'])){
 		}
 		section{
 			background-color: #202020;
-			height: 100vh;
+			min-height: 100vh;
 			transition: all .5s ease;
 			margin-left: 200px;
 		}
@@ -252,28 +317,143 @@ if (isset($_POST['insert'])){
 	</style>
 	<script>
 		$(document).ready(function(){
+			showdata();
+
             $('#insert').click(function(){
                 nama_in = $('#nama').val();
                 url_in = $('#url').val();
-                gambar_in = $('gambar').val();
-                album_in = $('album').val();
+                gambar_in = $('#gambar').val();
+                penyanyi_in = $('#penyanyi').val();
+                category_in = $('#category').val();
 
                 $.ajax({
-					url	  : "admin.php",
+					url	  : "admin_lagu.php",
 					type  : "POST",
 					async : true,
 					data  : {
 						insert : 1,
                         nama : nama_in,
+                        url : url_in,
                         gambar : gambar_in,
-                        album : album_in
+                        penyanyi : penyanyi_in,
+                        category : category_in
 					},
 					success : function(res){
 						alert('Success Insert');
 					}
                 });
             });
+
+            $('#showtable').delegate('[name="edit"]', 'click',function(){
+                id_in = $(this).attr("ide");
+
+                $.ajax({
+					url : "admin_lagu.php",
+					type : "POST",
+					data : {
+						edit : 1,
+						id : id_in
+					},
+					success : function(result){
+						myObj=$.parseJSON(result);
+						$('#id').html('ID: ' + myObj.ID);
+						$('#nama').val(myObj.nama);
+						$('#url').val(myObj.audio_url);
+						$('#gambar').val(myObj.gambar);
+						$('#penyanyi').val(myObj.penyanyi);
+						$('#category').val(myObj.category);
+					}
+				});
+            });
+
+            $("#update").click(function(){
+				id_in = $('#id').text();
+				nama_in =$('#nama').val();
+				url_in =$('#url_in').val();
+				gambar_in=$('#gambar').val();
+				penyanyi_in=$("#penyanyi").val();
+				category_in=$("#category").val();
+				$.ajax({
+					url : "admin_lagu.php",
+					type : "POST",
+					async : true,
+					data : {
+						update : 1,
+						id: id_in,
+						nama : nama_in,
+						url : url_in,
+						gambar : gambar_in,
+						penyanyi : penyanyi_in,
+						category : category_in
+					},
+					success : function(result){
+						alert("Success Update");
+						$('#id').html('');
+						showdata();
+					}
+				});
+			});
+
+			$('#showtable').delegate('[name="delete"]', 'click', function(){
+				id_in=$(this).attr('idd');
+				conf = window.confirm("Are You Sure ?");
+				if (conf){
+					$.ajax({
+						url : "admin_lagu.php",
+						type : "POST",
+						async : true,
+						data : {
+							delete : 1,
+							id : id_in
+						},
+						success : function(result){
+							alert("Success Delete");
+							showdata();
+						}
+					});
+				}
+			});
+
+			$('#search').click(function(){
+                search_query_in = $('#search_query').val();
+
+                if (search_query_in == ""){
+                    showdata();
+                }
+                else{
+                    $.ajax({
+                        url		: "admin_lagu.php",
+                        type 	: "POST",
+                        async	: true,
+                        data    : {
+                            search : 1,
+                            search_query :search_query_in
+                        },
+                        success	: function(result)
+                        { 
+                            alert("Searching...");
+                            $('#showtable').html(result);
+                        }
+                    });
+                }
+            });
 		});
+
+
+		function showdata(){
+			$.ajax({
+					url	  : "admin_lagu.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						showdata : 1
+					},
+					success : function(res){
+						$('#showtable').html(res);
+					}
+            });
+		}
+
 			</script>
 		</head>
 		<body>
@@ -282,18 +462,19 @@ if (isset($_POST['insert'])){
 					<ul class="menu">
 						<header>Music Player</header>
 						<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
-						<li><a href="homepagefix.php" class="active"><i class="fa-solid fa-house"></i>Home</a></li>
-						<li><a href="#"><i class="fa-solid fa-book"></i>Library</a></li>
-						<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
+						<li><a href="admin_lagu.php" class="active"><i class="fa-solid fa-music"></i>Lagu</a></li>
+						<li><a href="admin_penyanyi.php"><i class="fa-solid fa-microphone-lines"></i>Penyanyi</a></li>
+						<li><a href="admin_category.php"><i class="fa-solid fa-puzzle-piece"></i>Category</a></li>
+						<li><a href="admin_admin.php"><i class="fa-solid fa-key"></i>Admin</a></li>
 						<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
-						<li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li>
+						<!-- <li><a href="#"><i class="fa-solid fa-square-plus"></i>New Playlist</a></li> -->
 					</ul>
 				</div>
 				<section class="view">
 					<!-- bar atas -->
 					<div class="top_bar">
 						<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
-							Insert audio
+							Data Lagu
 						</div>
 						<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
 							<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
@@ -303,12 +484,13 @@ if (isset($_POST['insert'])){
 								<i class="fa-solid fa-gear"></i>
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-								<li><a href="admin_edit.php"><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></a></li>
-								<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+								<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
+								<li><a href="admin-change-password.php"><button class="dropdown-item" type="button" style="color:white;">Change Password</button></a></li>
+								<li><a href="logout-admin.php"><button class="dropdown-item" type="button" style="color:white;">Logout</button></a></li>
 							</ul>
 						</div>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="admin_edit.php">Edit Profile</a>
+							<a class="dropdown-item" href="#">Edit Profile</a>
 							<a class="dropdown-item" href="#">Logout</a>
 						</div>
 						<div style=" float: right;">
@@ -318,28 +500,51 @@ if (isset($_POST['insert'])){
 							</form>
 						</div>
 					</div>
-					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Masukkan lagu di sini</h3>
+					<h3 style="float:left; color: white; height: 0 auto; position: relative; margin-left: 0 auto; margin-right: 0 auto;">Ubah Database Audio</h3>
 					<div class="wrap" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top:70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+						<div class="mb-3">
+                            <label id="id" class="form-label" style="color:white;"></label>
+                        </div>
                         <div class="mb-3">
                             <label class="form-label" style="color:white;">Nama</label>
                             <input type="text" class="form-control" id="nama">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label" style="color:white;">URL audio</label>
-                            <textarea class="form-control" id="url" rows="3"></textarea>
+                            <textarea class="form-control" id="url" rows="1"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label" style="color:white;">Gambar</label>
-                            <textarea class="form-control" type="text" id="gambar" rows="3"></textarea>
+                            <textarea class="form-control" type="text" id="gambar" rows="1"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" style="color:white;">Album</label>
-                            <textarea class="form-control" id="album" rows="3"></textarea>
+                            <label class="form-label" style="color:white;">Penyanyi</label>
+                            <textarea class="form-control" id="penyanyi" rows="1"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color:white;">Category</label>
+                            <textarea class="form-control" id="category" rows="1"></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="button" id="insert" class="btn btn-success btn-lg btn-block">Insert</button>
+                            <button type="button" id="insert" class="btn btn-primary">Insert</button>
+                            <button type="button" id="update" class="btn btn-success">Update</button>
                         </div>
 					</div>
+
+					<table class="table" style="color: white;">
+					  <thead>
+					    <tr>
+					      <th scope="col">Nama</th>
+					      <th scope="col">Audio URL</th>
+					      <th scope="col">Gambar</th>
+					      <th scope="col">Penyanyi</th>
+					      <th scope="col">Category</th>
+					      <th scope="col">Action</th>
+					    </tr>
+					  </thead>
+					  <tbody id="showtable">
+					  </tbody>
+					</table>
 				</section>
 				<!--  -->
 			</div>
