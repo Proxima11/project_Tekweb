@@ -31,7 +31,7 @@ if (isset($_POST['insert'])){
 	exit();
 }
 if (isset($_POST['edit'])){
-	$nrp=$_POST['id'];
+	$id=$_POST['id'];
 	$sql="select * from audios where ID=$id";
 	$result=mysqli_query($con,$sql);
 	$row=mysqli_fetch_array($result);
