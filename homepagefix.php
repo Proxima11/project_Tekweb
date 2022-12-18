@@ -378,17 +378,17 @@ if(isset($_POST['showplaylist'])){
 				while($row2=mysqli_fetch_array($result2)){
     			echo"
     			<div id='collapse".$counter."' class='accordion-collapse collapse show' aria-labelledby='heading".$counter."' data-bs-parent='#accordionExample' >
-      				<div class='accordion-body'>
+      				<div class='accordion-body' style='height: 100px;'>
       					<div class='row' id='choosesong' style='padding-left: 20px;''>
-							<div class='col-sm-2' id='playlistsongicon'>
-								<div class='card mb-3 ml-5 mu-5'>
-									<img class='card-img' src='".$row2['gambar']."'>
-									<div class='details'>
+							<div class='col-sm-2' id='playlistsongicon' style='width: 120px'>
+								<div class='card mb-3 ml-5 mu-5' style='height:70px; width:70px; margin-left:30px;'>
+									<img class='card-img' src='".$row2['gambar']."' style='height:70px; width:70px;'>
+									<div class='details' style='height:70px; width:70px;'>
 										<button type='button' class='btn btn-secondary btn-lg mb-2' id='playplaylist' songID='".$row2['ID']."'><i class='fa-solid fa-play'></i></button>		
 									</div>
 								</div>
 							</div>
-							<div class='col-sm-8' style='float: left; color:grey; margin-left:20px'>
+							<div class='col-sm-8' style='float: left; color:grey; margin-left:20px;'>
 								<h7>".$row2['nama']."</h7><br>
 								<h9>".$row2['penyanyi']."</h9>
 							</div>
