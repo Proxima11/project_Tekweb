@@ -433,7 +433,7 @@ if(isset($_POST['showplaylist'])){
 		echo "  
 		<div class='accordion-item'>
     		<h2 class='accordion-header' id='heading".$counter."'>
-      			<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."' style='color:white; background-color:grey;'>
+      			<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."' style='color:white; background-color:rgba(64,64,64,0.5); color:black;'>
         		".$row[1]."
       			</button>
     		</h2>";
@@ -1099,7 +1099,7 @@ if(isset($_POST['forwardplay'])){
 				<div class="col-md-4" id="playbarleft">
 					<div class="row">
 						<div class="col-md-4" id="coverimage"></div>
-						<div class="col-md-6" id="songinfo"></div>
+						<div class="col-md-8" id="songinfo"></div>
 					</div>
 				</div>
 				<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
