@@ -329,7 +329,6 @@ if(isset($_POST['showartistextend'])){
 	exit();
 }
 
-<<<<<<< Updated upstream
 if(isset($_POST['showplaylist'])){
 
 	$sql="select * from playlist1";
@@ -382,7 +381,6 @@ if(isset($_POST['showplaylist'])){
 	exit();
 }
 
-=======
 if(isset($_POST['showartistsong']))
 {	
 	alert();
@@ -412,7 +410,7 @@ if(isset($_POST['showartistsong']))
 	}
 	exit();
 }
->>>>>>> Stashed changes
+
 ?>
 <!DOCTYPE html>
 <html>
