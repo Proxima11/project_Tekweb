@@ -1283,12 +1283,69 @@ if(isset($_POST['showcategorysong']))
 			$("#playbarcenter").delegate('#playbarrewindbutton', 'click', function(){
 				var v_prev = $(this).attr('prev');
 				var v_pid = $(this).attr('playlistid');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						backwardplay : 1,
+						prev : v_prev,
+						pid : v_pid
+					},
+					success : function(res){
+						$("#category").html(res);
+					}	
+				});
 			});
 
 			$("#playbarcenter").delegate('#playbarforwardbutton', 'click', function(){
 				var v_prev = $(this).attr('prev');
 				var v_pid = $(this).attr('playlistid');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						forwardplay : 1,
+						next : v_next,
+						pid : v_pid
+					},
+					success : function(res){
+						$("#category").html(res);
+					}	
+				});
 			});
+			$("#playbarcenter").delegate('#playbarforwardbutton', 'click', function(){
+				var v_prev = $(this).attr('prev');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						songinfo : 1,
+						songid	: v_prev
+					},
+					success : function(res){
+						$("#songinfo").html(res);
+					}	
+				});
+			});
+			$("#playbarcenter").delegate('#playbarforwardbutton', 'click', function(){
+				var v_prev = $(this).attr('prev');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						songicon : 1,
+						songid	: v_prev
+					},
+					success : function(res){
+						$("#coverimage").html(res);
+					}	
+				});
+			});
+
 			let slideIndex = 0;
 			function showSlides() {
 				let i;
