@@ -727,7 +727,8 @@ if(isset($_POST['forwardplay'])){
 		ul.menu li:hover a{
 			padding-left: 10px;
 			text-decoration: none;
-			border-right: 2px solid white;
+			border-right: 2px solid #B266FF;
+			color: #B266FF;
 		}
 
 		.sidebar ul a i{
@@ -965,7 +966,7 @@ if(isset($_POST['forwardplay'])){
 			<ul class="menu">
 				<header>Music Player</header>
 				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
-				<li><a href="#isi" id="#home" class="button active"><i class="fa-solid fa-house"></i>Home</a></li>
+				<li><a href="#isi" id="#home" class="button"><i class="fa-solid fa-house"></i>Home</a></li>
 				<li><a href="#library"><i class="fa-solid fa-book"></i>Library</a></li>
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
@@ -987,13 +988,8 @@ if(isset($_POST['forwardplay'])){
 						<i class="fa-solid fa-gear"></i>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-						<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
 						<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
 					</ul>
-				</div>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Edit Profile</a>
-					<a class="dropdown-item" href="#">Logout</a>
 				</div>
 				<div style=" float: left; margin-left: 15px;">
 					<form class="d-flex" role="search">
@@ -1750,7 +1746,6 @@ if(isset($_POST['forwardplay'])){
                 var v_next=$(this).attr('next');
                 var v_prev=$(this).attr('prev');
                 var v_pid=$(this).attr('playlistid');
-                alert(v_next);
                 $.ajax({
                     url      : "homepagefix.php",
                     type  : "POST",
