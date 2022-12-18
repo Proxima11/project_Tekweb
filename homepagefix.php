@@ -640,6 +640,12 @@ if(isset($_POST['forwardplay'])){
     <source src="'.$row[2].'" type="audio/wav">
     </audio>';
     exit();
+    
+}
+
+if(isset($_POST['drawvolume'])){
+	
+	exit();
 }
 
 // <<<<<<< Updated upstream
@@ -1106,7 +1112,7 @@ if(isset($_POST['forwardplay'])){
 				</div>
 				<div class="col-md-4" id="playbarright">
 					<div id="volumebar" style="float:right; margin-right: 40px; margin-top: 30px;">
-						<span id="vol-icon"><i class="fa fa-volume-up"></i></span> <input type="range" value="100" id="volume">
+						<span id='vol-icon'><i class='fa fa-volume-up'></i></span> <input type='range' value='100' id='volume'>
 					</div>
 				</div>
 			</div>
@@ -1272,7 +1278,19 @@ if(isset($_POST['forwardplay'])){
 			// 	});
 			// });
 
-
+			function showvolume(){
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						drawvolume : 1
+					},
+					success : function(res){
+						$("#volumebar").html(res);
+					}	
+				});
+			}
 			$("body").delegate('#play', 'click', function(){
 				var v_songid=$(this).attr('songID');
 				$.ajax({
@@ -1287,10 +1305,6 @@ if(isset($_POST['forwardplay'])){
 						$("#coverimage").html(res);
 					}	
 				});
-			});
-
-			$("body").delegate('#play', 'click', function(){
-				var v_songid=$(this).attr('songID');
 				$.ajax({
 					url	  : "homepagefix.php",
 					type  : "POST",
@@ -1303,10 +1317,6 @@ if(isset($_POST['forwardplay'])){
 						$("#songinfo").html(res);
 					}	
 				});
-			});
-
-			$("body").delegate('#play', 'click', function(){
-				var v_songid=$(this).attr('songID');
 				$.ajax({
 					url	  : "homepagefix.php",
 					type  : "POST",
@@ -1320,6 +1330,7 @@ if(isset($_POST['forwardplay'])){
 					}
 				});
 			});
+
 			function showartists(){
 				$.ajax({
 					url	  : "homepagefix.php",
@@ -1541,50 +1552,6 @@ if(isset($_POST['forwardplay'])){
 				});
 			});
 
-			function checkcurrentsong(){
-				var a=document.getElementById('playingsong');
-				if (a.currentTime == 0){
-				var v_next = $('#playbarcenter').attr('next');
-				var v_pid = $('#playbarcenter').attr('playlistid');
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						forwardplay : 1,
-						next : v_next,
-						pid : v_pid
-					},
-					success : function(res){
-						$("#playbarcenter").html(res);
-					}	
-				});
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						songicon : 1,
-						songid	: v_next
-					},
-					success : function(res){
-						$("#coverimage").html(res);
-					}	
-				});
-				$.ajax({
-					url	  : "homepagefix.php",
-					type  : "POST",
-					async : true,
-					data  : {
-						songinfo : 1,
-						songid	: v_next
-					},
-					success : function(res){
-						$("#songinfo").html(res);
-					}	
-				});
-			}
-			}
 
 			let slideIndex = 0;
 			function showSlides() {
@@ -1645,7 +1612,7 @@ if(isset($_POST['forwardplay'])){
 
 				function addplaylisttodatabase(){
 					var v_playlist = playlist;
-					var v_name= name;
+					var v_name= $('#playlistname').val();
 					$.ajax({
 						url		: "homepagefix.php",
 						type	: "POST",
@@ -1715,6 +1682,9 @@ if(isset($_POST['forwardplay'])){
 
 				$("#playlistaccordion").delegate('#playplaylist', 'click', function(){
                 var v_songid=$(this).attr('songID');
+                var v_next=$(this).attr('next');
+                var v_prev=$(this).attr('prev');
+                var v_pid=$(this).attr('playlistid');
                 $.ajax({
                     url      : "homepagefix.php",
                     type  : "POST",
@@ -1727,9 +1697,6 @@ if(isset($_POST['forwardplay'])){
                         $("#coverimage").html(res);
                     }
                 });
-            });
-            $("#playlistaccordion").delegate('#playplaylist', 'click', function(){
-                var v_songid=$(this).attr('songID');
                 $.ajax({
                     url      : "homepagefix.php",
                     type  : "POST",
@@ -1742,14 +1709,6 @@ if(isset($_POST['forwardplay'])){
                         $("#songinfo").html(res);
                     }
                 });
-            });
-
-            $("#playlistaccordion").delegate('#playplaylist', 'click', function(){
-                var v_songid=$(this).attr('songID');
-                var v_next=$(this).attr('next');
-                var v_prev=$(this).attr('prev');
-                var v_pid=$(this).attr('playlistid');
-                alert(v_next);
                 $.ajax({
                     url      : "homepagefix.php",
                     type  : "POST",
