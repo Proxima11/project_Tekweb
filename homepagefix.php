@@ -247,24 +247,24 @@ if(isset($_POST['shownewplaylistoption']))
 {	
 	echo "
 	<h8 style='color: white; margin-bottom:10px;''>Playlist Name :</h8><br><br>
-	<input type='text' id='playlistname' style='width: 455px; float:middle;'><br>
+	<input type='text' id='playlistname' style='width: 455px; float:middle; border-radius:10px'><br>
 	<div style='height:1px; margin-left:10px; margin-right:10px; margin-top:30px; border-bottom: white 1px solid;'></div><br>";
 	$sql="select * from audios";
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
 		echo "
-		<div class='container' style='background-color: grey; padding-top:5px; padding-bottom:5px; margin-top:10px;'>
+		<div class='container' style='background-color: rgba(128,128,128,0.3); padding-top:5px; padding-bottom:5px; margin-top:10px; border-radius:30px;'>
 		<div class='row' id='choosesong' style='padding-left: 20px;''>
-			<div class='col-sm-2' id='playlistsongicon'>
-				<img src='".$row['gambar']."' style='height: 50px; width: 50px'>
-			</div>
-			<div class='col-sm-8' style='float: left; color:whitesmoke;''>
-				<h7 id='choicetitle'>".$row['nama']."</h7><br>
-				<h9 id='choicesinger'>".$row['penyanyi']."</h9>
-			</div>
-			<div class='col-sm-2' style='margin-top: 15px;'>
-				<input type='checkbox' name='songcheckbox' style='float: right; margin-right: 30px;' value='".$row[0]."' onclick='addsongtoplaylist();'>
-			</div>
+		<div class='col-sm-2' id='playlistsongicon'>
+		<img src='".$row['gambar']."' style='height: 50px; width: 50px'>
+		</div>
+		<div class='col-sm-8' style='float: left; color:whitesmoke;''>
+		<h7 id='choicetitle'>".$row['nama']."</h7><br>
+		<h9 id='choicesinger'>".$row['penyanyi']."</h9>
+		</div>
+		<div class='col-sm-2' style='margin-top: 15px;'>
+		<input type='checkbox' name='songcheckbox' style='float: right; margin-right: 30px;' value='".$row[0]."' onclick='addsongtoplaylist();'>
+		</div>
 		</div>
 		</div>";
 	}
@@ -277,6 +277,53 @@ if(isset($_POST['addnewplaylist']))
 	$sql="INSERT INTO playlist values('1','$playlist')";
 	$result=mysqli_query($con,$sql);
 	
+	exit();
+}
+if(isset($_POST['showartist'])){
+	$sql="select * from penyanyi ORDER BY RAND()";
+	$result=mysqli_query($con,$sql);
+	$counter=0;
+	while($row=mysqli_fetch_array($result)){
+		$counter += 1;
+		if($counter <= 5){
+			echo"<div class='col-sm-8 col-md-4 col-lg-2'>
+			<div class='card mb-3 ml-5 mu-5' style='width:95%;'>
+			<img class='card-img' src=".$row['gambar'].">
+			<div class='details'>
+			<button type='button' class='btn btn-lg mb-2' id='play' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;''><i class='fa-solid fa-music'></i></button>
+			<div class='row'>
+			<div style='max-height: 0px; color:white;'>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>";
+		}
+	}
+	exit();
+}
+
+if(isset($_POST['showartistextend'])){
+	$sql="select * from penyanyi ORDER BY RAND()";
+	$result=mysqli_query($con,$sql);
+	$counter=0;
+	while($row=mysqli_fetch_array($result)){
+		$counter += 1;
+		if($counter <= 10){
+			echo"<div class='col-sm-8 col-md-4 col-lg-2'>
+			<div class='card mb-3 ml-5 mu-5' style='width:95%;'>
+			<img class='card-img' src=".$row['gambar'].">
+			<div class='details'>
+			<button type='button' class='btn btn-lg mb-2' id='play' style='border-radius:100%; border-color: transparent; background-color:rgba(0,0,0,0.5); color: white;''><i class='fa-solid fa-music'></i></button>
+			<div class='row'>
+			<div style='max-height: 0px; color:white;'>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>";
+		}
+	}
 	exit();
 }
 ?>
@@ -603,7 +650,7 @@ if(isset($_POST['addnewplaylist']))
 				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
 				<li><a href="#" onclick="#addplaylist" data-bs-toggle="modal" data-bs-target="#addplaylist"><i class="fa-solid fa-square-plus" ></i>New Playlist</a></li>
-					
+
 			</ul>
 		</div>
 		<section class="view">
@@ -651,28 +698,17 @@ if(isset($_POST['addnewplaylist']))
 			<div id="garis"></div><br>
 			<div id="library">
 				<div class="row">
-				<h2 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Library</h2><br>
-				<div class="col">
-					<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Artists</h3>
-				</div>
-				<div class="col">
-					<a href="#"style="float:right; color: white; height: 0 auto; padding-top: 20px; text-decoration: none; color: #FF99FF; margin-right: 30px; position:relative; font-size: 14px;" class="mt-2">See All</a>
-				</div>
-			</div>
-				<div class="wrap mt-2" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-				<div class='col-sm-8 col-md-4 col-lg-2'>
-					<div class='card mb-3 ml-5 mu-5' style="width:100%; height:100%">
-						<img class="card-img" src="penyanyi/calum_scott.jpg">
-						<div class="details">
-							<button type='button' class='btn btn-lg mb-2' id='play' style="border-radius:100%; border-color: transparent; background-color: black; color: white;"><i class="fa-solid fa-music"></i></button>
-							<div class='row'>
-								<div style='max-height: 0px; color:white;'>
-								</div>
-							</div>
-						</div>
+					<h2 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Library</h2><br>
+					<div class="col">
+						<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Artists</h3>
+					</div>
+					<div class="col">
+						<a href="#library" onclick="showartistsextend();"style="float:right; color: white; height: 0 auto; padding-top: 20px; text-decoration: none; color: #FF99FF; margin-right: 30px; position:relative; font-size: 14px;" class="mt-2">See All</a>
 					</div>
 				</div>
-			</div>
+				<div class="wrap mt-2" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+					<div class="row" id="artists"></div>
+				</div>
 			</div>
 			<div id="garis"></div><br>
 			<div class="row">
@@ -726,6 +762,7 @@ if(isset($_POST['addnewplaylist']))
 				popularsongs();
 				showSlides();
 				addnewplaylist();
+				showartists();
 				$("#search").click(function(){
 					search_query_in = $('#search_query').val();
 
@@ -869,6 +906,32 @@ if(isset($_POST['addnewplaylist']))
 					}
 				});
 			});
+			function showartists(){
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						showartist : 1
+					},
+					success : function(res){
+						$("#artists").html(res);
+					}	
+				});
+			}
+			function showartistsextend(){
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						showartistextend : 1
+					},
+					success : function(res){
+						$("#artists").html(res);
+					}	
+				});
+			}
 			$("#playbarcenter").delegate('#playbarplaybutton', 'click', function(){
 				var music=document.getElementById('playingsong');
 				if (music.paused){
@@ -959,26 +1022,26 @@ if(isset($_POST['addnewplaylist']))
 				}
 			</script>
 		</div>
-<<<<<<< HEAD
+		<<<<<<< HEAD
 	</body>
 	</html>
-=======
-		<div class="modal fade" id="addplaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-scrollable">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addplaylisttodatabase();">Save Playlist</button>
-					</div>
+	=======
+	<div class="modal fade" id="addplaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addplaylisttodatabase();">Save Playlist</button>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>
 >>>>>>> 6f8f51834bb765915fbf4d8c2e6a17565ba178a9
