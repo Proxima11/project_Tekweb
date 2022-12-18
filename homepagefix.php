@@ -641,6 +641,7 @@ if(isset($_POST['forwardplay'])){
     </audio>';
     exit();
 }
+
 // <<<<<<< Updated upstream
 
 // =======
@@ -1104,6 +1105,9 @@ if(isset($_POST['forwardplay'])){
 				<div class="col-md-4" style='margin-top: 10px' id ="playbarcenter">
 				</div>
 				<div class="col-md-4" id="playbarright">
+					<div id="volumebar" style="float:right; margin-right: 40px; margin-top: 30px;">
+						<span id="vol-icon"><i class="fa fa-volume-up"></i></span> <input type="range" value="100" id="volume">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -1121,6 +1125,8 @@ if(isset($_POST['forwardplay'])){
 				showartists();
 				showplaylist();
 				showcategory();
+				checkaudio();
+
 				$("#search").click(function(){
 					search_query_in = $('#search_query').val();
 
@@ -1145,6 +1151,7 @@ if(isset($_POST['forwardplay'])){
 					}
 				});
 			});
+
 			function showsongs(){
 				$.ajax({
 					url	  : "homepagefix.php",
@@ -1265,6 +1272,7 @@ if(isset($_POST['forwardplay'])){
 			// 	});
 			// });
 
+
 			$("body").delegate('#play', 'click', function(){
 				var v_songid=$(this).attr('songID');
 				$.ajax({
@@ -1364,6 +1372,25 @@ if(isset($_POST['forwardplay'])){
 					}	
 				});
 			}
+
+			$('#volume').on('mousedown', function(e) {
+				var music=document.getElementById('playingsong');
+                    $(this).on('mousemove', function() {
+                        var vol = $(this).val() / 100
+                        music.volume = vol
+                        if (vol == 0) {
+                            $('#vol-icon').html('<i class="fa fa-volume-off"></i>')
+                        } else if (vol < .5) {
+                            $('#vol-icon').html('<i class="fa fa-volume-down"></i>')
+                        } else {
+                            $('#vol-icon').html('<i class="fa fa-volume-up"></i>')
+                        }
+                    })
+                })
+                $('#volume').on('mouseup', function(e) {
+                    $(this).off('mousemove')
+            });
+
 			$("#playbarcenter").delegate('#playbarplaybutton', 'click', function(){
 				var music=document.getElementById('playingsong');
 				if (music.paused){
@@ -1378,6 +1405,56 @@ if(isset($_POST['forwardplay'])){
 				var music=document.getElementById('playingsong');
 				music.pause();
 				music.currentTime = 0;
+			}
+
+			function checkaudio(){
+				var music=document.getElementById('playingsong');
+				alert (music.currentTime);
+				alert (music.length);
+				if (music.currentTime == music.length){
+					if (!music.paused){
+						var v_next = $('#playbarcenter').attr('next');
+						var v_pid = $('#playbarcenter').attr('playlistid');
+						$.ajax({
+							url	  : "homepagefix.php",
+							type  : "POST",
+							async : true,
+							data  : {
+								forwardplay : 1,
+								next : v_next,
+								pid : v_pid
+							},
+							success : function(res){
+								$("#playbarcenter").html(res);
+							}	
+						});
+						$.ajax({
+							url	  : "homepagefix.php",
+							type  : "POST",
+							async : true,
+							data  : {
+								songicon : 1,
+								songid	: v_next
+							},
+							success : function(res){
+								$("#coverimage").html(res);
+							}	
+						});
+						$.ajax({
+							url	  : "homepagefix.php",
+							type  : "POST",
+							async : true,
+							data  : {
+								songinfo : 1,
+								songid	: v_next
+							},
+							success : function(res){
+								$("#songinfo").html(res);
+							}	
+						});
+					}
+				}
+				window.setInterval(checkaudio(), 1000);
 			}
 
 			$("#playbarcenter").delegate('#playbarrewindbutton', 'click', function(){
@@ -1396,10 +1473,6 @@ if(isset($_POST['forwardplay'])){
 						$("#playbarcenter").html(res);
 					}	
 				});
-			});
-
-			$("#playbarcenter").delegate('#playbarrewindbutton', 'click', function(){
-				var v_prev = $(this).attr('prev');
 				$.ajax({
 					url	  : "homepagefix.php",
 					type  : "POST",
@@ -1412,10 +1485,6 @@ if(isset($_POST['forwardplay'])){
 						$("#coverimage").html(res);
 					}	
 				});
-			});
-
-			$("#playbarcenter").delegate('#playbarrewindbutton', 'click', function(){
-				var v_prev = $(this).attr('prev');
 				$.ajax({
 					url	  : "homepagefix.php",
 					type  : "POST",
@@ -1446,9 +1515,6 @@ if(isset($_POST['forwardplay'])){
 						$("#playbarcenter").html(res);
 					}	
 				});
-			});
-			$("#playbarcenter").delegate('#playbarforwardbutton', 'click', function(){
-				var v_next = $(this).attr('next');
 				$.ajax({
 					url	  : "homepagefix.php",
 					type  : "POST",
@@ -1461,10 +1527,6 @@ if(isset($_POST['forwardplay'])){
 						$("#coverimage").html(res);
 					}	
 				});
-				
-			});
-			$("#playbarcenter").delegate('#playbarforwardbutton', 'click', function(){
-				var v_next = $(this).attr('next');
 				$.ajax({
 					url	  : "homepagefix.php",
 					type  : "POST",
@@ -1478,6 +1540,51 @@ if(isset($_POST['forwardplay'])){
 					}	
 				});
 			});
+
+			function checkcurrentsong(){
+				var a=document.getElementById('playingsong');
+				if (a.currentTime == 0){
+				var v_next = $('#playbarcenter').attr('next');
+				var v_pid = $('#playbarcenter').attr('playlistid');
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						forwardplay : 1,
+						next : v_next,
+						pid : v_pid
+					},
+					success : function(res){
+						$("#playbarcenter").html(res);
+					}	
+				});
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						songicon : 1,
+						songid	: v_next
+					},
+					success : function(res){
+						$("#coverimage").html(res);
+					}	
+				});
+				$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						songinfo : 1,
+						songid	: v_next
+					},
+					success : function(res){
+						$("#songinfo").html(res);
+					}	
+				});
+			}
+			}
 
 			let slideIndex = 0;
 			function showSlides() {
