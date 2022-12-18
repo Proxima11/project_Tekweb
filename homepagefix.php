@@ -1,5 +1,10 @@
 <?php
 require "connection.php";
+require_once "controllerUserData.php";
+$email = $_SESSION['email'];
+if($email == false){
+  header('Location: login-user.php');
+}
 
 if (isset($_POST['showsong'])){
 	$sql="select * from audios order by tanggal_rilis DESC";
@@ -987,7 +992,7 @@ if(isset($_POST['forwardplay'])){
 						<i class="fa-solid fa-gear"></i>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-						<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+						<li><form action="logout-user.php"><button type="submit"class="dropdown-item" type="button" style="color:white;">Logout</button></form></li>
 					</ul>
 				</div>
 				<div style=" float: left; margin-left: 15px;">
