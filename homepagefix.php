@@ -328,6 +328,40 @@ if(isset($_POST['showartistextend'])){
 	}
 	exit();
 }
+
+if(isset($_POST['showplaylist'])){
+
+	$sql="select * from playlist1";
+	$result=mysqli_query($con,$sql);
+	$counter=0;
+	while($row=mysqli_fetch_array($result)){
+		// $song_id=$row[1];
+		// $array=unserialize($song_id, array());
+		// var_dump($array);
+		// echo "<div></div>";
+
+		$count = 0;
+		$song_id=$row[1];
+		$array=unserialize($song_id);
+		$id = $array['playlist'];
+		echo count($id);
+		// foreach ($array as $key => $value) {
+		// 	for ($i=0; $i<2; $i++){
+		// 		echo "$value[$i]";
+		// 	};
+		// }
+		// $store = "";
+		// foreach ($song_id as $id => $value) {
+		// 	$store += `
+		// 	<div>`+$song_id[$counter]+`</div>`;
+		// 	$counter += 1;
+		// }
+		// echo "$store";
+		
+	}
+	exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -729,12 +763,10 @@ if(isset($_POST['showartistextend'])){
 				</div>
 			</div>
 			<div id="garis"></div><br>
-			<div class="row">
-				<div class="col-sm-6"><h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3>
-				</div>
-				<div class="col-sm-6">
-				</div>
-			</div><br>
+			<div id="playlistbar">
+				<h2 class="mt-3"style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Playlist</h2><br>
+				<div id="playlist" style="color: white;"></div>
+			</div><br><br><br><br><br><br><br><br><br>
 			<!-- <div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
@@ -781,6 +813,8 @@ if(isset($_POST['showartistextend'])){
 				showSlides();
 				addnewplaylist();
 				showartists();
+				showplaylist();
+
 				$("#search").click(function(){
 					search_query_in = $('#search_query').val();
 
@@ -1035,8 +1069,18 @@ if(isset($_POST['showartistextend'])){
 					});
 				}
 
-				function checkdataammoun(){
-
+				function showplaylist(){
+					$.ajax({
+					url	  : "homepagefix.php",
+					type  : "POST",
+					async : true,
+					data  : {
+						showplaylist : 1
+					},
+					success : function(res){
+						$("#playlist").html(res);
+					}	
+				});
 				}
 			</script>
 		</div>
@@ -1064,13 +1108,12 @@ if(isset($_POST['showartistextend'])){
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">Add Songs to Playlist</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
