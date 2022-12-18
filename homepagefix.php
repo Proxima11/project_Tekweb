@@ -678,41 +678,8 @@ if(isset($_POST['showartistextend'])){
 				</div>
 			</div>
 			<div id="isi">
-				<br>
-				<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">New Releases</h3>
-				<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-					<div class="row" id="newarrival">
-					</div>
-				</div>
-				<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Most Played</h3>
-				<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-					<div class="row" id="popular">
-					</div>
-				</div>
-			</div>
-			<div id="garis"></div><br>
-			<div id="library">
-				<div class="row">
-					<h2 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Library</h2><br>
-					<div class="col">
-						<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Artists</h3>
-					</div>
-					<div class="col">
-						<a href="#library" onclick="showartistsextend();"style="float:right; color: white; height: 0 auto; padding-top: 20px; text-decoration: none; color: #FF99FF; margin-right: 30px; position:relative; font-size: 14px;" class="mt-2">See All</a>
-					</div>
-				</div>
-				<div class="wrap mt-2" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
-					<div class="row" id="artists"></div>
-				</div>
-			</div>
-			<div id="garis"></div><br>
-			<div class="row">
-				<div class="col-sm-6"><h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3>
-				</div>
-				<div class="col-sm-6">
-				</div>
-			</div><br>
-			<div class="slideshow-container mb-3 mt-5">
+				<div class="mb-5"style="height: 400px; margin-top: -100px;">
+				<div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
 					<img src="picture/promo3.jpg" style="width:100%; height:400px;">
@@ -733,6 +700,62 @@ if(isset($_POST['showartistextend'])){
 				<span class="dot"></span> 
 				<span class="dot"></span> 
 			</div>
+		</div>
+		<br>
+				<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">New Releases</h3>
+				<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+					<div class="row" id="newarrival">
+					</div>
+				</div>
+				<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Most Played</h3>
+				<div class="wrap mt-6" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; margin-top: 70px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+					<div class="row" id="popular">
+					</div>
+				</div>
+			</div>
+			<div id="garis"></div><br>
+			<div id="library">
+				<div class="row">
+					<h2 class="mt-3"style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;">Library</h2><br>
+					<div class="col">
+						<h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-2">Artists</h3>
+					</div>
+					<div class="col">
+						<a href="#library" onclick="showartistsextend();"style="float:right; color: white; height: 0 auto; padding-top: 20px; text-decoration: none; color: #FF99FF; margin-right: 30px; position:relative; font-size: 14px;" class="mt-2">See All</a>
+					</div>
+				</div>
+				<div class="wrap mt-2" style="background-color: rgba(96, 96, 96, 0.7); height: 0 auto; margin-left: 30px; margin-right:30px; border-radius: 20px; position: relative; padding-left: 20px; padding-right:20px; padding-top: 20px; padding-bottom: 10px;">
+					<div class="row" id="artists"></div>
+				</div>
+			</div>
+			<div id="garis"></div><br>
+			<div class="row">
+				<div class="col-sm-6"><h3 style="float:left; color: white; height: 0 auto; margin-left: 30px; position:relative;" class="mt-4">Playlist</h3>
+				</div>
+				<div class="col-sm-6">
+				</div>
+			</div><br>
+			<!-- <div class="slideshow-container mb-3 mt-5">
+
+				<div class="mySlides">
+					<img src="picture/promo3.jpg" style="width:100%; height:400px;">
+				</div>
+
+				<div class="mySlides">
+					<img src="picture/promo2.jpg" style="width:100%; height:400px;">
+				</div>
+
+				<div class="mySlides">
+					<img src="picture/promo4.jpg" style="width:100%; height:400px;">
+				</div>
+
+			</div>
+			<br>
+			<div style="text-align:center">
+				<span class="dot"></span> 
+				<span class="dot"></span> 
+				<span class="dot"></span> 
+			</div> -->
 		</section>
 		<div class="playbar">
 			<div class="row">
@@ -1033,6 +1056,21 @@ if(isset($_POST['showartistextend'])){
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addplaylisttodatabase();">Save Playlist</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="viewsongartist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
