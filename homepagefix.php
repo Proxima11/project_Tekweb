@@ -139,13 +139,13 @@ if(isset($_POST['playsong']))
 	$result=mysqli_query($con,$sql);
 	$row=mysqli_fetch_array($result);
 	echo "<button class='btn btn-empty border-0'>
-	<i class='fa-solid fa-backward-step' style='color:white'></i>
+	<i class='fa-solid fa-backward-step' style='color:grey'></i>
 	</button>
 	<button class='btn btn-empty border-0' id='playbarplaybutton'>
 	<i class='fa-solid fa-play' style='color:white'></i>
 	</button>
 	<button class='btn btn-empty border-0'>
-	<i class='fa-solid fa-forward-step' style='color:white'></i>
+	<i class='fa-solid fa-forward-step' style='color:grey'></i>
 	</button>";
 	echo '<audio id="playingsong" autoplay="true" style="display:none;">
 	<source src="'.$row[2].'" type="audio/wav">
@@ -304,6 +304,27 @@ if(isset($_POST['showartist'])){
 	exit();
 }
 
+if(isset($_POST['playsongplaylist']))
+{
+    $id=$_POST['songid'];
+    $sql="select * from audios where ID like '%$id%'";
+    $result=mysqli_query($con,$sql);
+    $row=mysqli_fetch_array($result);
+    echo "<button class='btn btn-empty border-0'>
+    <i class='fa-solid fa-backward-step' style='color:white'></i>
+    </button>
+    <button class='btn btn-empty border-0' id='playbarplaybutton'>
+    <i class='fa-solid fa-play' style='color:white'></i>
+    </button>
+    <button class='btn btn-empty border-0'>
+    <i class='fa-solid fa-forward-step' style='color:white'></i>
+    </button>";
+    echo '<audio id="playingsong" autoplay="true" style="display:none;">
+    <source src="'.$row[2].'" type="audio/wav">
+    </audio>';
+    exit();
+}
+
 if(isset($_POST['showartistextend'])){
 	$sql="select * from penyanyi ORDER BY RAND()";
 	$result=mysqli_query($con,$sql);
@@ -329,10 +350,6 @@ if(isset($_POST['showartistextend'])){
 	exit();
 }
 
-<<<<<<< Updated upstream
-=======
-// <<<<<<< Updated upstream
->>>>>>> Stashed changes
 if(isset($_POST['showplaylist'])){
 
 	$sql="select * from playlist1";
@@ -364,7 +381,12 @@ if(isset($_POST['showplaylist'])){
       				<div class='accordion-body'>
       					<div class='row' id='choosesong' style='padding-left: 20px;''>
 							<div class='col-sm-2' id='playlistsongicon'>
-								<img src='".$row2['gambar']."' style='height: 50px; width: 50px'>
+								<div class='card mb-3 ml-5 mu-5'>
+									<img class='card-img' src='".$row2['gambar']."'>
+									<div class='details'>
+										<button type='button' class='btn btn-secondary btn-lg mb-2' id='playplaylist' songID='".$row2['ID']."'><i class='fa-solid fa-play'></i></button>		
+									</div>
+								</div>
 							</div>
 							<div class='col-sm-8' style='float: left; color:grey; margin-left:20px'>
 								<h7>".$row2['nama']."</h7><br>
@@ -385,10 +407,7 @@ if(isset($_POST['showplaylist'])){
 	exit();
 }
 
-<<<<<<< Updated upstream
-=======
-// =======
->>>>>>> Stashed changes
+
 if(isset($_POST['showartistsong']))
 {	
 	$nama=$_POST['artistnama'];
@@ -416,11 +435,7 @@ if(isset($_POST['showartistsong']))
 	}
 	exit();
 }
-<<<<<<< Updated upstream
 
-=======
-// >>>>>>> Stashed changes
->>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html>
@@ -828,7 +843,7 @@ if(isset($_POST['showartistsong']))
 					<div class="accordion" id="playlistaccordion" style="width: 1200px; margin-left: 65px;">
 					</div>
 				</div>
-			</div><br><br><br><br><br><br><br><br><br>
+			</div><br><br><br><br>
 			<!-- <div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
@@ -1161,6 +1176,53 @@ if(isset($_POST['showartistsong']))
 
 					});
 				});
+
+				$("#playlistaccordion").delegate('#playplaylist', 'click', function(){
+                var v_songid=$(this).attr('songID');
+                $.ajax({
+                    url      : "homepagefix.php",
+                    type  : "POST",
+                    async : true,
+                    data  : {
+                        songicon : 1,
+                        songid    : v_songid
+                    },
+                    success : function(res){
+                        $("#coverimage").html(res);
+                    }
+                });
+            });
+            $("#playlistaccordion").delegate('#playplaylist', 'click', function(){
+                var v_songid=$(this).attr('songID');
+                $.ajax({
+                    url      : "homepagefix.php",
+                    type  : "POST",
+                    async : true,
+                    data  : {
+                        songinfo : 1,
+                        songid    : v_songid
+                    },
+                    success : function(res){
+                        $("#songinfo").html(res);
+                    }
+                });
+            });
+
+            $("#playlistaccordion").delegate('#playplaylist', 'click', function(){
+                var v_songid=$(this).attr('songID');
+                $.ajax({
+                    url      : "homepagefix.php",
+                    type  : "POST",
+                    async : true,
+                    data  : {
+                        playsongplaylist : 1,
+                        songid    : v_songid
+                    },
+                    success : function(res){
+                        $("#playbarcenter").html(res);
+                    }
+                });
+            });
 			</script>
 		</div>
 		<<<<<<< HEAD
