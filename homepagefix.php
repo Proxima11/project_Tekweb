@@ -678,7 +678,7 @@ if(isset($_POST['showartistextend'])){
 				</div>
 			</div>
 			<div id="isi">
-				<div class="mb-5"style="height: 400px; margin-top: -70px;">
+				<div class="mb-5"style="height: 400px; margin-top: -60px;">
 				<div class="slideshow-container mb-3 mt-5">
 
 				<div class="mySlides">
