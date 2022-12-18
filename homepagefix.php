@@ -329,6 +329,10 @@ if(isset($_POST['showartistextend'])){
 	exit();
 }
 
+<<<<<<< Updated upstream
+=======
+// <<<<<<< Updated upstream
+>>>>>>> Stashed changes
 if(isset($_POST['showplaylist'])){
 
 	$sql="select * from playlist1";
@@ -381,15 +385,18 @@ if(isset($_POST['showplaylist'])){
 	exit();
 }
 
+<<<<<<< Updated upstream
+=======
+// =======
+>>>>>>> Stashed changes
 if(isset($_POST['showartistsong']))
 {	
-	alert();
 	$nama=$_POST['artistnama'];
+	alert($nama);
 	echo "
 	<h8 style='color: white; margin-bottom:10px;'>Playlist Name :</h8><br><br>
-	<input type='text' id='playlistname' style='width: 455px; float:middle; border-radius:10px'><br>
 	<div style='height:1px; margin-left:10px; margin-right:10px; margin-top:30px; border-bottom: white 1px solid;'></div><br>";
-	$sql="select * from audios where penyanyi like '%$nama'";
+	$sql="select * from audios where penyanyi like '%$nama%'";
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
 		echo "
@@ -403,14 +410,17 @@ if(isset($_POST['showartistsong']))
 		<h9 id='choicesinger'>".$row['penyanyi']."</h9>
 		</div>
 		<div class='col-sm-2' style='margin-top: 15px;'>
-		<input type='checkbox' name='songcheckbox' style='float: right; margin-right: 30px;' value='".$row[0]."' onclick='addsongtoplaylist();'>
 		</div>
 		</div>
 		</div>";
 	}
 	exit();
 }
+<<<<<<< Updated upstream
 
+=======
+// >>>>>>> Stashed changes
+>>>>>>> Stashed changes
 ?>
 <!DOCTYPE html>
 <html>
@@ -1135,9 +1145,8 @@ if(isset($_POST['showartistsong']))
 				});
 				}
 
-				$("#modal_artist_song").delegate('#artistsong', 'click', function(){
+				$("body").delegate('#artistsong', 'click', function(){
 					var v_artistnama=$(this).attr('artist_nama');
-					alert(v_artistnama);
 					$.ajax({
 						url		: "homepagefix.php",
 						type	: "POST",
