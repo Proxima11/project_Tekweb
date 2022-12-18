@@ -274,11 +274,23 @@ if(isset($_POST['shownewplaylistoption']))
 if(isset($_POST['addnewplaylist']))
 {
 	$playlist=$_POST['playlist'];
-	$sql="INSERT INTO playlist values('1','$playlist')";
+	$playlist=serialize($playlist);
+	$name=$_POST['name'];
+	$playlist_id=0;
+	$sql="select * from playlist1";
+	$result=mysqli_query($con, $sql);
+
+	while($row=mysqli_fetch_array($result)){
+		echo("1");
+		$playlist_id+=1;
+	}
+
+	$sql="INSERT INTO playlist1 values('$playlist_id','custom','$playlist',30)";
 	$result=mysqli_query($con,$sql);
 	
 	exit();
 }
+
 if(isset($_POST['showartist'])){
 	$sql="select * from penyanyi ORDER BY RAND()";
 	$result=mysqli_query($con,$sql);
@@ -363,7 +375,7 @@ if(isset($_POST['showplaylist'])){
 	$counter=0;
 	while($row=mysqli_fetch_array($result)){
 		$count = 0;
-		$song_id=$row[1];
+		$song_id=$row[2];
 		$array=unserialize($song_id);
 		$id = $array['playlist'];
 
@@ -371,7 +383,7 @@ if(isset($_POST['showplaylist'])){
 		<div class='accordion-item'>
     		<h2 class='accordion-header' id='heading".$counter."'>
       			<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse".$counter."' aria-expanded='true' aria-controls='collapse".$counter."' style='color:white; background-color:grey;'>
-        		".$row[0]."
+        		".$row[1]."
       			</button>
     		</h2>";
 
@@ -379,6 +391,14 @@ if(isset($_POST['showplaylist'])){
     	foreach ($array as $key => $value) {
     		for($i=0;$i<count($id);$i++){
     			$curid=$value[$i];
+    			$previous=$i-1;
+    			$next=$i+1;
+    			if ($previous < 0){
+    				$previous=count($id)-1;
+    			}
+    			if ($next >= count($id)){
+    				$next=0;
+    			}
 				$sql2="select * from audios where ID like '%$curid%'";
 				$result2=mysqli_query($con,$sql2);
 				while($row2=mysqli_fetch_array($result2)){
@@ -390,7 +410,7 @@ if(isset($_POST['showplaylist'])){
 								<div class='card mb-3 ml-5 mu-5' style='height:70px; width:70px; margin-left:30px;'>
 									<img class='card-img' src='".$row2['gambar']."' style='height:70px; width:70px;'>
 									<div class='details' style='height:70px; width:70px;'>
-										<button type='button' class='btn btn-secondary btn-lg mb-2' id='playplaylist' songID='".$row2['ID']."'><i class='fa-solid fa-play'></i></button>		
+										<button type='button' class='btn btn-secondary btn-lg mb-2' id='playplaylist' songID='".$row2['ID']."' next='".$id[$next]."' prev='".$id[$previous]."'><i class='fa-solid fa-play'></i></button>		
 									</div>
 								</div>
 							</div>
@@ -1199,18 +1219,21 @@ if(isset($_POST['showartistsong']))
 
 				function addplaylisttodatabase(){
 					var v_playlist = playlist;
-					var v_empty = "";
+					var v_name= name;
 					$.ajax({
 						url		: "homepagefix.php",
 						type	: "POST",
 						async	: true,
 						data	: {
-							addplaylist : 1,
-							playlist : {playlist: $(v_playlist).serializeArray()}
+							addnewplaylist : 1,
+							name 	 : v_name,
+							playlist : {playlist: v_playlist}
 						},
 						success : function(res){
 							alert("Playlist added");
+							showplaylist();
 							playlist = [];
+							name = "";
 						}
 					});
 				}
