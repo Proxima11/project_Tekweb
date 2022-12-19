@@ -356,7 +356,22 @@ if(isset($_POST['playsongplaylist']))
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$next."' playlistid='".$play_id."'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
-    echo "<button id='skip' onclick='skip()'>skip</button>";
+    echo "<div>
+	<button class='btn btn-empty border-0' onclick='back2()'>
+	<i class='fa-solid fa-angles-left' style='color:white'></i>
+	</button>30&nbsp;
+	<button class='btn btn-empty border-0' onclick='back()'>
+	<i class='fa-solid fa-angle-left' style='color:white'></i>
+	</button>10
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	10<button class='btn btn-empty border-0' onclick='front()'>
+	<i class='fa-solid fa-angle-right' style='color:white'></i>
+	</button>
+	&nbsp;30
+	<button class='btn btn-empty border-0' onclick='front2()'>
+	<i class='fa-solid fa-angles-right' style='color:white'></i>
+	</button>
+	</div>";
     echo '<audio id="playingsong" autoplay="true" style="display:none;">
     <source src="'.$row[2].'" type="audio/wav">
     </audio>';
@@ -615,6 +630,22 @@ if(isset($_POST['backwardplay'])){
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
+    echo "<div>
+	<button class='btn btn-empty border-0' onclick='back2()'>
+	<i class='fa-solid fa-angles-left' style='color:white'></i>
+	</button>30&nbsp;
+	<button class='btn btn-empty border-0' onclick='back()'>
+	<i class='fa-solid fa-angle-left' style='color:white'></i>
+	</button>10
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	10<button class='btn btn-empty border-0' onclick='front()'>
+	<i class='fa-solid fa-angle-right' style='color:white'></i>
+	</button>
+	&nbsp;30
+	<button class='btn btn-empty border-0' onclick='front2()'>
+	<i class='fa-solid fa-angles-right' style='color:white'></i>
+	</button>
+	</div>";
     echo '<audio id="playingsong" autoplay="true" style="display:none;">
     <source src="'.$row[2].'" type="audio/wav">
     </audio>';
@@ -662,6 +693,22 @@ if(isset($_POST['forwardplay'])){
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$id[$next_index]."' playlistid='".$pid."' onclick='stopaudio()'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
+    echo "<div>
+	<button class='btn btn-empty border-0' onclick='back2()'>
+	<i class='fa-solid fa-angles-left' style='color:white'></i>
+	</button>30&nbsp;
+	<button class='btn btn-empty border-0' onclick='back()'>
+	<i class='fa-solid fa-angle-left' style='color:white'></i>
+	</button>10
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	10<button class='btn btn-empty border-0' onclick='front()'>
+	<i class='fa-solid fa-angle-right' style='color:white'></i>
+	</button>
+	&nbsp;30
+	<button class='btn btn-empty border-0' onclick='front2()'>
+	<i class='fa-solid fa-angles-right' style='color:white'></i>
+	</button>
+	</div>";
     echo '<audio id="playingsong" autoplay="true" style="display:none;">
     <source src="'.$row[2].'" type="audio/wav">
     </audio>';
@@ -1329,6 +1376,7 @@ if(isset($_POST['drawvolume'])){
 				var music = document.getElementById('playingsong');
 				if (music.currentTime + 10 > music.duration){
 					music.currentTime = music.duration - 1;
+					setTimeout(function(){playcont()}, 1000);
 				}
 				else {
 					music.currentTime += 10;
@@ -1338,7 +1386,8 @@ if(isset($_POST['drawvolume'])){
 			function front2(){
 				var music = document.getElementById('playingsong');
 				if (music.currentTime + 30 > music.duration){
-					music.currentTime = music.duration - 1;
+					music.currentTime = music.duration -1;
+					setTimeout(function(){playcont()}, 1000);
 				}
 				else {
 					music.currentTime += 30;
@@ -1488,6 +1537,7 @@ if(isset($_POST['drawvolume'])){
 			}
 
 			function playcont(){
+				clearTimeout(id);
 				var music = document.getElementById('playingsong');
 				var wait = (music.duration - music.currentTime) * 1000;
 				setTimeout(function(){
@@ -1504,7 +1554,6 @@ if(isset($_POST['drawvolume'])){
 						},
 						success : function(res){
 							$("#playbarcenter").html(res);
-							clearTimeout(id);
 							const id = setTimeout(function(){playnext();}, 1000);
 						}	
 					});
@@ -1536,6 +1585,7 @@ if(isset($_POST['drawvolume'])){
 			}
 
 			function playnext(){
+				clearTimeout(id);
 				var music = document.getElementById('playingsong');
 				var wait = music.duration * 1000;
 				setTimeout(function(){
@@ -1552,7 +1602,6 @@ if(isset($_POST['drawvolume'])){
 						},
 						success : function(res){
 							$("#playbarcenter").html(res);
-							clearTimeout(id);
 							const id = setTimeout(function(){playnext();}, 1000);
 						}	
 					});
@@ -1597,7 +1646,6 @@ if(isset($_POST['drawvolume'])){
 					},
 					success : function(res){
 						$("#playbarcenter").html(res);
-						clearTimeout(id);
 						const id = setTimeout(function(){playnext();}, 1000);
 					}	
 				});
@@ -1641,7 +1689,6 @@ if(isset($_POST['drawvolume'])){
 					},
 					success : function(res){
 						$("#playbarcenter").html(res);
-						clearTimeout(id);
 						const id = setTimeout(function(){playnext();}, 1000);
 					}	
 				});
@@ -1842,7 +1889,6 @@ if(isset($_POST['drawvolume'])){
                     },
                     success : function(res){
                         $("#playbarcenter").html(res);
-                        clearTimeout(id);
                         const id = setTimeout(function(){playnext();}, 1000);
                     }
                 });
