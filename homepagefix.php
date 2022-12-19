@@ -981,7 +981,7 @@ if(isset($_POST['drawvolume'])){
 				<div class="mb-3"style="border-top: 1px solid white; margin-right: 30px;"></div>
 				<li><a href="#isi" id="#home" class="button active"><i class="fa-solid fa-house"></i>Home</a></li>
 				<li><a href="#library"><i class="fa-solid fa-book"></i>Library</a></li>
-				<li><a href="#"><i class="fa-solid fa-heart"></i>Favourite</a></li>
+				<li><a href="#playlist"><i class="fa-solid fa-list"></i>Playlist</a></li>
 				<div class="mt-3 mb-3" style="border-top: 1px solid white; margin-right: 30px;"></div>
 				<li><a href="#" onclick="addnewplaylist();" data-bs-toggle="modal" data-bs-target="#addplaylist"><i class="fa-solid fa-square-plus" ></i>New Playlist</a></li>
 
