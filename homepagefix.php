@@ -143,7 +143,7 @@ if(isset($_POST['playsong']))
 	$sql="select * from audios where ID like '%$id%'";
 	$result=mysqli_query($con,$sql);
 	$row=mysqli_fetch_array($result);
-	echo "<button class='btn btn-empty border-0'>
+	echo "<div><button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-backward-step' style='color:grey'></i>
 	</button>
 	<button class='btn btn-empty border-0' id='playbarplaybutton'>
@@ -151,7 +151,23 @@ if(isset($_POST['playsong']))
 	</button>
 	<button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-forward-step' style='color:grey'></i>
-	</button>";
+	</button></div>";
+	echo "<div>
+	<button class='btn btn-empty border-0' onclick='back2()'>
+	<i class='fa-solid fa-angles-left' style='color:white'></i>
+	</button>30&nbsp;
+	<button class='btn btn-empty border-0' onclick='back()'>
+	<i class='fa-solid fa-angle-left' style='color:white'></i>
+	</button>10
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	10<button class='btn btn-empty border-0' onclick='front()'>
+	<i class='fa-solid fa-angle-right' style='color:white'></i>
+	</button>
+	&nbsp;30
+	<button class='btn btn-empty border-0' onclick='front2()'>
+	<i class='fa-solid fa-angles-right' style='color:white'></i>
+	</button>
+	</div>";
 	echo '<audio id="playingsong" autoplay="true" style="display:none;">
 	<source src="'.$row[2].'" type="audio/wav">
 	</audio>';
@@ -340,6 +356,7 @@ if(isset($_POST['playsongplaylist']))
     <button id='playbarforwardbutton' class='btn btn-empty border-0' next='".$next."' playlistid='".$play_id."'>
     <i class='fa-solid fa-forward-step' style='color:white'></i>
     </button>";
+    echo "<button id='skip' onclick='skip()'>skip</button>";
     echo '<audio id="playingsong" autoplay="true" style="display:none;">
     <source src="'.$row[2].'" type="audio/wav">
     </audio>';
@@ -1131,6 +1148,8 @@ if(isset($_POST['drawvolume'])){
 				var next = "";
 				var previous = "";
 				var ply_id = "";
+				var songduration = 0;
+				var remaining = 0;
 				// homepage();/=
 				showsongs();
 				popularsongs();
@@ -1286,6 +1305,46 @@ if(isset($_POST['drawvolume'])){
 			// 	});
 			// });
 
+			function back(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime - 10 < 0){
+					music.currentTime = 0.1;
+				}
+				else{
+					music.currentTime -= 10;
+				}
+			}
+
+			function back2(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime - 30 < 0){
+					music.currentTime = 0.1;
+				}
+				else{
+					music.currentTime -= 30;
+				}
+			}
+
+			function front(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime + 10 > music.duration){
+					music.currentTime = music.duration - 1;
+				}
+				else {
+					music.currentTime += 10;
+				}
+			}
+
+			function front2(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime + 30 > music.duration){
+					music.currentTime = music.duration - 1;
+				}
+				else {
+					music.currentTime += 30;
+				}
+			}
+
 			function showvolume(){
 				$.ajax({
 					url	  : "homepagefix.php",
@@ -1335,6 +1394,7 @@ if(isset($_POST['drawvolume'])){
 					},
 					success : function(res){
 						$("#playbarcenter").html(res);
+
 					}
 				});
 			});
@@ -1417,6 +1477,7 @@ if(isset($_POST['drawvolume'])){
 				}
 				else{
 					music.pause();
+					clearTimeout(id);
 				}
 			});
 
@@ -1426,54 +1487,100 @@ if(isset($_POST['drawvolume'])){
 				music.currentTime = 0;
 			}
 
-			function checkaudio(){
-				var music=document.getElementById('playingsong');
-				alert (music.currentTime);
-				alert (music.length);
-				if (music.currentTime == music.length){
-					if (!music.paused){
-						var v_next = $('#playbarcenter').attr('next');
-						var v_pid = $('#playbarcenter').attr('playlistid');
-						$.ajax({
-							url	  : "homepagefix.php",
-							type  : "POST",
-							async : true,
-							data  : {
-								forwardplay : 1,
-								next : v_next,
-								pid : v_pid
-							},
-							success : function(res){
-								$("#playbarcenter").html(res);
-							}	
-						});
-						$.ajax({
-							url	  : "homepagefix.php",
-							type  : "POST",
-							async : true,
-							data  : {
-								songicon : 1,
-								songid	: v_next
-							},
-							success : function(res){
-								$("#coverimage").html(res);
-							}	
-						});
-						$.ajax({
-							url	  : "homepagefix.php",
-							type  : "POST",
-							async : true,
-							data  : {
-								songinfo : 1,
-								songid	: v_next
-							},
-							success : function(res){
-								$("#songinfo").html(res);
-							}	
-						});
-					}
-				}
-				window.setInterval(checkaudio(), 1000);
+			function playcont(){
+				var music = document.getElementById('playingsong');
+				var wait = (music.duration - music.currentTime) * 1000;
+				setTimeout(function(){
+					var v_next = $('#playbarforwardbutton').attr('next');
+					var v_pid = $('#playbarforwardbutton').attr('playlistid');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							forwardplay : 1,
+							next : v_next,
+							pid : v_pid
+						},
+						success : function(res){
+							$("#playbarcenter").html(res);
+							clearTimeout(id);
+							const id = setTimeout(function(){playnext();}, 1000);
+						}	
+					});
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songicon : 1,
+							songid	: v_next
+						},
+						success : function(res){
+							$("#coverimage").html(res);
+						}	
+					});
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songinfo : 1,
+							songid	: v_next
+						},
+						success : function(res){
+							$("#songinfo").html(res);
+						}	
+					});
+				}, wait);
+			}
+
+			function playnext(){
+				var music = document.getElementById('playingsong');
+				var wait = music.duration * 1000;
+				setTimeout(function(){
+					var v_next = $('#playbarforwardbutton').attr('next');
+					var v_pid = $('#playbarforwardbutton').attr('playlistid');
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							forwardplay : 1,
+							next : v_next,
+							pid : v_pid
+						},
+						success : function(res){
+							$("#playbarcenter").html(res);
+							clearTimeout(id);
+							const id = setTimeout(function(){playnext();}, 1000);
+						}	
+					});
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songicon : 1,
+							songid	: v_next
+						},
+						success : function(res){
+							$("#coverimage").html(res);
+						}	
+					});
+					$.ajax({
+						url	  : "homepagefix.php",
+						type  : "POST",
+						async : true,
+						data  : {
+							songinfo : 1,
+							songid	: v_next
+						},
+						success : function(res){
+							$("#songinfo").html(res);
+						}	
+					});
+				}, wait);
 			}
 
 			$("#playbarcenter").delegate('#playbarrewindbutton', 'click', function(){
@@ -1490,6 +1597,8 @@ if(isset($_POST['drawvolume'])){
 					},
 					success : function(res){
 						$("#playbarcenter").html(res);
+						clearTimeout(id);
+						const id = setTimeout(function(){playnext();}, 1000);
 					}	
 				});
 				$.ajax({
@@ -1532,6 +1641,8 @@ if(isset($_POST['drawvolume'])){
 					},
 					success : function(res){
 						$("#playbarcenter").html(res);
+						clearTimeout(id);
+						const id = setTimeout(function(){playnext();}, 1000);
 					}	
 				});
 				$.ajax({
@@ -1558,6 +1669,7 @@ if(isset($_POST['drawvolume'])){
 						$("#songinfo").html(res);
 					}	
 				});
+
 			});
 
 
@@ -1730,8 +1842,11 @@ if(isset($_POST['drawvolume'])){
                     },
                     success : function(res){
                         $("#playbarcenter").html(res);
+                        clearTimeout(id);
+                        const id = setTimeout(function(){playnext();}, 1000);
                     }
                 });
+
             });
 // =======
 				function refreshcard(){
