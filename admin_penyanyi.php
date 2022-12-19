@@ -52,7 +52,7 @@ if(isset($_POST['delete'])){
 }
 if(isset($_POST['search'])){
     $search_query = $_POST['search_query'];
-    $sql="select * from penyanyi where nama like '%$search_query%'";
+    $sql="select * from penyanyi where upper(nama) like upper('%$search_query%')";
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
 		echo '
@@ -60,7 +60,7 @@ if(isset($_POST['search'])){
 			<td>'.$row['nama'].'</td>
 			<td>'.$row['gambar'].'</td>
             <td>
-                <button type="button" ide="'.$row['id'].'" class="btn btn-primary" name="edit">Edit</button>
+                <button type="button" ide="'.$row['id'].'" class="btn btn-success" name="edit">Edit</button>
                 <button type="button" idd="'.$row['id'].'" class="btn btn-danger" name="delete">Delete</button>
             </td>
 		</tr>';
@@ -331,7 +331,7 @@ if(isset($_POST['search'])){
                 });
             });
 
-            $('#showtable').delegate('[name="edit"]', 'click',function(){
+            $('section').delegate('[name="edit"]', 'click',function(){
                 id_in = $(this).attr("ide");
 
                 $.ajax({
@@ -372,7 +372,7 @@ if(isset($_POST['search'])){
 				});
 			});
 
-			$('#showtable').delegate('[name="delete"]', 'click', function(){
+			$('section').delegate('[name="delete"]', 'click', function(){
 				id_in=$(this).attr('idd');
 				conf = window.confirm("Are You Sure ?");
 				if (conf){
@@ -474,7 +474,7 @@ if(isset($_POST['search'])){
 						<div style=" float: right;">
 							<form class="d-flex" role="search">
 								<input class="form-control me-2" type="search" id="search_query" placeholder="Search" aria-label="Search">
-								<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+								<button class="btn btn-outline" type="button" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
 							</form>
 						</div>
 					</div>

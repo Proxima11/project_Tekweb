@@ -57,7 +57,7 @@ if(isset($_POST['delete'])){
 }
 if(isset($_POST['search'])){
     $search_query = $_POST['search_query'];
-    $sql="select * from admin where username like '%$search_query%'";
+    $sql="select * from admin where upper(name) like upper('%$search_query%') or upper(email) like upper('%$search_query%') or upper(status) like upper('%$search_query%')";
 	$result=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_array($result)){
 		echo '
@@ -360,7 +360,7 @@ if(isset($_POST['search'])){
 				<div style=" float: left; margin-left: 15px;">
 					<form class="d-flex" role="search">
 						<input class="form-control me-2" type="search" id="search_query" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<button class="btn btn-outline" type="button" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</form>
 				</div>
 			</div>
@@ -450,7 +450,7 @@ if(isset($_POST['search'])){
 				});
 			});
 
-			$('#showtable').delegate('[name="edit"]', 'click', function(){
+			$('section').delegate('[name="edit"]', 'click', function(){
 				id_in = $(this).attr('ide');
 				$.ajax({
 					url : "admin_admin.php",
@@ -496,7 +496,7 @@ if(isset($_POST['search'])){
 				});
             });
 
-            $('#showtable').delegate('[name="delete"]', 'click', function(){
+            $('section').delegate('[name="delete"]', 'click', function(){
 				id_in = $(this).attr('idd');
 				conf = window.confirm("Are You Sure ?");
 				if (conf){
