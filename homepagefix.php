@@ -1001,8 +1001,7 @@ if(isset($_POST['drawvolume'])){
 						<i class="fa-solid fa-gear"></i>
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-						<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
-						<li><button class="dropdown-item" type="button" style="color:white;">Logout</button></li>
+						<li><form action="logout-user.php"><button type="submit"class="dropdown-item" type="button" style="color:white;">Logout</button></form></li>
 					</ul>
 				</div>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
