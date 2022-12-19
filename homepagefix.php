@@ -1,5 +1,10 @@
 <?php
+session_start();
 require "connection.php";
+
+if (!isset ($_SESSION["email"])){
+	header("location: login-user.php");
+}
 
 if (isset($_POST['showsong'])){
 	$sql="select * from audios order by tanggal_rilis DESC";
@@ -275,9 +280,10 @@ if(isset($_POST['addnewplaylist']))
 {
 	$playlist=$_POST['playlist'];
 	$playlist=serialize($playlist);
+	$email=$_SESSION['email'];
 	$name=$_POST['name'];
 	$playlist_id=0;
-	$sql="select * from playlist1";
+	$sql="select * from playlist";
 	$result=mysqli_query($con, $sql);
 
 	while($row=mysqli_fetch_array($result)){
@@ -285,7 +291,7 @@ if(isset($_POST['addnewplaylist']))
 		$playlist_id+=1;
 	}
 
-	$sql="INSERT INTO playlist1 values('$playlist_id','$name','$playlist',30)";
+	$sql="INSERT INTO playlist values('$playlist_id','$name','$playlist','$email')";
 	$result=mysqli_query($con,$sql);
 	
 	exit();
@@ -421,10 +427,12 @@ if(isset($_POST['showcategoryextend'])){
 // // >>>>>>> Stashed changes
 // >>>>>>> Stashed changes
 if(isset($_POST['showplaylist'])){
-	$sql="select * from playlist1";
+	$current_user = $_SESSION['email'];
+	$sql="select * from playlist";
 	$result=mysqli_query($con,$sql);
 	$counter=0;
 	while($row=mysqli_fetch_array($result)){
+		if ($row[3] == $current_user){
 		$count = 0;
 		$song_id=$row[2];
 		$array=unserialize($song_id);
@@ -481,6 +489,7 @@ if(isset($_POST['showplaylist'])){
   		echo "</div>";
 		$counter+=1;
 	}
+}
 	exit();
 }
 
@@ -551,7 +560,7 @@ if(isset($_POST['showcategorysong']))
 if(isset($_POST['backwardplay'])){
 	$prev=$_POST['prev'];
 	$pid=$_POST['pid'];
-	$sql="select * from playlist1 where playlist_id like '%$pid%'";
+	$sql="select * from playlist where playlist_id like '%$pid%'";
 	$result=mysqli_query($con,$sql);
 	$row=mysqli_fetch_array($result);
 
@@ -598,7 +607,7 @@ if(isset($_POST['backwardplay'])){
 if(isset($_POST['forwardplay'])){
 	$next=$_POST['next'];
 	$pid=$_POST['pid'];
-	$sql="select * from playlist1 where playlist_id like '%$pid%'";
+	$sql="select * from playlist where playlist_id like '%$pid%'";
 	$result=mysqli_query($con,$sql);
 	$row=mysqli_fetch_array($result);
 
