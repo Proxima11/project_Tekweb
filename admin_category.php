@@ -463,7 +463,6 @@ if(isset($_POST['search'])){
 								<i class="fa-solid fa-gear"></i>
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="background-color: rgba(0, 0, 0, 1);">
-								<li><button class="dropdown-item" type="button" style="color:white;">Edit Profile</button></li>
 								<li><a href="admin_change_password.php"><button class="dropdown-item" type="button" style="color:white;">Change Password</button></a></li>
 								<li><a href="logout-admin.php"><button class="dropdown-item" type="button" style="color:white;">Logout</button></a></li>
 							</ul>

@@ -272,7 +272,7 @@ if (isset($_POST['update'])){
 			<!-- bar atas -->
 			<div class="top_bar">
 				<div style="width:200px; height: 50px; float: left; margin-top: 20px; margin-bottom: 10px; margin-left: 20px; color: white; font-size: 20px;">
-					Ubah Password <?php echo $_SESSION['id'].' tes '.$_SESSION['password'] ?>
+					Ubah Password
 				</div>
 				<div id="profile" style="width:50px; height: 50px; float: right; margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
 					<img src="picture/imgSementara.jpg" width="100%" style="border-radius: 50%;">
