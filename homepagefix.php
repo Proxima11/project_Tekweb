@@ -146,25 +146,25 @@ if(isset($_POST['playsong']))
 	echo "<div><button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-backward-step' style='color:grey'></i>
 	</button>
-	<button class='btn btn-empty border-0' id='playbarplaybutton'>
+	<button class='btn btn-empty border-0' id='playbutton'>
 	<i class='fa-solid fa-play' style='color:white'></i>
 	</button>
 	<button class='btn btn-empty border-0'>
 	<i class='fa-solid fa-forward-step' style='color:grey'></i>
 	</button></div>";
 	echo "<div>
-	<button class='btn btn-empty border-0' onclick='back2()'>
+	<button class='btn btn-empty border-0' onclick='back21()'>
 	<i class='fa-solid fa-angles-left' style='color:white'></i>
 	</button>30&nbsp;
-	<button class='btn btn-empty border-0' onclick='back()'>
+	<button class='btn btn-empty border-0' onclick='back1()'>
 	<i class='fa-solid fa-angle-left' style='color:white'></i>
 	</button>10
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	10<button class='btn btn-empty border-0' onclick='front()'>
+	10<button class='btn btn-empty border-0' onclick='front1()'>
 	<i class='fa-solid fa-angle-right' style='color:white'></i>
 	</button>
 	&nbsp;30
-	<button class='btn btn-empty border-0' onclick='front2()'>
+	<button class='btn btn-empty border-0' onclick='front21()'>
 	<i class='fa-solid fa-angles-right' style='color:white'></i>
 	</button>
 	</div>";
@@ -1360,6 +1360,7 @@ if(isset($_POST['drawvolume'])){
 				else{
 					music.currentTime -= 10;
 				}
+				setTimeout(function(){playcont()}, 1000);
 			}
 
 			function back2(){
@@ -1370,24 +1371,65 @@ if(isset($_POST['drawvolume'])){
 				else{
 					music.currentTime -= 30;
 				}
+				setTimeout(function(){playcont()}, 1000);
 			}
 
 			function front(){
 				var music = document.getElementById('playingsong');
 				if (music.currentTime + 10 > music.duration){
 					music.currentTime = music.duration - 1;
-					setTimeout(function(){playcont()}, 1000);
 				}
 				else {
 					music.currentTime += 10;
 				}
+				setTimeout(function(){playcont()}, 1000);
 			}
 
 			function front2(){
 				var music = document.getElementById('playingsong');
 				if (music.currentTime + 30 > music.duration){
 					music.currentTime = music.duration -1;
-					setTimeout(function(){playcont()}, 1000);
+				}
+				else {
+					music.currentTime += 30;
+				}
+				setTimeout(function(){playcont()}, 1000);
+			}
+
+			function back1(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime - 10 < 0){
+					music.currentTime = 0.1;
+				}
+				else{
+					music.currentTime -= 10;
+				}
+			}
+
+			function back21(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime - 30 < 0){
+					music.currentTime = 0.1;
+				}
+				else{
+					music.currentTime -= 30;
+				}
+			}
+
+			function front1(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime + 10 > music.duration){
+					music.currentTime = music.duration - 1;
+				}
+				else {
+					music.currentTime += 10;
+				}
+			}
+
+			function front21(){
+				var music = document.getElementById('playingsong');
+				if (music.currentTime + 30 > music.duration){
+					music.currentTime = music.duration -1;
 				}
 				else {
 					music.currentTime += 30;
@@ -1523,10 +1565,21 @@ if(isset($_POST['drawvolume'])){
 				var music=document.getElementById('playingsong');
 				if (music.paused){
 					music.play();
+					const id = setTimeout(function(){playcont();}, 1000);
 				}
 				else{
 					music.pause();
 					clearTimeout(id);
+				}
+			});
+
+			$("#playbarcenter").delegate('#playbutton', 'click', function(){
+				var music=document.getElementById('playingsong');
+				if (music.paused){
+					music.play();
+				}
+				else{
+					music.pause();
 				}
 			});
 
@@ -1537,7 +1590,6 @@ if(isset($_POST['drawvolume'])){
 			}
 
 			function playcont(){
-				clearTimeout(id);
 				var music = document.getElementById('playingsong');
 				var wait = (music.duration - music.currentTime) * 1000;
 				setTimeout(function(){
@@ -1554,6 +1606,7 @@ if(isset($_POST['drawvolume'])){
 						},
 						success : function(res){
 							$("#playbarcenter").html(res);
+							clearTimeout(id);
 							const id = setTimeout(function(){playnext();}, 1000);
 						}	
 					});
@@ -1602,6 +1655,7 @@ if(isset($_POST['drawvolume'])){
 						},
 						success : function(res){
 							$("#playbarcenter").html(res);
+							
 							const id = setTimeout(function(){playnext();}, 1000);
 						}	
 					});
